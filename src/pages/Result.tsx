@@ -5,6 +5,7 @@ import { useTheme } from "../contexts/ThemeContext";
 import { SUPPORTED_LANGUAGES } from "../i18n";
 import { VVM_STAGES, type VVMStage } from "../lib/vaccines";
 import { type VaxGuardResult, type VerdictLevel } from "../lib/arrhenius";
+import { generateVaxGuardSummary, shareViaWhatsApp, shareViaEmail, exportResultToJSON } from "../utils/exportData";
 
 // ─── 상수 ────────────────────────────────────────
 
@@ -125,6 +126,7 @@ export default function Result() {
 
   if (!result) return null;
 
+  const vaccineName = sessionStorage.getItem("vaxguard-vaccine-name") ?? "Unknown Vaccine";
   const verdict = result.potency.verdict;
   const vc = VERDICT_CONFIG[verdict];
   const potency = result.potency.remainingPotency;
@@ -559,6 +561,77 @@ export default function Result() {
             style={{ flex: 1, fontSize: "0.9rem", padding: "12px 8px" }}
           >
             🔄 {t("result.newAssessment")}
+          </button>
+        </div>
+
+        {/* 공유 버튼 */}
+        <div
+          style={{
+            display: "flex",
+            gap: "8px",
+            marginTop: "12px",
+            marginBottom: "16px",
+          }}
+        >
+          <button
+            type="button"
+            onClick={() =>
+              shareViaWhatsApp(
+                generateVaxGuardSummary(result, vaccineName, i18n.language as 'en' | 'ko' | 'fr' | 'sw')
+              )
+            }
+            style={{
+              flex: 1,
+              padding: "10px 4px",
+              borderRadius: "8px",
+              fontSize: "0.85rem",
+              fontWeight: 600,
+              border: "none",
+              cursor: "pointer",
+              background: "#25D366",
+              color: "white",
+            }}
+          >
+            📱 WhatsApp
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              shareViaEmail(
+                "VaxGuard Assessment",
+                generateVaxGuardSummary(result, vaccineName, i18n.language as 'en' | 'ko' | 'fr' | 'sw')
+              )
+            }
+            style={{
+              flex: 1,
+              padding: "10px 4px",
+              borderRadius: "8px",
+              fontSize: "0.85rem",
+              fontWeight: 600,
+              border: "none",
+              cursor: "pointer",
+              background: "var(--color-primary)",
+              color: "white",
+            }}
+          >
+            📧 Email
+          </button>
+          <button
+            type="button"
+            onClick={() => exportResultToJSON(result, vaccineName)}
+            style={{
+              flex: 1,
+              padding: "10px 4px",
+              borderRadius: "8px",
+              fontSize: "0.85rem",
+              fontWeight: 600,
+              border: "none",
+              cursor: "pointer",
+              background: "var(--color-surface-2)",
+              color: "var(--color-text)",
+            }}
+          >
+            📥 JSON
           </button>
         </div>
       </main>
