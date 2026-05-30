@@ -26,11 +26,16 @@ export default function BottomNav() {
   return (
     <nav
       style={{
-        flexShrink: 0,
+        position: "fixed",
+        bottom: 0,
+        left: "50%",
+        transform: "translateX(-50%)",
+        width: "100%",
+        maxWidth: "480px",
         display: "flex",
-        background: "var(--color-surface)",
+        backgroundColor: "var(--color-surface)",
         borderTop: "1px solid var(--color-border)",
-        paddingBottom: "env(safe-area-inset-bottom)",
+        zIndex: 1000,
       }}
     >
       {TABS.map(tab => {

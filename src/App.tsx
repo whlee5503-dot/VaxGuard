@@ -10,29 +10,20 @@ import "./i18n";
 
 function AppLayout() {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100vh",
-        width: "100%",
-        maxWidth: "480px",
-        margin: "0 auto",
-        backgroundColor: "var(--color-bg)",
-        overflow: "hidden",
-      }}
-    >
-      {/* 페이지 콘텐츠 — 스크롤 가능 */}
-      <div style={{ flex: 1, overflowY: "auto", minHeight: 0 }}>
-        <Routes>
-          <Route path="/"        element={<Home />} />
-          <Route path="/input"   element={<Input />} />
-          <Route path="/result"  element={<Result />} />
-          <Route path="/history" element={<History />} />
-          <Route path="*"        element={<Navigate to="/" replace />} />
-        </Routes>
-      </div>
-      {/* 네비게이션 — flex 하단 고정 */}
+    <div style={{
+      maxWidth: "480px",
+      margin: "0 auto",
+      backgroundColor: "var(--color-bg)",
+      minHeight: "100vh",
+      paddingBottom: "64px",
+    }}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/input" element={<Input />} />
+        <Route path="/result" element={<Result />} />
+        <Route path="/history" element={<History />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
       <BottomNav />
     </div>
   );
