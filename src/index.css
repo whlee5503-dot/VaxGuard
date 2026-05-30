@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#root {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
 /* ─────────────────────────────────────────────
    VaxGuard Design Tokens
    라이트/다크 모드 CSS 변수
