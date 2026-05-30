@@ -14,7 +14,6 @@ function AppLayout() {
       maxWidth: "480px",
       margin: "0 auto",
       backgroundColor: "var(--color-bg)",
-      minHeight: "100vh",
       paddingBottom: "64px",
     }}>
       <Routes>
