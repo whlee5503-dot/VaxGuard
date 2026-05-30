@@ -14,7 +14,7 @@ function AppLayout() {
       style={{
         display: "flex",
         flexDirection: "column",
-        height: "100%",
+        height: "100vh",
         width: "100%",
         maxWidth: "480px",
         margin: "0 auto",
