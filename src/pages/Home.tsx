@@ -360,6 +360,7 @@ export default function Home() {
         color: "var(--color-text)",
         display: "flex",
         flexDirection: "column",
+        paddingBottom: "80px",
       }}
     >
       {/* ── 헤더 ── */}
