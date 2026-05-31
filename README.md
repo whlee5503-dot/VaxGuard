@@ -7,6 +7,7 @@
 [![Deployed](https://img.shields.io/badge/Deployed-Cloudflare%20Pages-orange?style=flat-square)](https://vaxguard.pages.dev)
 [![WHO MKT](https://img.shields.io/badge/Standard-WHO%20MKT-blue?style=flat-square)](https://www.who.int/teams/immunization-vaccines-and-biologicals)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20473758.svg)](https://doi.org/10.5281/zenodo.20473758)
+**DPG ID: [GID0093724](https://digitalpublicgoods.net/r/vaxguard)**
 **[Live App →](https://vaxguard.pages.dev)**
 
 ---
