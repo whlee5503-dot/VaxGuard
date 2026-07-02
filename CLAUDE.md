@@ -88,6 +88,16 @@ Won Ho Lee, Ph.D., MPH, MDiv
 11. README.md + LICENSE + Zenodo DOI
 12. DPGA 심사 제출 (GID0093724)
 
+## Lighthouse 점수 (Mobile, Incognito, 2026-06-01)
+
+| 항목 | VaxGuard | EpiAid | EpiLog | EpiCalc |
+|---|---|---|---|---|
+| Performance | 98 ✅ | 92 ✅ | 94 ✅ | 71 🟡 |
+| Accessibility | 94 ✅ | 95 ✅ | 93 ✅ | 93 ✅ |
+| Best Practices | 100 ✅ | 100 ✅ | 100 ✅ | 100 ✅ |
+| SEO | 82 🟡 | 91 ✅ | 82 🟡 | 91 ✅ |
+
+EpiCalc Performance 71점 — SIR/SEIR 시뮬레이션, 통계 차트 등 계산 엔진이 무거워 번들 크기가 큼. 나머지 3개 앱은 모두 90점 이상.
 
 ## EpiCalc Suite DOI
 
