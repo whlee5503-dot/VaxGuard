@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../contexts/ThemeContext";
+import HelpButton from "../components/HelpButton";
 import { SUPPORTED_LANGUAGES } from "../i18n";
 import { VVM_STAGES, type VVMStage } from "../lib/vaccines";
 import { type VaxGuardResult, type VerdictLevel } from "../lib/arrhenius";
@@ -209,6 +210,7 @@ export default function Result() {
 
           {/* Right: dark mode + language */}
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <HelpButton />
             <button
               type="button"
               onClick={toggle}
@@ -627,8 +629,8 @@ export default function Result() {
               fontWeight: 600,
               border: "none",
               cursor: "pointer",
-              background: "var(--color-surface-2)",
-              color: "var(--color-text)",
+              background: "#475569",
+              color: "white",
             }}
           >
             📥 JSON

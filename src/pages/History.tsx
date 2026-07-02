@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../contexts/ThemeContext";
+import HelpButton from "../components/HelpButton";
 import { SUPPORTED_LANGUAGES } from "../i18n";
 import { type VaxGuardResult, type VerdictLevel } from "../lib/arrhenius";
 import { type VVMStage } from "../lib/vaccines";
@@ -164,6 +165,7 @@ export default function History() {
 
           {/* Right: dark mode + language */}
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <HelpButton />
             <button
               type="button"
               onClick={toggle}

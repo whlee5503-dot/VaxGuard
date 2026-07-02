@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../contexts/ThemeContext";
+import HelpButton from "../components/HelpButton";
 import {
   EPI_VACCINES,
   createCustomVaccine,
@@ -403,6 +404,7 @@ export default function Home() {
 
           {/* 오른쪽 컨트롤 */}
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <HelpButton />
             {/* 다크모드 토글 */}
             <button
               type="button"

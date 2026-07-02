@@ -4,6 +4,16 @@ export default function BottomNav() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  function getDestination(path: string): string {
+    if (path === "/input") {
+      return sessionStorage.getItem("vaxguard-vaccineId") ? "/input" : "/";
+    }
+    if (path === "/result") {
+      return sessionStorage.getItem("vaxguard-result") ? "/result" : "/";
+    }
+    return path;
+  }
+
   const tabs = [
     { icon: "🏠", label: "Home", path: "/" },
     { icon: "🌡️", label: "Input", path: "/input" },
@@ -26,7 +36,7 @@ export default function BottomNav() {
       {tabs.map((tab) => (
         <button
           key={tab.path}
-          onClick={() => navigate(tab.path)}
+          onClick={() => navigate(getDestination(tab.path))}
           style={{
             flex: 1,
             border: "none",
