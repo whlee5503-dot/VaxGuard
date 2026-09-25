@@ -14,6 +14,11 @@ import {
   runVaxGuardCalculation,
   type TemperatureInterval,
 } from "../lib/arrhenius";
+import {
+  determineFinalVerdict,
+  FREEZE_THRESHOLD_C,
+  type ShakeTestResult,
+} from "../lib/verdict";
 
 const LANG_SHORT: Record<string, string> = {
   en: "EN",
@@ -203,8 +208,7 @@ export default function Input() {
     { id: 1, temperatureC: "", durationHours: "", errors: {} },
   ]);
   const [nextId, setNextId] = useState(2);
-  const [initialPotency, setInitialPotency] = useState("100");
-  const [potencyError, setPotencyError] = useState("");
+  const [shakeTest, setShakeTest] = useState<ShakeTestResult>("not_done");
   const [calcError, setCalcError] = useState("");
   const [showVvmHelp, setShowVvmHelp] = useState(false);
   const [showIntervalHelp, setShowIntervalHelp] = useState(false);
@@ -265,14 +269,6 @@ export default function Input() {
     });
     setIntervals(updated);
 
-    const p = parseFloat(initialPotency);
-    if (isNaN(p) || p < 1 || p > 100) {
-      setPotencyError("Potency must be between 1 and 100.");
-      valid = false;
-    } else {
-      setPotencyError("");
-    }
-
     return valid;
   }
 
@@ -294,11 +290,18 @@ export default function Input() {
           kRefPerHour: vaccine.arrhenius.kRefPerHour,
           referenceTemperatureC: vaccine.arrhenius.referenceTemperatureC,
         },
-        parseFloat(initialPotency)
+        100
       );
+      const finalVerdict = determineFinalVerdict({
+        vvmStage,
+        freezeSensitive: !vaccine.storage.freezeAllowed,
+        intervals: ivs,
+        shakeTest,
+        estimatedPotencyPct: result.potency.remainingPotency,
+      });
       sessionStorage.setItem(
         "vaxguard-result",
-        JSON.stringify({ ...result, vvmStage })
+        JSON.stringify({ ...result, vvmStage, shakeTest, finalVerdict })
       );
       navigate("/result");
     } catch {
@@ -314,6 +317,13 @@ export default function Input() {
     ? vaccine.name
     : t(`vaccine.${vaccine.id}`);
   const freezeSensitive = !vaccine.storage.freezeAllowed;
+  const showShakeTest =
+    freezeSensitive &&
+    intervals.some(
+      iv =>
+        iv.temperatureC !== "" &&
+        parseFloat(iv.temperatureC) <= FREEZE_THRESHOLD_C
+    );
 
   return (
     <div
@@ -539,7 +549,7 @@ export default function Input() {
               fontWeight: 500,
             }}
           >
-            ⚠️ Freeze-sensitive vaccine. Do NOT freeze.
+            ⚠️ {t("input.freezeWarning")}
           </div>
         )}
 
@@ -560,7 +570,7 @@ export default function Input() {
                 color: "var(--color-text-muted)",
               }}
             >
-              {t("input.vvmLabel")} (optional)
+              {t("input.vvmLabel")}
             </span>
             <button
               type="button"
@@ -618,7 +628,7 @@ export default function Input() {
                 marginTop: "6px",
               }}
             >
-              ⚠️ VVM indicates discard. Calculation will proceed for reference.
+              ⚠️ {t("input.vvmDiscardNote")}
             </p>
           )}
         </div>
@@ -749,35 +759,73 @@ export default function Input() {
           )}
         </div>
 
-        {/* Initial potency */}
-        <div
-          className="vg-surface"
-          style={{ padding: "12px", marginBottom: "16px" }}
-        >
-          <label
-            style={{ display: "flex", flexDirection: "column", gap: "6px" }}
+        {/* Shake test: freeze-sensitive vaccine exposed to <= 0 °C */}
+        {showShakeTest && (
+          <div
+            className="vg-surface"
+            style={{
+              padding: "12px",
+              marginBottom: "16px",
+              border: "1px solid var(--color-warning)",
+            }}
           >
-            <span style={{ fontSize: "0.82rem", fontWeight: 600, color: "var(--color-text-muted)" }}>
-              {t("input.initialPotency")}
-            </span>
-            <input
-              type="number"
-              value={initialPotency}
-              onChange={e => {
-                setInitialPotency(e.target.value);
-                setPotencyError("");
+            <p
+              style={{
+                fontSize: "0.8rem",
+                color: "var(--color-warning)",
+                fontWeight: 500,
+                marginBottom: "8px",
+                lineHeight: 1.5,
               }}
-              placeholder="Default: 100"
-              min={1}
-              max={100}
-              step={1}
-              style={fieldStyle(!!potencyError)}
-            />
-            {potencyError && (
-              <span style={errorTextStyle}>{potencyError}</span>
-            )}
-          </label>
-        </div>
+            >
+              ❄️ {t("input.shakeTestPrompt")}
+            </p>
+            <span style={labelTextStyle}>{t("input.shakeTest")}</span>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(3, 1fr)",
+                gap: "6px",
+                marginTop: "6px",
+              }}
+            >
+              {(
+                [
+                  ["passed", "passed"],
+                  ["failed", "failed"],
+                  ["not_done", "notDone"],
+                ] as const
+              ).map(([value, key]) => {
+                const selected = shakeTest === value;
+                return (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => setShakeTest(value)}
+                    style={{
+                      padding: "7px 4px",
+                      borderRadius: "6px",
+                      border: selected
+                        ? "2px solid var(--color-primary)"
+                        : "1px solid var(--color-border)",
+                      background: selected
+                        ? "color-mix(in srgb, var(--color-primary) 15%, transparent)"
+                        : "var(--color-surface-2)",
+                      color: selected
+                        ? "var(--color-primary)"
+                        : "var(--color-text-muted)",
+                      fontSize: "0.75rem",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                    }}
+                  >
+                    {t("input.shakeOptions." + key)}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Calculation error */}
         {calcError && (
@@ -829,7 +877,7 @@ export default function Input() {
               ■ Stage 1 — Inner square LIGHTER than outer circle → Safe to use
             </p>
             <p style={{ color: "#d97706" }}>
-              ■ Stage 2 — Inner square getting darker → Use immediately
+              ■ Stage 2 — Inner square darker but still lighter than circle → Usable, use first
             </p>
             <p style={{ color: "#ea580c" }}>
               ■ Stage 3 — Inner square SAME color as outer circle → Do NOT use

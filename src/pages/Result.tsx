@@ -5,7 +5,12 @@ import { useTheme } from "../contexts/ThemeContext";
 import HelpButton from "../components/HelpButton";
 import { SUPPORTED_LANGUAGES } from "../i18n";
 import { VVM_STAGES, type VVMStage } from "../lib/vaccines";
-import { type VaxGuardResult, type VerdictLevel } from "../lib/arrhenius";
+import { type VaxGuardResult } from "../lib/arrhenius";
+import {
+  type FinalVerdict,
+  type ShakeTestResult,
+  type VerdictOutput,
+} from "../lib/verdict";
 import { generateVaxGuardSummary, shareViaWhatsApp, shareViaEmail, exportResultToJSON } from "../utils/exportData";
 
 // ─── 상수 ────────────────────────────────────────
@@ -24,6 +29,8 @@ const LANG_ORDER = ["en", "fr", "sw", "ko"] as const;
 // Input.tsx 가 { ...result, vvmStage } 로 저장함
 interface StoredResult extends VaxGuardResult {
   vvmStage: VVMStage | null;
+  shakeTest?: ShakeTestResult;
+  finalVerdict?: VerdictOutput;
 }
 
 interface HistoryRecord extends StoredResult {
@@ -33,37 +40,38 @@ interface HistoryRecord extends StoredResult {
 
 // ─── 판정 설정 ───────────────────────────────────
 
-const VERDICT_CONFIG: Record<
-  VerdictLevel,
-  { icon: string; label: string; subLabel: string; cssVar: string; bg: string }
+const VERDICT_STYLE: Record<
+  FinalVerdict,
+  { icon: string; cssVar: string; bg: string }
 > = {
   USABLE: {
     icon: "✅",
-    label: "USABLE",
-    subLabel: "Safe to administer",
     cssVar: "var(--color-usable)",
     bg: "color-mix(in srgb, var(--color-usable) 15%, transparent)",
   },
-  CONDITIONAL: {
-    icon: "⚠️",
-    label: "CONDITIONAL USE",
-    subLabel: "Administer immediately & report",
+  HOLD: {
+    icon: "⏸️",
     cssVar: "var(--color-conditional)",
     bg: "color-mix(in srgb, var(--color-conditional) 15%, transparent)",
   },
   DISCARD: {
     icon: "🚫",
-    label: "DISCARD",
-    subLabel: "Do not use — dispose immediately",
     cssVar: "var(--color-discard)",
     bg: "color-mix(in srgb, var(--color-discard) 15%, transparent)",
   },
 };
 
+/** Fallback for results saved before the WHO-aligned verdict existed. */
+const LEGACY_VERDICT: VerdictOutput = {
+  verdict: "HOLD",
+  reasons: ["vvm_not_checked"],
+  warnings: [],
+  freezeExposure: false,
+};
+
+/** The estimate is reference-only, so it never uses verdict colours. */
 function gaugeColor(potency: number): string {
-  if (potency >= 80) return "var(--color-usable)";
-  if (potency >= 60) return "var(--color-conditional)";
-  return "var(--color-discard)";
+  return potency >= 80 ? "var(--color-primary)" : "var(--color-warning)";
 }
 
 // ─── 컴포넌트 ────────────────────────────────────
@@ -128,17 +136,15 @@ export default function Result() {
   if (!result) return null;
 
   const vaccineName = sessionStorage.getItem("vaxguard-vaccine-name") ?? "Unknown Vaccine";
-  const verdict = result.potency.verdict;
-  const vc = VERDICT_CONFIG[verdict];
+  const final = result.finalVerdict ?? LEGACY_VERDICT;
+  const verdict = final.verdict;
+  const vc = VERDICT_STYLE[verdict];
   const potency = result.potency.remainingPotency;
   const gaugeWidth = Math.max(0, Math.min(100, potency));
 
-  // VVM 교차 검증
+  // VVM reading (already applied in the final verdict)
   const vvmStage = result.vvmStage;
   const hasVvm = vvmStage !== null && vvmStage !== undefined;
-  const vvmMismatch =
-    hasVvm &&
-    VVM_STAGES[vvmStage!].usable !== (verdict !== "DISCARD");
 
   return (
     <div
@@ -306,7 +312,7 @@ export default function Result() {
               lineHeight: 1.3,
             }}
           >
-            {vc.icon} {vc.label}
+            {vc.icon} {t("result.verdict." + verdict)}
           </div>
           <div
             style={{
@@ -316,9 +322,52 @@ export default function Result() {
               fontWeight: 500,
             }}
           >
-            {vc.subLabel}
+            {t("result.verdictSub." + verdict)}
           </div>
         </div>
+
+        {/* Reasons and warnings */}
+        {(final.reasons.length > 0 || final.warnings.length > 0) && (
+          <div
+            className="vg-surface"
+            style={{ padding: "16px", marginBottom: "12px" }}
+          >
+            <p
+              style={{
+                fontSize: "0.72rem",
+                fontWeight: 600,
+                color: "var(--color-text-muted)",
+                marginBottom: "8px",
+                textTransform: "uppercase",
+                letterSpacing: "0.04em",
+              }}
+            >
+              {t("result.reasonsTitle")}
+            </p>
+            <ul
+              style={{
+                margin: 0,
+                paddingLeft: "18px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "6px",
+                fontSize: "0.85rem",
+                lineHeight: 1.5,
+              }}
+            >
+              {final.reasons.map(r => (
+                <li key={r} style={{ color: vc.cssVar }}>
+                  {t("result.reasons." + r)}
+                </li>
+              ))}
+              {final.warnings.map(w => (
+                <li key={w} style={{ color: "var(--color-warning)" }}>
+                  {t("result.warnings." + w)}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* 권고 조치 카드 */}
         <div
@@ -349,7 +398,7 @@ export default function Result() {
               lineHeight: 1.6,
             }}
           >
-            {result.potency.recommendedAction}
+            {t("result.actions." + verdict)}
           </p>
         </div>
 
@@ -427,7 +476,7 @@ export default function Result() {
               letterSpacing: "0.04em",
             }}
           >
-            {t("result.remainingPotency")}
+            {t("result.estimateTitle")}
           </p>
           <div
             style={{
@@ -473,6 +522,16 @@ export default function Result() {
               -{result.potency.potencyLoss.toFixed(1)}%
             </span>
           </div>
+          <p
+            style={{
+              fontSize: "0.75rem",
+              color: "var(--color-text-muted)",
+              marginTop: "8px",
+              lineHeight: 1.5,
+            }}
+          >
+            {t("result.estimateNote")}
+          </p>
         </div>
 
         {/* VVM 교차 검증 카드 */}
@@ -498,7 +557,7 @@ export default function Result() {
                 display: "flex",
                 alignItems: "center",
                 gap: "8px",
-                marginBottom: vvmMismatch ? "10px" : 0,
+                marginBottom: 0,
               }}
             >
               <span
@@ -513,30 +572,18 @@ export default function Result() {
                   color: VVM_STAGES[vvmStage!].usable
                     ? "var(--color-usable)"
                     : "var(--color-discard)",
-                  border: `1px solid ${
-                    VVM_STAGES[vvmStage!].usable
+                  border: `1px solid ${VVM_STAGES[vvmStage!].usable
                       ? "var(--color-usable)"
                       : "var(--color-discard)"
-                  }`,
+                    }`,
                 }}
               >
                 Stage {vvmStage}
               </span>
               <span style={{ fontSize: "0.82rem", color: "var(--color-text-muted)" }}>
-                {VVM_STAGES[vvmStage!].usable ? "Usable" : "Discard"}
+                {VVM_STAGES[vvmStage!].usable ? t("result.vvmUsable") : t("result.vvmDiscard")}
               </span>
             </div>
-            {vvmMismatch && (
-              <p
-                style={{
-                  fontSize: "0.8rem",
-                  color: "var(--color-warning)",
-                  lineHeight: 1.5,
-                }}
-              >
-                ⚠️ VVM and calculation results differ. Use clinical judgment.
-              </p>
-            )}
           </div>
         )}
 
@@ -554,7 +601,7 @@ export default function Result() {
             onClick={handleSave}
             style={{ flex: 1, fontSize: "0.9rem", padding: "12px 8px" }}
           >
-            {saved ? "✅ Saved!" : `💾 ${t("result.saveRecord")}`}
+            {saved ? "✅ " + t("result.saved") : `💾 ${t("result.saveRecord")}`}
           </button>
           <button
             type="button"
