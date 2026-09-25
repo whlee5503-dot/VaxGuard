@@ -378,4 +378,3 @@ export function printVaccineSummary(): void {
   }
   console.log("\n총", EPI_VACCINES.length, "종 로드 완료.\n");
 }
-printVaccineSummary();

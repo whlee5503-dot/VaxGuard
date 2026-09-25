@@ -55,7 +55,7 @@ export interface MKTResult {
   totalHours: number;
   /** 사용된 활성화 에너지 [J/mol] */
   activationEnergyJ: number;
-  /** 각 구간별 Arrhenius 항 exp(Ea/RT) 배열 (디버그용) */
+  /** 각 구간별 Arrhenius 항 exp(-Ea/RT) 배열 (디버그용) */
   arrheniusTerms: number[];
 }
 
@@ -187,7 +187,7 @@ export function calculateMKT(input: MKTInput): MKTResult {
 
   for (const interval of intervals) {
     const Tk = celsiusToKelvin(interval.temperatureC);
-    const term = Math.exp(EaOverR / Tk); // exp(Ea / R·T)
+    const term = Math.exp(-EaOverR / Tk); // exp(-Ea / R·T)
     arrheniusTerms.push(term);
     weightedSum += interval.durationHours * term;
   }
@@ -195,8 +195,8 @@ export function calculateMKT(input: MKTInput): MKTResult {
   // 시간 가중 평균: Σ(tᵢ·termᵢ) / Σtᵢ
   const weightedMean = weightedSum / totalHours;
 
-  // T_MKT [K] = (Ea/R) / ln(weightedMean)
-  const mktK = EaOverR / Math.log(weightedMean);
+  // T_MKT [K] = (Ea/R) / -ln(weightedMean)
+  const mktK = EaOverR / -Math.log(weightedMean);
   const mktC = kelvinToCelsius(mktK);
 
   // 산술 평균 (참조용)
@@ -359,7 +359,7 @@ export function runVaxGuardCalculation(
  * 예시 케이스:
  *   25°C 24h → 37°C 24h → 8°C 24h
  *   Ea = 83,000 J/mol
- *   예상 MKT ≈ 26.7°C (WHO 문서 기준)
+ *   예상 MKT ≈ 29.2°C (독립 계산, Python 교차검증)
  */
 export function runWHOValidationExample(): MKTResult {
   return calculateMKT({
@@ -371,6 +371,3 @@ export function runWHOValidationExample(): MKTResult {
     activationEnergyJ: DEFAULT_EA_J,
   });
 }
-// arrhenius.ts 맨 끝에 추가
-const r = runWHOValidationExample();
-console.log("WHO 검증 MKT:", r.mktC.toFixed(2), "°C");
