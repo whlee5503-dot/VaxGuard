@@ -12,6 +12,7 @@ export interface SummarySource extends VaxGuardResult {
   vvmStage?: VVMStage | null;
   shakeTest?: ShakeTestResult;
   finalVerdict?: VerdictOutput;
+  estimateAvailable?: boolean;
 }
 
 const SHAKE_KEY: Record<ShakeTestResult, string> = {
@@ -62,7 +63,7 @@ export function generateVaxGuardSummary(
     '',
     `${t('result.mkt')}: ${mkt.mktC.toFixed(1)}°C`,
     `${t('result.totalExposure')}: ${mkt.totalHours.toFixed(1)} ${t('result.hours')}`,
-    `${t('result.estimateTitle')}: ${potency.remainingPotency.toFixed(1)}%`,
+    ...(result.estimateAvailable === false ? [] : [`${t('result.estimateTitle')}: ${potency.remainingPotency.toFixed(1)}%`]),
     `${t('history.date')}: ${date}`,
     '',
     '-- VaxGuard (vaxguard.phtlab.org) --',

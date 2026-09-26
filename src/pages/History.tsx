@@ -36,6 +36,7 @@ interface HistoryRecord extends VaxGuardResult {
   vvmStage: VVMStage | null;
   shakeTest?: ShakeTestResult;
   finalVerdict?: VerdictOutput;
+  estimateAvailable?: boolean;
   vaccineId: string;
   savedAt: string;
 }
@@ -441,12 +442,14 @@ export default function History() {
                         {record.mkt.mktC.toFixed(1)}°C
                       </strong>
                     </span>
+                    {record.estimateAvailable !== false && (
                     <span>
                       {t("result.estimateTitle")}:{" "}
                       <strong style={{ color: "var(--color-text)" }}>
                         {record.potency.remainingPotency.toFixed(1)}%
                       </strong>
                     </span>
+                    )}
                   </div>
                 </div>
               );

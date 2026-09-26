@@ -32,6 +32,7 @@ interface StoredResult extends VaxGuardResult {
   vvmStage: VVMStage | null;
   shakeTest?: ShakeTestResult;
   finalVerdict?: VerdictOutput;
+  estimateAvailable?: boolean;
 }
 
 interface HistoryRecord extends StoredResult {
@@ -478,6 +479,7 @@ export default function Result() {
         </div>
 
         {/* 역가 카드 */}
+        {result.estimateAvailable !== false ? (
         <div
           className="vg-surface"
           style={{ padding: "16px", marginBottom: "12px" }}
@@ -549,6 +551,11 @@ export default function Result() {
             {t("result.estimateNote")}
           </p>
         </div>
+        ) : (
+          <p className="vg-surface" style={{ padding: "12px 16px", marginBottom: "12px", fontSize: "0.78rem", color: "var(--color-text-muted)", lineHeight: 1.5 }}>
+            {t("result.estimateUnavailable")}
+          </p>
+        )}
 
         {/* VVM 교차 검증 카드 */}
         {hasVvm && (

@@ -97,7 +97,8 @@
     "saved": "Saved!",
     "share": "Share",
     "copied": "Copied — paste to send",
-    "copyFailed": "Copy failed"
+    "copyFailed": "Copy failed",
+    "estimateUnavailable": "Potency estimate not shown: no WHO or peer-reviewed stability parameters are available for this vaccine. The MKT above is for reporting."
   },
   "history": {
     "title": "Assessment History",
@@ -125,7 +126,14 @@
     "dtp": "DTP (Diphtheria·Tetanus·Pertussis)",
     "measles": "Measles (MR / MMR)",
     "hep_b": "Hepatitis B",
-    "custom": "Custom Vaccine"
+    "custom": "Custom Vaccine",
+    "td_tt": "Td / TT (Tetanus-diphtheria)",
+    "pcv": "PCV (Pneumococcal conjugate)",
+    "ipv": "IPV (Inactivated polio)",
+    "rota": "Rotavirus",
+    "yf": "Yellow fever",
+    "men_conj": "Meningococcal conjugate (freeze-dried)",
+    "ocv": "OCV (Oral cholera)"
   },
   "settings": {
     "title": "Settings",
@@ -283,7 +291,8 @@
       "28d_conditional": "Opened vial: up to 28 days if the WHO multi-dose vial policy conditions are met",
       "6h_or_session_end": "Opened (reconstituted) vial: discard after 6 hours or at the end of the session, whichever comes first",
       "single_dose": "Single-dose: use immediately after opening",
-      "unknown": "Opened vial: follow the product insert"
+      "unknown": "Opened vial: follow the product insert",
+      "product_specific": "Opened vial: depends on the product. Check the label and the WHO multi-dose vial policy."
     },
     "diluent": "Diluent must never be frozen."
   },

@@ -3,6 +3,11 @@ import { EPI_VACCINES, VACCINE_MAP, createCustomVaccine } from "./vaccines";
 
 // Expected values from the September 2026 WHO cross-validation (see VALIDATION.md)
 describe("vaccine presets match WHO guidance", () => {
+  it("includes 12 presets and no COVID-19 preset", () => {
+    expect(EPI_VACCINES).toHaveLength(12);
+    expect(EPI_VACCINES.some((v) => v.id.includes("covid"))).toBe(false);
+  });
+
   it("stores every preset at 2-8 °C at health-facility level", () => {
     for (const v of EPI_VACCINES) {
       expect([v.storage.minC, v.storage.maxC], v.id).toEqual([2, 8]);
@@ -11,29 +16,41 @@ describe("vaccine presets match WHO guidance", () => {
 
   it("requires freezer storage for OPV at higher levels only", () => {
     expect(VACCINE_MAP.opv.storage.higherLevelFreezer?.required).toBe(true);
-    expect(VACCINE_MAP.measles.storage.higherLevelFreezer?.required).toBe(false);
-    expect(VACCINE_MAP.bcg.storage.higherLevelFreezer?.required).toBe(false);
+    for (const id of ["bcg", "measles", "yf"]) {
+      expect(VACCINE_MAP[id].storage.higherLevelFreezer?.required, id).toBe(false);
+    }
   });
 
   it("applies the WHO multi-dose vial policy", () => {
-    expect(VACCINE_MAP.opv.openVialRule).toBe("28d_conditional");
-    expect(VACCINE_MAP.dtp.openVialRule).toBe("28d_conditional");
-    expect(VACCINE_MAP.hep_b.openVialRule).toBe("28d_conditional");
-    expect(VACCINE_MAP.bcg.openVialRule).toBe("6h_or_session_end");
-    expect(VACCINE_MAP.measles.openVialRule).toBe("6h_or_session_end");
+    for (const id of ["opv", "dtp", "hep_b", "td_tt"]) {
+      expect(VACCINE_MAP[id].openVialRule, id).toBe("28d_conditional");
+    }
+    for (const id of ["bcg", "measles", "yf", "men_conj"]) {
+      expect(VACCINE_MAP[id].openVialRule, id).toBe("6h_or_session_end");
+    }
+    for (const id of ["pcv", "ipv", "rota", "ocv"]) {
+      expect(VACCINE_MAP[id].openVialRule, id).toBe("product_specific");
+    }
   });
 
   it("uses only VVM types confirmed by WHO documents", () => {
     expect(VACCINE_MAP.opv.vvmType).toBe("VVM2");
     expect(VACCINE_MAP.hep_b.vvmType).toBe("VVM30");
-    expect(VACCINE_MAP.bcg.vvmType).toBe("product-specific");
-    expect(VACCINE_MAP.measles.vvmType).toBe("product-specific");
+    for (const v of EPI_VACCINES) {
+      if (v.id !== "opv" && v.id !== "hep_b") expect(v.vvmType, v.id).toBe("product-specific");
+    }
   });
 
   it("marks only aluminium-adsorbed vaccines as valid for the shake test", () => {
-    expect(VACCINE_MAP.dtp.shakeTestValid).toBe(true);
-    expect(VACCINE_MAP.hep_b.shakeTestValid).toBe(true);
-    for (const id of ["bcg", "opv", "measles"]) {
+    const adsorbed = ["dtp", "hep_b", "td_tt", "pcv"];
+    for (const v of EPI_VACCINES) {
+      expect(v.shakeTestValid, v.id).toBe(adsorbed.includes(v.id));
+    }
+  });
+
+  it("treats non-adsorbed freeze-sensitive vaccines as untestable", () => {
+    for (const id of ["ipv", "ocv", "rota"]) {
+      expect(VACCINE_MAP[id].storage.freezeAllowed, id).toBe(false);
       expect(VACCINE_MAP[id].shakeTestValid, id).toBe(false);
     }
   });
@@ -45,13 +62,14 @@ describe("vaccine presets match WHO guidance", () => {
   });
 
   it("flags diluents that must never be frozen", () => {
-    expect(VACCINE_MAP.bcg.storage.diluentNeverFreeze).toBe(true);
-    expect(VACCINE_MAP.measles.storage.diluentNeverFreeze).toBe(true);
+    for (const id of ["bcg", "measles", "yf", "men_conj"]) {
+      expect(VACCINE_MAP[id].storage.diluentNeverFreeze, id).toBe(true);
+    }
   });
 
-  it("labels every Arrhenius parameter set as illustrative", () => {
+  it("carries no Arrhenius parameters for any preset", () => {
     for (const v of EPI_VACCINES) {
-      expect(v.arrhenius.illustrative, v.id).toBe(true);
+      expect(v.arrhenius, v.id).toBeNull();
     }
   });
 });
@@ -63,5 +81,6 @@ describe("custom vaccine defaults", () => {
     expect(c.shakeTestValid).toBe(false);
     expect(c.vvmType).toBe("unknown");
     expect(c.openVialRule).toBe("unknown");
+    expect(c.arrhenius).not.toBeNull();
   });
 });

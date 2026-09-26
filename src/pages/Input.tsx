@@ -12,6 +12,7 @@ import {
 } from "../lib/vaccines";
 import {
   runVaxGuardCalculation,
+  DEFAULT_EA_J,
   type TemperatureInterval,
 } from "../lib/arrhenius";
 import {
@@ -302,9 +303,10 @@ export default function Input() {
       const result = runVaxGuardCalculation(
         ivs,
         {
-          activationEnergyJ: vaccine.arrhenius.activationEnergyJ,
-          kRefPerHour: vaccine.arrhenius.kRefPerHour,
-          referenceTemperatureC: vaccine.arrhenius.referenceTemperatureC,
+          activationEnergyJ: vaccine.arrhenius?.activationEnergyJ ?? DEFAULT_EA_J,
+          // No sourced parameters: MKT only; the potency estimate is not shown
+          kRefPerHour: vaccine.arrhenius?.kRefPerHour ?? 0,
+          referenceTemperatureC: vaccine.arrhenius?.referenceTemperatureC ?? 37,
         },
         100
       );
@@ -318,7 +320,7 @@ export default function Input() {
       });
       sessionStorage.setItem(
         "vaxguard-result",
-        JSON.stringify({ ...result, vvmStage, shakeTest, finalVerdict })
+        JSON.stringify({ ...result, vvmStage, shakeTest, finalVerdict, estimateAvailable: !!vaccine.arrhenius })
       );
       navigate("/result");
     } catch {

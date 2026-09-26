@@ -97,7 +97,8 @@
     "saved": "Imehifadhiwa!",
     "share": "Shiriki",
     "copied": "Imenakiliwa — bandika utume",
-    "copyFailed": "Imeshindwa kunakili"
+    "copyFailed": "Imeshindwa kunakili",
+    "estimateUnavailable": "Makadirio ya nguvu hayaonyeshwi: hakuna vigezo vya uthabiti kutoka WHO au machapisho ya kitaalamu kwa chanjo hii. MKT hapo juu ni kwa ajili ya ripoti."
   },
   "history": {
     "title": "Historia ya Tathmini",
@@ -125,7 +126,14 @@
     "dtp": "DTP (Diphtheria·Pepopunda·Kikohozi)",
     "measles": "Surua (MR / MMR)",
     "hep_b": "Homa ya Ini B",
-    "custom": "Chanjo Maalum"
+    "custom": "Chanjo Maalum",
+    "td_tt": "Td / TT (Pepopunda-dondakoo)",
+    "pcv": "PCV (Pneumokokasi)",
+    "ipv": "IPV (Polio isiyo hai)",
+    "rota": "Rotavirusi",
+    "yf": "Homa ya manjano",
+    "men_conj": "Meningokokasi (iliyokaushwa kwa kuganda)",
+    "ocv": "OCV (Kipindupindu – kumeza)"
   },
   "settings": {
     "title": "Mipangilio",
@@ -283,7 +291,8 @@
       "28d_conditional": "Chupa iliyofunguliwa: hadi siku 28 kama masharti ya sera ya WHO ya chupa za dozi nyingi yametimizwa",
       "6h_or_session_end": "Chupa iliyofunguliwa (iliyochanganywa): itupe baada ya saa 6 au mwisho wa kikao, kinachotangulia",
       "single_dose": "Dozi moja: tumia mara baada ya kufungua",
-      "unknown": "Chupa iliyofunguliwa: fuata maelezo ya bidhaa"
+      "unknown": "Chupa iliyofunguliwa: fuata maelezo ya bidhaa",
+      "product_specific": "Chupa iliyofunguliwa: inategemea bidhaa. Angalia lebo na sera ya WHO ya chupa za dozi nyingi."
     },
     "diluent": "Kiyeyusho kisigandishwe kamwe."
   },

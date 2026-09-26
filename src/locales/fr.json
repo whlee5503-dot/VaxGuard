@@ -97,7 +97,8 @@
     "saved": "Enregistré !",
     "share": "Partager",
     "copied": "Copié — collez pour envoyer",
-    "copyFailed": "Échec de la copie"
+    "copyFailed": "Échec de la copie",
+    "estimateUnavailable": "Estimation d'activité non affichée : aucun paramètre de stabilité issu de l'OMS ou de la littérature n'est disponible pour ce vaccin. La TCM ci-dessus sert au rapport."
   },
   "history": {
     "title": "Historique des évaluations",
@@ -125,7 +126,14 @@
     "dtp": "DTC (Diphtérie·Tétanos·Coqueluche)",
     "measles": "Rougeole (RR / RRO)",
     "hep_b": "Hépatite B",
-    "custom": "Vaccin personnalisé"
+    "custom": "Vaccin personnalisé",
+    "td_tt": "Td / TT (Tétanos-diphtérie)",
+    "pcv": "PCV (Pneumococcique conjugué)",
+    "ipv": "VPI (Polio inactivé)",
+    "rota": "Rotavirus",
+    "yf": "Fièvre jaune",
+    "men_conj": "Méningococcique conjugué (lyophilisé)",
+    "ocv": "VCO (Choléra oral)"
   },
   "settings": {
     "title": "Paramètres",
@@ -283,7 +291,8 @@
       "28d_conditional": "Flacon ouvert : jusqu'à 28 jours si les conditions de la politique OMS sur les flacons multidoses sont remplies",
       "6h_or_session_end": "Flacon ouvert (reconstitué) : jeter après 6 heures ou à la fin de la séance, selon ce qui arrive en premier",
       "single_dose": "Unidose : utiliser immédiatement après ouverture",
-      "unknown": "Flacon ouvert : suivre la notice du produit"
+      "unknown": "Flacon ouvert : suivre la notice du produit",
+      "product_specific": "Flacon ouvert : dépend du produit. Vérifiez l'étiquette et la politique OMS sur les flacons multidoses."
     },
     "diluent": "Le diluant ne doit jamais être congelé."
   },
