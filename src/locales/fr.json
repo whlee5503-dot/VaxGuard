@@ -84,7 +84,7 @@
       "heat_estimate_low": "L'exposition à la chaleur calculée est élevée. Signalez cette rupture de la chaîne du froid à votre superviseur."
     },
     "actions": {
-      "USABLE": "Administrer selon le protocole standard. Consignez la rupture de la chaîne du froid.",
+      "USABLE": "Administrer selon le protocole standard. En cas de rupture de la chaîne du froid, consignez-la dans le relevé de température.",
       "HOLD": "Conservez le flacon dans la chaîne du froid à sa température recommandée, marquez-le « Ne pas utiliser » et effectuez les vérifications ci-dessus.",
       "DISCARD": "Jetez le flacon. Consignez l'élimination et signalez-la à votre superviseur."
     },

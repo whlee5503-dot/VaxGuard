@@ -84,7 +84,7 @@
       "heat_estimate_low": "The calculated heat exposure is high. Report this cold chain break to your supervisor."
     },
     "actions": {
-      "USABLE": "Administer following standard protocol. Record the cold chain break.",
+      "USABLE": "Administer following standard protocol. If there was a cold chain break, record it in the temperature log.",
       "HOLD": "Keep the vial in the cold chain at its recommended temperature, label it \"Do not use\", and complete the checks above.",
       "DISCARD": "Discard the vial. Record the disposal and report it to your supervisor."
     },

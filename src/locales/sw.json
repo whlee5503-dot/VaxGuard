@@ -84,7 +84,7 @@
       "heat_estimate_low": "Kiwango cha joto kilichokokotolewa ni kikubwa. Ripoti kukatika huku kwa mnyororo baridi kwa msimamizi wako."
     },
     "actions": {
-      "USABLE": "Toa kwa kufuata utaratibu wa kawaida. Rekodi kukatika kwa mnyororo baridi.",
+      "USABLE": "Toa kwa kufuata utaratibu wa kawaida. Kama kulikuwa na kukatika kwa mnyororo baridi, kirekodi kwenye kumbukumbu ya joto.",
       "HOLD": "Hifadhi chupa kwenye mnyororo baridi kwa joto linalopendekezwa, iwekee alama \"Usitumie\", na ukamilishe ukaguzi ulio hapo juu.",
       "DISCARD": "Tupa chupa. Rekodi utupaji na uripoti kwa msimamizi wako."
     },
