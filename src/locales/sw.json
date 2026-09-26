@@ -108,7 +108,8 @@
     "verdict": "Uamuzi",
     "mkt": "JWK",
     "deleteAll": "Futa Zote",
-    "confirmDelete": "Futa rekodi zote? Hii haiwezi kutenduliwa."
+    "confirmDelete": "Futa rekodi zote? Hii haiwezi kutenduliwa.",
+    "legacyNote": "Imehifadhiwa kabla ya toleo 1.1.0. MKT ya rekodi hii ilitumia fomula isiyo sahihi, na uamuzi unaonyeshwa kama Subiri."
   },
   "vvm": {
     "title": "Hali ya VVM",

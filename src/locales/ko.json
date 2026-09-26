@@ -108,7 +108,8 @@
     "verdict": "판정",
     "mkt": "MKT",
     "deleteAll": "전체 삭제",
-    "confirmDelete": "모든 기록을 삭제하시겠습니까? 되돌릴 수 없습니다."
+    "confirmDelete": "모든 기록을 삭제하시겠습니까? 되돌릴 수 없습니다.",
+    "legacyNote": "1.1.0 이전에 저장된 기록입니다. 이 기록의 MKT는 잘못된 공식으로 계산됐으며, 판정은 보류로 표시됩니다."
   },
   "vvm": {
     "title": "VVM 상태",

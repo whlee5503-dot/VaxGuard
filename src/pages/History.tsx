@@ -412,6 +412,20 @@ export default function History() {
                     </span>
                   </div>
 
+                  {/* Records saved before 1.1.0 (no WHO-aligned verdict, old MKT formula) */}
+                  {!record.finalVerdict && (
+                    <p
+                      style={{
+                        fontSize: "0.72rem",
+                        color: "var(--color-warning)",
+                        margin: "0 0 6px",
+                        lineHeight: 1.45,
+                      }}
+                    >
+                      ⚠️ {t("history.legacyNote")}
+                    </p>
+                  )}
+
                   {/* MKT + Potency */}
                   <div
                     style={{

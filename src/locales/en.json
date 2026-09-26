@@ -108,7 +108,8 @@
     "verdict": "Verdict",
     "mkt": "MKT",
     "deleteAll": "Clear All",
-    "confirmDelete": "Delete all records? This cannot be undone."
+    "confirmDelete": "Delete all records? This cannot be undone.",
+    "legacyNote": "Saved before version 1.1.0. The MKT in this record used an incorrect formula, and the verdict is shown as Hold."
   },
   "vvm": {
     "title": "VVM Status",

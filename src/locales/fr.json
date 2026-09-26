@@ -108,7 +108,8 @@
     "verdict": "Verdict",
     "mkt": "TCM",
     "deleteAll": "Tout supprimer",
-    "confirmDelete": "Supprimer tous les enregistrements ? Cette action est irréversible."
+    "confirmDelete": "Supprimer tous les enregistrements ? Cette action est irréversible.",
+    "legacyNote": "Enregistré avant la version 1.1.0. La TCM de ce relevé a été calculée avec une formule incorrecte ; la décision est affichée « En attente »."
   },
   "vvm": {
     "title": "État VVM",
