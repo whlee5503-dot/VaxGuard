@@ -164,6 +164,15 @@ const errorTextStyle: React.CSSProperties = {
   color: "var(--color-danger)",
 };
 
+/** Keeps digits, one decimal point and (optionally) a leading minus. Comma is read as a decimal point. */
+function sanitizeNumeric(raw: string, allowNegative: boolean): string {
+  const negative = allowNegative && raw.trim().startsWith("-");
+  const cleaned = raw.replace(/,/g, ".").replace(/[^0-9.]/g, "");
+  const [intPart, ...rest] = cleaned.split(".");
+  const decimal = rest.length > 0 ? "." + rest.join("") : "";
+  return (negative ? "-" : "") + intPart + decimal;
+}
+
 export default function Input() {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
@@ -240,6 +249,13 @@ export default function Input() {
         return { ...iv, [field]: value, errors };
       })
     );
+  }
+
+  function toggleSign(id: number) {
+    const iv = intervals.find(x => x.id === id);
+    if (!iv) return;
+    const v = iv.temperatureC;
+    updateInterval(id, "temperatureC", v.startsWith("-") ? v.slice(1) : "-" + v);
   }
 
   function validate(): boolean {
@@ -707,18 +723,36 @@ export default function Input() {
                   style={{ display: "flex", flexDirection: "column", gap: "4px" }}
                 >
                   <span style={labelTextStyle}>{t("input.temperature")}</span>
-                  <input
-                    type="number"
-                    value={iv.temperatureC}
-                    onChange={e =>
-                      updateInterval(iv.id, "temperatureC", e.target.value)
-                    }
-                    placeholder="e.g. 37"
-                    min={-80}
-                    max={100}
-                    step={0.1}
-                    style={fieldStyle(!!iv.errors.temp)}
-                  />
+                  <div style={{ display: "flex", gap: "4px" }}>
+                    <button
+                      type="button"
+                      onClick={() => toggleSign(iv.id)}
+                      aria-label="+/-"
+                      style={{
+                        width: "40px",
+                        flexShrink: 0,
+                        borderRadius: "0.5rem",
+                        border: "1px solid var(--color-border)",
+                        background: "var(--color-surface-2)",
+                        color: "var(--color-text)",
+                        fontSize: "1rem",
+                        fontWeight: 700,
+                        cursor: "pointer",
+                      }}
+                    >
+                      ±
+                    </button>
+                    <input
+                      type="text"
+                      inputMode="decimal"
+                      value={iv.temperatureC}
+                      onChange={e =>
+                        updateInterval(iv.id, "temperatureC", sanitizeNumeric(e.target.value, true))
+                      }
+                      placeholder="37"
+                      style={{ ...fieldStyle(!!iv.errors.temp), flex: 1, minWidth: 0 }}
+                    />
+                  </div>
                   {iv.errors.temp && (
                     <span style={errorTextStyle}>{iv.errors.temp}</span>
                   )}
