@@ -301,5 +301,11 @@
       "adsorbed": "Damaged by freezing, aluminium-adsorbed (shake test valid)",
       "not_adsorbed": "Damaged by freezing, not adsorbed (shake test not valid)"
     }
+  },
+  "footer": {
+    "siblingsHeading": "Part of the PHT Lab family",
+    "hub": "phtlab.org",
+    "orcid": "ORCID",
+    "disclaimer": "VaxGuard supports cold chain decisions. It does not replace national immunization guidelines, the product insert or a supervisor's decision."
   }
 }

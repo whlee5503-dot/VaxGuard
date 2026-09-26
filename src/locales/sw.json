@@ -301,5 +301,11 @@
       "adsorbed": "Huharibika ikiganda, imefyonzwa kwenye alumini (kipimo cha kutikisa ni halali)",
       "not_adsorbed": "Huharibika ikiganda, haijafyonzwa (kipimo cha kutikisa si halali)"
     }
+  },
+  "footer": {
+    "siblingsHeading": "Sehemu ya familia ya PHT Lab",
+    "hub": "phtlab.org",
+    "orcid": "ORCID",
+    "disclaimer": "VaxGuard inasaidia maamuzi ya mnyororo baridi. Haichukui nafasi ya miongozo ya kitaifa ya chanjo, maelezo ya bidhaa wala uamuzi wa msimamizi."
   }
 }

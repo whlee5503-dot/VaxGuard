@@ -301,5 +301,11 @@
       "adsorbed": "얼면 손상됨, 알루미늄 흡착 (흔들기 검사 가능)",
       "not_adsorbed": "얼면 손상됨, 비흡착 (흔들기 검사 불가)"
     }
+  },
+  "footer": {
+    "siblingsHeading": "PHT Lab 제품군",
+    "hub": "phtlab.org",
+    "orcid": "ORCID",
+    "disclaimer": "VaxGuard는 콜드체인 판단을 돕는 도구이며, 국가 예방접종 지침, 제품 설명서, 상급자의 결정을 대신하지 않습니다."
   }
 }

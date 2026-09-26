@@ -301,5 +301,11 @@
       "adsorbed": "Endommagé par la congélation, adsorbé sur aluminium (test d'agitation valable)",
       "not_adsorbed": "Endommagé par la congélation, non adsorbé (test d'agitation non valable)"
     }
+  },
+  "footer": {
+    "siblingsHeading": "Fait partie de la famille PHT Lab",
+    "hub": "phtlab.org",
+    "orcid": "ORCID",
+    "disclaimer": "VaxGuard aide aux décisions sur la chaîne du froid. Il ne remplace ni les directives nationales de vaccination, ni la notice du produit, ni la décision d'un superviseur."
   }
 }

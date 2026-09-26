@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../contexts/ThemeContext";
 import HelpButton from "../components/HelpButton";
+import Footer from "../components/Footer";
 import {
   EPI_VACCINES,
   createCustomVaccine,
@@ -606,6 +607,7 @@ export default function Home() {
         >
           {t("input.calculate")}
         </button>
+        <Footer />
       </main>
 
       {/* ── 커스텀 백신 모달 ── */}

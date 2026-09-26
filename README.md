@@ -114,7 +114,7 @@ VaxGuard is one of six free, open-source public health tools by PHT Lab ([phtlab
 
 | App | Purpose | Link |
 |---|---|---|
-| **EpiCalc** | Epidemiology and pharmacology calculators | [epi.chem-health-calc.com](https://epi.chem-health-calc.com) |
+| **EpiCalc** | Epidemiology and pharmacology calculators | [epicalc.phtlab.org](https://epicalc.phtlab.org) |
 | **EpiStat** | Epidemiological statistics | [epistat.phtlab.org](https://epistat.phtlab.org) |
 | **EpiPlus** | Population burden, effect and survey-design calculators | [epiplus.phtlab.org](https://epiplus.phtlab.org) |
 | **EpiLog** | Field outbreak and contact-tracing log | [epilog.phtlab.org](https://epilog.phtlab.org) |
