@@ -46,7 +46,8 @@
     },
     "shakeTestPrompt": "An interval at 0 °C or below was entered for a freeze-sensitive vaccine. Do a shake test.",
     "freezeWarning": "Freeze-sensitive vaccine. Do NOT freeze.",
-    "vvmDiscardNote": "VVM indicates discard."
+    "vvmDiscardNote": "VVM indicates discard.",
+    "shakeNotValidPrompt": "An interval at 0 °C or below was entered. The shake test is not valid for this vaccine, so the verdict will be Hold."
   },
   "result": {
     "title": "Assessment Result",
@@ -77,7 +78,8 @@
       "vvm_discard": "The VVM has reached the discard point (stage 3 or 4).",
       "shake_test_failed": "The shake test shows the vaccine was damaged by freezing.",
       "shake_test_required": "This freeze-sensitive vaccine was exposed to 0 °C or below. Do a shake test before use.",
-      "vvm_not_checked": "The VVM was not checked. Read the VVM on the vial before use; if the vial has no VVM, contact your supervisor."
+      "vvm_not_checked": "The VVM was not checked. Read the VVM on the vial before use; if the vial has no VVM, contact your supervisor.",
+      "freeze_untestable": "This freeze-sensitive vaccine was exposed to 0 °C or below, and the shake test cannot be used for it. Check the product insert and ask your supervisor before use."
     },
     "warnings": {
       "vvm_use_first": "VVM stage 2: use this vial before vials at stage 1.",

@@ -1,22 +1,25 @@
-/**
+﻿/**
  * verdict.ts — VaxGuard final verdict (WHO-aligned decision order)
  *
  * Decision order:
- *   1. VVM at or beyond discard point (stage 3-4)       -> DISCARD
+ *   1. VVM at or beyond discard point (stage 3-4)            -> DISCARD
  *   2. Freeze-sensitive vaccine exposed to <= 0 °C
- *        shake test failed                              -> DISCARD
- *        shake test not done                            -> HOLD
- *   3. VVM not checked                                  -> HOLD
- *   4. Otherwise                                        -> USABLE
+ *        shake test valid for this vaccine:
+ *          failed                                            -> DISCARD
+ *          not done                                          -> HOLD
+ *        shake test not valid (non-adsorbed vaccine)         -> HOLD
+ *   3. VVM not checked                                       -> HOLD
+ *   4. Otherwise                                             -> USABLE
  *
- * The Arrhenius potency estimate never decides the verdict.
- * It is reported as a reference value and may add a warning.
+ * The shake test is validated only for aluminium-adsorbed vaccines
+ * (Kartoglu et al., Bull WHO 2010;88:624-631). The Arrhenius potency
+ * estimate never decides the verdict; it may only add a warning.
  */
 
 import { VVM_STAGES, type VVMStage } from "./vaccines";
 import type { TemperatureInterval } from "./arrhenius";
 
-/** Conservative freeze-exposure threshold [°C]. Pending WHO confirmation. */
+/** Freeze-exposure trigger [°C]. WHO: never expose freeze-sensitive vaccines to 0 °C or below. */
 export const FREEZE_THRESHOLD_C = 0;
 
 /** A potency estimate below this adds a warning (never changes the verdict). */
@@ -29,6 +32,7 @@ export type VerdictReason =
   | "vvm_discard"
   | "shake_test_failed"
   | "shake_test_required"
+  | "freeze_untestable"
   | "vvm_not_checked";
 
 export type VerdictWarning = "vvm_use_first" | "heat_estimate_low";
@@ -36,6 +40,8 @@ export type VerdictWarning = "vvm_use_first" | "heat_estimate_low";
 export interface VerdictInput {
   vvmStage: VVMStage | null;
   freezeSensitive: boolean;
+  /** Shake test is valid for this vaccine (aluminium-adsorbed) */
+  shakeTestValid: boolean;
   intervals: TemperatureInterval[];
   shakeTest: ShakeTestResult;
   /** Remaining / initial potency x 100 (Arrhenius estimate) */
@@ -65,7 +71,7 @@ export function determineFinalVerdict(input: VerdictInput): VerdictOutput {
   if (input.vvmStage !== null && !VVM_STAGES[input.vvmStage].usable) {
     reasons.push("vvm_discard");
   }
-  if (freezeExposure && input.shakeTest === "failed") {
+  if (freezeExposure && input.shakeTestValid && input.shakeTest === "failed") {
     reasons.push("shake_test_failed");
   }
   if (reasons.length > 0) {
@@ -73,8 +79,11 @@ export function determineFinalVerdict(input: VerdictInput): VerdictOutput {
   }
 
   // Hold rules
-  if (freezeExposure && input.shakeTest === "not_done") {
+  if (freezeExposure && input.shakeTestValid && input.shakeTest === "not_done") {
     reasons.push("shake_test_required");
+  }
+  if (freezeExposure && !input.shakeTestValid) {
+    reasons.push("freeze_untestable");
   }
   if (input.vvmStage === null) {
     reasons.push("vvm_not_checked");

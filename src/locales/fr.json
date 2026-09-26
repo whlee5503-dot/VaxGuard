@@ -46,7 +46,8 @@
     },
     "shakeTestPrompt": "Un intervalle à 0 °C ou moins a été saisi pour un vaccin sensible à la congélation. Faites un test d'agitation.",
     "freezeWarning": "Vaccin sensible à la congélation. NE PAS congeler.",
-    "vvmDiscardNote": "La VVM indique le rejet."
+    "vvmDiscardNote": "La VVM indique le rejet.",
+    "shakeNotValidPrompt": "Un intervalle à 0 °C ou moins a été saisi. Le test d'agitation n'est pas valable pour ce vaccin : la décision sera « En attente »."
   },
   "result": {
     "title": "Résultat d'évaluation",
@@ -77,7 +78,8 @@
       "vvm_discard": "La VVM a atteint le point de rejet (stade 3 ou 4).",
       "shake_test_failed": "Le test d'agitation montre que le vaccin a été endommagé par la congélation.",
       "shake_test_required": "Ce vaccin sensible à la congélation a été exposé à 0 °C ou moins. Faites un test d'agitation avant utilisation.",
-      "vvm_not_checked": "La VVM n'a pas été vérifiée. Lisez la VVM du flacon avant utilisation ; si le flacon n'a pas de VVM, contactez votre superviseur."
+      "vvm_not_checked": "La VVM n'a pas été vérifiée. Lisez la VVM du flacon avant utilisation ; si le flacon n'a pas de VVM, contactez votre superviseur.",
+      "freeze_untestable": "Ce vaccin sensible à la congélation a été exposé à 0 °C ou moins, et le test d'agitation ne peut pas être utilisé pour lui. Consultez la notice du produit et votre superviseur avant utilisation."
     },
     "warnings": {
       "vvm_use_first": "VVM au stade 2 : utilisez ce flacon avant les flacons au stade 1.",

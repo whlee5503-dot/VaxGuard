@@ -46,7 +46,8 @@
     },
     "shakeTestPrompt": "Kipindi cha 0 °C au chini kimeingizwa kwa chanjo inayoathiriwa na kuganda. Fanya kipimo cha kutikisa.",
     "freezeWarning": "Chanjo inayoathiriwa na kuganda. USIGANDISHE.",
-    "vvmDiscardNote": "VVM inaonyesha chanjo itupwe."
+    "vvmDiscardNote": "VVM inaonyesha chanjo itupwe.",
+    "shakeNotValidPrompt": "Kipindi cha 0 °C au chini kimeingizwa. Kipimo cha kutikisa si halali kwa chanjo hii, hivyo uamuzi utakuwa Subiri."
   },
   "result": {
     "title": "Matokeo ya Tathmini",
@@ -77,7 +78,8 @@
       "vvm_discard": "VVM imefikia kiwango cha kutupa (hatua ya 3 au 4).",
       "shake_test_failed": "Kipimo cha kutikisa kinaonyesha chanjo iliharibiwa na kuganda.",
       "shake_test_required": "Chanjo hii inayoathiriwa na kuganda ilikuwa kwenye 0 °C au chini. Fanya kipimo cha kutikisa kabla ya kutumia.",
-      "vvm_not_checked": "VVM haijakaguliwa. Soma VVM kwenye chupa kabla ya kutumia; kama chupa haina VVM, wasiliana na msimamizi wako."
+      "vvm_not_checked": "VVM haijakaguliwa. Soma VVM kwenye chupa kabla ya kutumia; kama chupa haina VVM, wasiliana na msimamizi wako.",
+      "freeze_untestable": "Chanjo hii inayoathiriwa na kuganda ilikuwa kwenye 0 °C au chini, na kipimo cha kutikisa hakiwezi kutumika kwayo. Angalia maelezo ya bidhaa na umuulize msimamizi wako kabla ya kutumia."
     },
     "warnings": {
       "vvm_use_first": "VVM hatua ya 2: tumia chupa hii kabla ya chupa za hatua ya 1.",

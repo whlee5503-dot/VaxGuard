@@ -311,6 +311,7 @@ export default function Input() {
       const finalVerdict = determineFinalVerdict({
         vvmStage,
         freezeSensitive: !vaccine.storage.freezeAllowed,
+        shakeTestValid: vaccine.shakeTestValid ?? false,
         intervals: ivs,
         shakeTest,
         estimatedPotencyPct: result.potency.remainingPotency,
@@ -335,13 +336,15 @@ export default function Input() {
   const freezeSensitive = !vaccine.storage.freezeAllowed;
   const vvmHelp = t("help.vvmList", { returnObjects: true }) as { term: string; desc: string }[];
   const intervalExamples = t("help.intervalExamples", { returnObjects: true }) as string[];
-  const showShakeTest =
+  const shakeTestValid = vaccine.shakeTestValid ?? false;
+  const freezeEntered =
     freezeSensitive &&
     intervals.some(
       iv =>
         iv.temperatureC !== "" &&
         parseFloat(iv.temperatureC) <= FREEZE_THRESHOLD_C
     );
+  const showShakeTest = freezeEntered && shakeTestValid;
 
   return (
     <div
@@ -794,6 +797,23 @@ export default function Input() {
             </button>
           )}
         </div>
+
+        {freezeEntered && !shakeTestValid && (
+          <p
+            className="vg-surface"
+            style={{
+              padding: "12px",
+              marginBottom: "16px",
+              border: "1px solid var(--color-warning)",
+              fontSize: "0.8rem",
+              color: "var(--color-warning)",
+              fontWeight: 500,
+              lineHeight: 1.5,
+            }}
+          >
+            ❄️ {t("input.shakeNotValidPrompt")}
+          </p>
+        )}
 
         {/* Shake test: freeze-sensitive vaccine exposed to <= 0 °C */}
         {showShakeTest && (
