@@ -150,7 +150,11 @@
   "error": {
     "calculation": "계산에 실패했습니다. 입력값을 확인해 주세요.",
     "saveRecord": "기록 저장에 실패했습니다.",
-    "loadHistory": "기록 불러오기에 실패했습니다."
+    "loadHistory": "기록 불러오기에 실패했습니다.",
+    "nameRequired": "백신 이름을 입력하세요.",
+    "kRefPositive": "k_ref는 양수여야 합니다.",
+    "refTempInvalid": "올바른 기준 온도를 입력하세요.",
+    "eaPositive": "Ea는 양수여야 합니다."
   },
   "help": {
     "modalTitle": "VaxGuard 사용 안내",
@@ -278,5 +282,20 @@
       "unknown": "개봉 후: 제품 설명서를 따르세요"
     },
     "diluent": "희석액은 절대 얼리지 마세요."
+  },
+  "customForm": {
+    "name": "백신 이름",
+    "namePlaceholder": "예: 수두",
+    "ea": "Ea (kJ/mol)",
+    "refTemp": "기준 온도 (°C)",
+    "kref": "k_ref (시간당)",
+    "krefHint": "기준 온도에서의 분해 속도 상수로, 제조사 안정성 자료의 값을 입력하세요. 참고용 추정치에만 쓰이고 판정에는 영향을 주지 않습니다.",
+    "freeze": "동결 특성",
+    "freezeOptions": {
+      "unknown": "모름 (동결 민감, 흔들기 검사 불가로 처리)",
+      "tolerates": "얼어도 손상되지 않음",
+      "adsorbed": "얼면 손상됨, 알루미늄 흡착 (흔들기 검사 가능)",
+      "not_adsorbed": "얼면 손상됨, 비흡착 (흔들기 검사 불가)"
+    }
   }
 }

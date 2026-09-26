@@ -150,7 +150,11 @@
   "error": {
     "calculation": "Calculation failed. Please check your inputs.",
     "saveRecord": "Failed to save record.",
-    "loadHistory": "Failed to load history."
+    "loadHistory": "Failed to load history.",
+    "nameRequired": "Vaccine name is required.",
+    "kRefPositive": "k_ref must be a positive number.",
+    "refTempInvalid": "Enter a valid reference temperature.",
+    "eaPositive": "Ea must be a positive number."
   },
   "help": {
     "modalTitle": "How VaxGuard Works",
@@ -278,5 +282,20 @@
       "unknown": "Opened vial: follow the product insert"
     },
     "diluent": "Diluent must never be frozen."
+  },
+  "customForm": {
+    "name": "Vaccine name",
+    "namePlaceholder": "e.g. Varicella",
+    "ea": "Ea (kJ/mol)",
+    "refTemp": "Reference temperature (°C)",
+    "kref": "k_ref (per hour)",
+    "krefHint": "Degradation rate constant at the reference temperature, from the manufacturer's stability data. It affects only the reference estimate, not the verdict.",
+    "freeze": "Freezing behaviour",
+    "freezeOptions": {
+      "unknown": "Unknown (treated as freeze-sensitive; shake test not valid)",
+      "tolerates": "Not damaged by freezing",
+      "adsorbed": "Damaged by freezing, aluminium-adsorbed (shake test valid)",
+      "not_adsorbed": "Damaged by freezing, not adsorbed (shake test not valid)"
+    }
   }
 }

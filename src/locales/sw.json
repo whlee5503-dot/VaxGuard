@@ -150,7 +150,11 @@
   "error": {
     "calculation": "Hesabu imeshindwa. Tafadhali angalia maingizo yako.",
     "saveRecord": "Kuhifadhi rekodi kumeshindwa.",
-    "loadHistory": "Kupakia historia kumeshindwa."
+    "loadHistory": "Kupakia historia kumeshindwa.",
+    "nameRequired": "Jina la chanjo linahitajika.",
+    "kRefPositive": "k_ref lazima iwe namba chanya.",
+    "refTempInvalid": "Weka joto la marejeo sahihi.",
+    "eaPositive": "Ea lazima iwe namba chanya."
   },
   "help": {
     "modalTitle": "Jinsi VaxGuard Inavyofanya Kazi",
@@ -278,5 +282,20 @@
       "unknown": "Chupa iliyofunguliwa: fuata maelezo ya bidhaa"
     },
     "diluent": "Kiyeyusho kisigandishwe kamwe."
+  },
+  "customForm": {
+    "name": "Jina la chanjo",
+    "namePlaceholder": "mf. Tetekuwanga",
+    "ea": "Ea (kJ/mol)",
+    "refTemp": "Joto la marejeo (°C)",
+    "kref": "k_ref (kwa saa)",
+    "krefHint": "Kasi ya uharibifu kwenye joto la marejeo, kutoka data ya uthabiti ya mtengenezaji. Inaathiri makadirio ya marejeo tu, si uamuzi.",
+    "freeze": "Tabia ya kuganda",
+    "freezeOptions": {
+      "unknown": "Haijulikani (inachukuliwa kuathiriwa na kuganda; kipimo cha kutikisa si halali)",
+      "tolerates": "Haiharibiki ikiganda",
+      "adsorbed": "Huharibika ikiganda, imefyonzwa kwenye alumini (kipimo cha kutikisa ni halali)",
+      "not_adsorbed": "Huharibika ikiganda, haijafyonzwa (kipimo cha kutikisa si halali)"
+    }
   }
 }

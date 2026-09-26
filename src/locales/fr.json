@@ -150,7 +150,11 @@
   "error": {
     "calculation": "Échec du calcul. Vérifiez vos saisies.",
     "saveRecord": "Échec de l'enregistrement.",
-    "loadHistory": "Échec du chargement de l'historique."
+    "loadHistory": "Échec du chargement de l'historique.",
+    "nameRequired": "Le nom du vaccin est obligatoire.",
+    "kRefPositive": "k_ref doit être un nombre positif.",
+    "refTempInvalid": "Saisissez une température de référence valide.",
+    "eaPositive": "Ea doit être un nombre positif."
   },
   "help": {
     "modalTitle": "Fonctionnement de VaxGuard",
@@ -278,5 +282,20 @@
       "unknown": "Flacon ouvert : suivre la notice du produit"
     },
     "diluent": "Le diluant ne doit jamais être congelé."
+  },
+  "customForm": {
+    "name": "Nom du vaccin",
+    "namePlaceholder": "ex. Varicelle",
+    "ea": "Ea (kJ/mol)",
+    "refTemp": "Température de référence (°C)",
+    "kref": "k_ref (par heure)",
+    "krefHint": "Constante de vitesse de dégradation à la température de référence, issue des données de stabilité du fabricant. Elle n'influence que l'estimation de référence, pas la décision.",
+    "freeze": "Comportement à la congélation",
+    "freezeOptions": {
+      "unknown": "Inconnu (traité comme sensible à la congélation ; test d'agitation non valable)",
+      "tolerates": "Non endommagé par la congélation",
+      "adsorbed": "Endommagé par la congélation, adsorbé sur aluminium (test d'agitation valable)",
+      "not_adsorbed": "Endommagé par la congélation, non adsorbé (test d'agitation non valable)"
+    }
   }
 }

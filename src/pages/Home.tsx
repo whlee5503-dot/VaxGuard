@@ -22,7 +22,10 @@ const LANG_ORDER = ["en", "fr", "sw", "ko"] as const;
 
 // ─── 커스텀 백신 모달 폼 ─────────────────────────
 
+type FreezeBehavior = "unknown" | "tolerates" | "adsorbed" | "not_adsorbed";
+
 interface CustomForm {
+  freezeBehavior: FreezeBehavior;
   name: string;
   activationEnergyKJ: string;
   referenceTemperatureC: string;
@@ -30,6 +33,7 @@ interface CustomForm {
 }
 
 const EMPTY_FORM: CustomForm = {
+  freezeBehavior: "unknown",
   name: "",
   activationEnergyKJ: String(DEFAULT_EA_J / 1000),
   referenceTemperatureC: "37",
@@ -138,7 +142,7 @@ function CustomModal({ onClose, onConfirm }: CustomModalProps) {
   const [form, setForm] = useState<CustomForm>(EMPTY_FORM);
   const [error, setError] = useState<string>("");
 
-  function handleChange(field: keyof CustomForm, value: string) {
+  function handleChange(field: Exclude<keyof CustomForm, "freezeBehavior">, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
     setError("");
   }
@@ -169,6 +173,8 @@ function CustomModal({ onClose, onConfirm }: CustomModalProps) {
         activationEnergyJ: eaKJ * 1000,
         referenceTemperatureC: refT,
         kRefPerHour: kRef,
+        freezeAllowed: form.freezeBehavior === "tolerates",
+        shakeTestValid: form.freezeBehavior === "adsorbed",
       })
     );
   }
@@ -204,17 +210,17 @@ function CustomModal({ onClose, onConfirm }: CustomModalProps) {
 
         <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
           <label style={labelStyle}>
-            <span style={labelTextStyle}>Vaccine Name *</span>
+            <span style={labelTextStyle}>{t("customForm.name")} *</span>
             <input
               style={inputStyle}
               type="text"
               value={form.name}
               onChange={(e) => handleChange("name", e.target.value)}
-              placeholder="예: 수두 (Varicella)"
+              placeholder={t("customForm.namePlaceholder")}
             />
           </label>
           <label style={labelStyle}>
-            <span style={labelTextStyle}>Ea (kJ/mol)</span>
+            <span style={labelTextStyle}>{t("customForm.ea")}</span>
             <input
               style={inputStyle}
               type="number"
@@ -225,7 +231,7 @@ function CustomModal({ onClose, onConfirm }: CustomModalProps) {
             />
           </label>
           <label style={labelStyle}>
-            <span style={labelTextStyle}>Reference Temp (°C)</span>
+            <span style={labelTextStyle}>{t("customForm.refTemp")}</span>
             <input
               style={inputStyle}
               type="number"
@@ -235,19 +241,35 @@ function CustomModal({ onClose, onConfirm }: CustomModalProps) {
             />
           </label>
           <label style={labelStyle}>
-            <span style={labelTextStyle}>k_ref (/h) *</span>
+            <span style={labelTextStyle}>{t("customForm.kref")} *</span>
             <span style={{ fontSize: "0.72rem", color: "var(--color-text-muted)" }}>
-              {t("input.krefHint") ?? "Degradation rate constant. BCG≈0.00693, OPV≈0.0231. If unknown, enter 0.00693"}
+              {t("customForm.krefHint")}
             </span>
             <input
               style={inputStyle}
               type="number"
               value={form.kRefPerHour}
               onChange={(e) => handleChange("kRefPerHour", e.target.value)}
-              placeholder="예: 0.00693 (BCG 기준)"
+              placeholder="0.01"
               min={0}
               step="any"
             />
+          </label>
+          <label style={labelStyle}>
+            <span style={labelTextStyle}>{t("customForm.freeze")}</span>
+            <select
+              style={inputStyle}
+              value={form.freezeBehavior}
+              onChange={(e) => {
+                setForm((prev) => ({ ...prev, freezeBehavior: e.target.value as FreezeBehavior }));
+                setError("");
+              }}
+            >
+              <option value="unknown">{t("customForm.freezeOptions.unknown")}</option>
+              <option value="tolerates">{t("customForm.freezeOptions.tolerates")}</option>
+              <option value="adsorbed">{t("customForm.freezeOptions.adsorbed")}</option>
+              <option value="not_adsorbed">{t("customForm.freezeOptions.not_adsorbed")}</option>
+            </select>
           </label>
         </div>
 
