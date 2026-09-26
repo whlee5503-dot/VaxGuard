@@ -219,6 +219,7 @@ export default function HelpModal({ onClose }: HelpModalProps) {
 
           <Section title={t("help.shakeTitle")}>
             <NumberedList items={list("help.shakeSteps")} />
+            <p style={noteStyle}>{t("help.shakeNote")}</p>
           </Section>
 
           <Section title={t("help.intervalTitle")}>

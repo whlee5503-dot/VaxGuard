@@ -5,7 +5,7 @@
  * Arrhenius 기반, 빈도인자(A)는 비율 계산에서 소거됨.
  *
  * 참고 문헌:
- *   - WHO Technical Report Series No. 961, Annex 9 (2011)
+ *   - USP General Chapter 1079 (MKT; Haynes 1971). WHO TRS 961 Annex 9 does not define MKT
  *   - ICH Q1E Guideline: Evaluation for Stability Data
  *   - Haynes, J.D. (1971) J. Pharm. Sci. 60, 927-929
  */

@@ -171,7 +171,7 @@
     "decisionTitle": "Jinsi uamuzi unavyofanywa",
     "decisionSteps": [
       "VVM hatua ya 3 au 4 → Tupa, bila kujali hesabu inaonyesha nini.",
-      "Chanjo inayoathiriwa na kuganda (❄️🚫) ilikuwa kwenye 0 °C au chini → kipimo cha kutikisa kinahitajika. Kimeshindwa → Tupa. Hakijafanywa → Subiri.",
+      "Chanjo inayoathiriwa na kuganda (❄️🚫) ilikuwa kwenye 0 °C au chini: kama imefyonzwa kwenye alumini, kipimo cha kutikisa kinahitajika (Kimeshindwa → Tupa, Hakijafanywa → Subiri); vinginevyo → Subiri.",
       "VVM haijakaguliwa → Subiri. Soma VVM kwanza; kama chupa haina VVM, muulize msimamizi wako.",
       "Hakuna kati ya hayo → Inatumika."
     ],
@@ -209,12 +209,12 @@
         "desc": "Mraba ni mweusi kuliko duara. Usitumie."
       }
     ],
-    "vvmNote": "VVM inaonyesha tu joto lililokusanyika. Haionyeshi uharibifu wa kuganda wala tarehe ya kuisha muda, hivyo vikague kando.",
+    "vvmNote": "VVM inaonyesha tu joto lililokusanyika. Haionyeshi uharibifu wa kuganda wala tarehe ya kuisha muda, hivyo vikague kando. WHO inaeleza mabadiliko ya rangi kuwa endelevu; hatua nne ni utaratibu wa kawaida wa uwandani.",
     "shakeTitle": "Jinsi ya kufanya kipimo cha kutikisa",
     "shakeSteps": [
-      "Andaa chupa ya kulinganisha: chukua chupa ya chanjo ile ile, mtengenezaji yule yule na kundi (batch) lile lile. Igandishe hadi ndani iwe ngumu kabisa, kisha iache iyeyuke.",
+      "Andaa chupa ya kulinganisha: chukua chupa ya chanjo ile ile, mtengenezaji yule yule na kundi (batch) lile lile. Igandishe hadi ndani iwe ngumu kabisa (angalau saa 10 kwenye −10 °C au chini zaidi), kisha iache iyeyuke.",
       "Shika chupa ya kulinganisha na chupa inayoshukiwa pamoja, uzitikise kwa nguvu kwa sekunde 10–15 hivi.",
-      "Weka chupa zote mbili kando kwa kando mahali tambarare na uziangalie.",
+      "Weka chupa zote mbili kando kwa kando mahali tambarare na uzilinganishe kwa hadi dakika 30.",
       "Kama chupa inayoshukiwa inatuama polepole kuliko ya kulinganisha, imefaulu. Kama inatuama kwa kasi ile ile au haraka zaidi, imeshindwa: itupe.",
       "Pima chupa moja kutoka kila kundi lililoathiriwa. Kama chupa inayoshukiwa bado imeganda, usiitumie."
     ],
@@ -231,7 +231,7 @@
     "termList": [
       {
         "term": "MKT (joto la wastani la kikinetiki)",
-        "desc": "Joto moja lisilobadilika linalolingana na mfululizo wa joto linalobadilika, likipa uzito vipindi vya joto kali (WHO TRS 961, Kiambatisho 9)."
+        "desc": "Joto moja lisilobadilika linalolingana na mfululizo wa joto linalobadilika, likipa uzito vipindi vya joto kali (USP ⟨1079⟩, Haynes 1971)."
       },
       {
         "term": "VVM (kifuatiliaji cha chupa ya chanjo)",
@@ -255,7 +255,7 @@
       }
     ],
     "customTitle": "Vigezo maalum vya chanjo",
-    "customDesc": "Weka Ea, k_ref na joto la marejeo kutoka chanzo cha kuaminika tu, kama karatasi ya data ya mtengenezaji au nyaraka za WHO. Vigezo maalum huathiri makadirio ya marejeo tu, si uamuzi.",
+    "customDesc": "Weka Ea, k_ref na joto la marejeo kutoka chanzo cha kuaminika tu, kama karatasi ya data ya mtengenezaji. Thamani hizi huathiri makadirio ya marejeo tu. Chagua tabia ya kuganda kwa makini: inaamua kama kipimo cha kutikisa kitatolewa baada ya mfiduo wa kuganda. Ukiwa na shaka, chagua \"Haijulikani\".",
     "shareTitle": "Kuhifadhi na kushiriki",
     "shareDesc": "\"Hifadhi\" inaweka matokeo kwenye kifaa hiki. \"Shiriki\" inafungua menyu ya kushiriki ya kifaa (WhatsApp, barua pepe, ujumbe); kama haipatikani, muhtasari unanakiliwa ili uweze kuubandika. Maandishi yanayoshirikiwa yanaonyesha uamuzi, sababu zake na hatua inayopendekezwa.",
     "dataTitle": "Data na faragha",
@@ -263,10 +263,13 @@
     "references": "Marejeo",
     "referenceList": [
       "WHO. Temperature sensitivity of vaccines. WHO/IVB/06.10 (2006)",
-      "WHO Technical Report Series No. 961, Annex 9 (2011)",
-      "ICH Q1E Guideline — Evaluation of Stability Data",
-      "CDC Pink Book — Vaccine Storage & Handling"
-    ]
+      "WHO. Vaccine Management Handbook, Module VMH-E2. WHO/IVB/15.04 (2015)",
+      "WHO. Policy on the use of opened multi-dose vaccine vials. WHO/IVB/14.07 (2014)",
+      "WHO. PQS performance specification: Vaccine vial monitor. WHO/PQS/E006/IN05.4 (2020)",
+      "Kartoglu Ü, et al. Validation of the shake test for detecting freeze damage to adsorbed vaccines. Bull World Health Organ 2010;88:624–631",
+      "USP General Chapter ⟨1079⟩ — Mean kinetic temperature (Haynes JD. J Pharm Sci 1971;60:927–929)"
+    ],
+    "shakeNote": "Kipimo cha kutikisa kimethibitishwa tu kwa chanjo zilizofyonzwa kwenye alumini (kama zenye DTP, homa ya ini B, Td/TT na PCV). Si halali kwa IPV wala chanjo ya kipindupindu ya kumeza; kwa hizo, VaxGuard inatoa Subiri baada ya mfiduo wa kuganda."
   },
   "vaccineInfo": {
     "vvm": {

@@ -171,7 +171,7 @@
     "decisionTitle": "Comment la décision est prise",
     "decisionSteps": [
       "VVM au stade 3 ou 4 → À jeter, quel que soit le calcul.",
-      "Vaccin sensible à la congélation (❄️🚫) exposé à 0 °C ou moins → test d'agitation requis. Échoué → À jeter. Non fait → En attente.",
+      "Vaccin sensible à la congélation (❄️🚫) exposé à 0 °C ou moins : s'il est adsorbé sur aluminium, test d'agitation requis (Échoué → À jeter, Non fait → En attente) ; sinon → En attente.",
       "VVM non vérifiée → En attente. Lisez d'abord la VVM ; si le flacon n'en a pas, consultez votre superviseur.",
       "Aucun des cas ci-dessus → Utilisable."
     ],
@@ -209,12 +209,12 @@
         "desc": "Carré plus foncé que le cercle. Ne pas utiliser."
       }
     ],
-    "vvmNote": "La VVM n'indique que l'exposition cumulée à la chaleur. Elle ne montre ni les dommages dus à la congélation ni la date de péremption : vérifiez-les séparément.",
+    "vvmNote": "La VVM n'indique que l'exposition cumulée à la chaleur. Elle ne montre ni les dommages dus à la congélation ni la date de péremption : vérifiez-les séparément. L'OMS décrit le changement de couleur comme continu ; les quatre stades sont une convention de terrain courante.",
     "shakeTitle": "Faire un test d'agitation",
     "shakeSteps": [
-      "Préparez un témoin : prenez un flacon du même vaccin, du même fabricant et du même lot. Congelez-le jusqu'à ce que le contenu soit entièrement solide, puis laissez-le décongeler.",
+      "Préparez un témoin : prenez un flacon du même vaccin, du même fabricant et du même lot. Congelez-le jusqu'à ce que le contenu soit entièrement solide (au moins 10 heures à −10 °C ou moins), puis laissez-le décongeler.",
       "Tenez le témoin et le flacon suspect ensemble et agitez-les vigoureusement pendant environ 10 à 15 secondes.",
-      "Posez les deux flacons côte à côte sur une surface plane et observez-les.",
+      "Posez les deux flacons côte à côte sur une surface plane et comparez-les pendant 30 minutes au maximum.",
       "Si le flacon suspect sédimente plus lentement que le témoin, le test est réussi. S'il sédimente à la même vitesse ou plus vite, le test est échoué : jetez-le.",
       "Testez un flacon de chaque lot exposé. Si le flacon suspect est encore congelé, ne l'utilisez pas."
     ],
@@ -231,7 +231,7 @@
     "termList": [
       {
         "term": "TCM (température cinétique moyenne)",
-        "desc": "Une température constante équivalente à une série de températures variables, pondérée vers les périodes chaudes (OMS, TRS 961, annexe 9)."
+        "desc": "Une température constante équivalente à une série de températures variables, pondérée vers les périodes chaudes (USP ⟨1079⟩, Haynes 1971)."
       },
       {
         "term": "VVM (pastille de contrôle du vaccin)",
@@ -255,7 +255,7 @@
       }
     ],
     "customTitle": "Paramètres de vaccin personnalisés",
-    "customDesc": "Ne saisissez Ea, k_ref et la température de référence qu'à partir d'une source fiable, comme la fiche du fabricant ou les documents de l'OMS. Les paramètres personnalisés n'influencent que l'estimation de référence, pas la décision.",
+    "customDesc": "Ne saisissez Ea, k_ref et la température de référence qu'à partir d'une source fiable, comme la fiche du fabricant. Ces valeurs n'influencent que l'estimation de référence. Choisissez avec soin le comportement à la congélation : il détermine si un test d'agitation est proposé après une exposition au gel. En cas de doute, choisissez « Inconnu ».",
     "shareTitle": "Enregistrer et partager",
     "shareDesc": "« Enregistrer » conserve le résultat sur cet appareil. « Partager » ouvre le menu de partage de l'appareil (WhatsApp, e-mail, messages) ; s'il n'est pas disponible, le résumé est copié pour que vous puissiez le coller. Le texte partagé indique la décision, ses motifs et l'action recommandée.",
     "dataTitle": "Données et confidentialité",
@@ -263,10 +263,13 @@
     "references": "Références",
     "referenceList": [
       "WHO. Temperature sensitivity of vaccines. WHO/IVB/06.10 (2006)",
-      "WHO Technical Report Series No. 961, Annex 9 (2011)",
-      "ICH Q1E Guideline — Evaluation of Stability Data",
-      "CDC Pink Book — Vaccine Storage & Handling"
-    ]
+      "WHO. Vaccine Management Handbook, Module VMH-E2. WHO/IVB/15.04 (2015)",
+      "WHO. Policy on the use of opened multi-dose vaccine vials. WHO/IVB/14.07 (2014)",
+      "WHO. PQS performance specification: Vaccine vial monitor. WHO/PQS/E006/IN05.4 (2020)",
+      "Kartoglu Ü, et al. Validation of the shake test for detecting freeze damage to adsorbed vaccines. Bull World Health Organ 2010;88:624–631",
+      "USP General Chapter ⟨1079⟩ — Mean kinetic temperature (Haynes JD. J Pharm Sci 1971;60:927–929)"
+    ],
+    "shakeNote": "Le test d'agitation n'est validé que pour les vaccins adsorbés sur aluminium (vaccins contenant le DTC, hépatite B, Td/TT, PCV, etc.). Il n'est pas valable pour le VPI ni pour le vaccin anticholérique oral ; pour ceux-ci, VaxGuard donne « En attente » après une exposition au gel."
   },
   "vaccineInfo": {
     "vvm": {

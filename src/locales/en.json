@@ -171,7 +171,7 @@
     "decisionTitle": "How the verdict is decided",
     "decisionSteps": [
       "VVM at stage 3 or 4 → Discard, whatever the calculation shows.",
-      "Freeze-sensitive vaccine (❄️🚫) exposed to 0 °C or below → shake test required. Failed → Discard. Not done → Hold.",
+      "Freeze-sensitive vaccine (❄️🚫) exposed to 0 °C or below: if it is aluminium-adsorbed, a shake test is required (Failed → Discard, Not done → Hold); otherwise → Hold.",
       "VVM not checked → Hold. Read the VVM first; if the vial has no VVM, ask your supervisor.",
       "None of the above → Usable."
     ],
@@ -209,12 +209,12 @@
         "desc": "Inner square darker than the circle. Do not use."
       }
     ],
-    "vvmNote": "The VVM records cumulative heat exposure only. It does not show freezing damage or the expiry date, so check those separately.",
+    "vvmNote": "The VVM records cumulative heat exposure only. It does not show freezing damage or the expiry date, so check those separately. WHO describes the colour change as continuous; the four stages are a common field convention.",
     "shakeTitle": "How to do a shake test",
     "shakeSteps": [
-      "Make a control: take a vial of the same vaccine, manufacturer and batch. Freeze it until the contents are completely solid, then let it thaw.",
+      "Make a control: take a vial of the same vaccine, manufacturer and batch. Freeze it until the contents are completely solid (at least 10 hours at −10 °C or colder), then let it thaw.",
       "Hold the control and the suspect vial together and shake them vigorously for about 10–15 seconds.",
-      "Put both vials side by side on a flat surface and watch them.",
+      "Put both vials side by side on a flat surface and compare them for up to 30 minutes.",
       "If the suspect vial settles more slowly than the control, it passed. If it settles at the same speed or faster, it failed: discard it.",
       "Test one vial from each exposed batch. If the suspect vial is still frozen, do not use it."
     ],
@@ -231,7 +231,7 @@
     "termList": [
       {
         "term": "MKT (Mean Kinetic Temperature)",
-        "desc": "A single constant temperature equivalent to a series of varying temperatures, weighted toward hot periods (WHO TRS 961, Annex 9)."
+        "desc": "A single constant temperature equivalent to a series of varying temperatures, weighted toward hot periods (USP ⟨1079⟩, Haynes 1971)."
       },
       {
         "term": "VVM (Vaccine Vial Monitor)",
@@ -255,7 +255,7 @@
       }
     ],
     "customTitle": "Using Custom Vaccine Parameters",
-    "customDesc": "Only enter Ea, k_ref and reference temperature from a reliable source, such as the manufacturer's data sheet or WHO documents. Custom parameters affect only the reference estimate, not the verdict.",
+    "customDesc": "Only enter Ea, k_ref and reference temperature from a reliable source, such as the manufacturer's data sheet. These affect only the reference estimate. Set the freezing behaviour carefully: it decides whether a shake test is offered after freeze exposure. If unsure, choose Unknown.",
     "shareTitle": "Saving and sharing",
     "shareDesc": "Save Record keeps the result on this device. Share opens your device's share menu (WhatsApp, email, messages); where that is not available, the summary is copied so you can paste it. The shared text lists the verdict, the reasons and the recommended action.",
     "dataTitle": "Data & Privacy",
@@ -263,10 +263,13 @@
     "references": "References",
     "referenceList": [
       "WHO. Temperature sensitivity of vaccines. WHO/IVB/06.10 (2006)",
-      "WHO Technical Report Series No. 961, Annex 9 (2011)",
-      "ICH Q1E Guideline — Evaluation of Stability Data",
-      "CDC Pink Book — Vaccine Storage & Handling"
-    ]
+      "WHO. Vaccine Management Handbook, Module VMH-E2. WHO/IVB/15.04 (2015)",
+      "WHO. Policy on the use of opened multi-dose vaccine vials. WHO/IVB/14.07 (2014)",
+      "WHO. PQS performance specification: Vaccine vial monitor. WHO/PQS/E006/IN05.4 (2020)",
+      "Kartoglu Ü, et al. Validation of the shake test for detecting freeze damage to adsorbed vaccines. Bull World Health Organ 2010;88:624–631",
+      "USP General Chapter ⟨1079⟩ — Mean kinetic temperature (Haynes JD. J Pharm Sci 1971;60:927–929)"
+    ],
+    "shakeNote": "The shake test is validated only for aluminium-adsorbed vaccines (such as DTP-containing vaccines, hepatitis B, Td/TT and PCV). It is not valid for IPV or oral cholera vaccine; for those, VaxGuard gives Hold after freeze exposure."
   },
   "vaccineInfo": {
     "vvm": {
