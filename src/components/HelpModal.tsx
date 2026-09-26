@@ -1,8 +1,15 @@
 // src/components/HelpModal.tsx
+import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 
 interface HelpModalProps {
   onClose: () => void;
+}
+
+interface TermItem {
+  term: string;
+  desc: string;
 }
 
 const sectionTitleStyle: React.CSSProperties = {
@@ -14,16 +21,103 @@ const sectionTitleStyle: React.CSSProperties = {
   marginBottom: "0.5rem",
 };
 
+const paragraphStyle: React.CSSProperties = {
+  fontSize: "0.8rem",
+  color: "var(--color-text)",
+  margin: 0,
+  lineHeight: 1.55,
+};
+
+const noteStyle: React.CSSProperties = {
+  fontSize: "0.75rem",
+  color: "var(--color-text-muted)",
+  margin: "0.5rem 0 0",
+  lineHeight: 1.5,
+};
+
+// ─── Reusable blocks ─────────────────────────────
+
+function NumberedList({ items }: { items: string[] }) {
+  return (
+    <ol style={{ display: "flex", flexDirection: "column", gap: "0.6rem", margin: 0, padding: 0, listStyle: "none" }}>
+      {items.map((text, i) => (
+        <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
+          <span
+            style={{
+              width: "1.35rem",
+              height: "1.35rem",
+              borderRadius: "50%",
+              backgroundColor: "var(--color-primary)",
+              color: "var(--color-text-inverse)",
+              fontSize: "0.7rem",
+              fontWeight: 700,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+              marginTop: "0.1rem",
+            }}
+          >
+            {i + 1}
+          </span>
+          <p style={{ fontSize: "0.85rem", color: "var(--color-text)", margin: 0, lineHeight: 1.5 }}>{text}</p>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+function CardList({ items }: { items: TermItem[] }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+      {items.map(({ term, desc }, i) => (
+        <div
+          key={i}
+          style={{
+            backgroundColor: "var(--color-surface-2)",
+            borderRadius: "10px",
+            border: "1px solid var(--color-border)",
+            padding: "0.65rem 0.85rem",
+          }}
+        >
+          <p style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--color-text)", margin: "0 0 0.15rem" }}>
+            {term}
+          </p>
+          <p style={{ fontSize: "0.75rem", color: "var(--color-text-muted)", margin: 0, lineHeight: 1.5 }}>
+            {desc}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section>
+      <p style={sectionTitleStyle}>{title}</p>
+      {children}
+    </section>
+  );
+}
+
+// ─── Modal ───────────────────────────────────────
+
 export default function HelpModal({ onClose }: HelpModalProps) {
   const { t } = useTranslation();
 
-  const flowSteps: string[] = t("help.flowSteps", { returnObjects: true }) as string[];
-  const termList: { term: string; desc: string }[] = t("help.termList", {
-    returnObjects: true,
-  }) as { term: string; desc: string }[];
-  const referenceList: string[] = t("help.referenceList", { returnObjects: true }) as string[];
+  const list = (key: string) => t(key, { returnObjects: true }) as string[];
+  const cards = (key: string) => t(key, { returnObjects: true }) as TermItem[];
 
-  return (
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
@@ -89,37 +183,11 @@ export default function HelpModal({ onClose }: HelpModalProps) {
         </div>
 
         <div style={{ padding: "1.25rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-          {/* App Flow */}
-          <section>
-            <p style={sectionTitleStyle}>{t("help.flow")}</p>
-            <ol style={{ display: "flex", flexDirection: "column", gap: "0.6rem", margin: 0, padding: 0, listStyle: "none" }}>
-              {flowSteps.map((step, i) => (
-                <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
-                  <span
-                    style={{
-                      width: "1.35rem",
-                      height: "1.35rem",
-                      borderRadius: "50%",
-                      backgroundColor: "var(--color-primary)",
-                      color: "var(--color-text-inverse)",
-                      fontSize: "0.7rem",
-                      fontWeight: 700,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                      marginTop: "0.1rem",
-                    }}
-                  >
-                    {i + 1}
-                  </span>
-                  <p style={{ fontSize: "0.85rem", color: "var(--color-text)", margin: 0, lineHeight: 1.5 }}>{step}</p>
-                </li>
-              ))}
-            </ol>
-          </section>
+          <Section title={t("help.flow")}>
+            <NumberedList items={list("help.flowSteps")} />
+          </Section>
 
-          {/* Safety warning — VVM always takes priority */}
+          {/* The calculation never decides the verdict */}
           <div
             style={{
               borderRadius: "12px",
@@ -136,60 +204,66 @@ export default function HelpModal({ onClose }: HelpModalProps) {
             </p>
           </div>
 
-          {/* Key Terms */}
-          <section>
-            <p style={sectionTitleStyle}>{t("help.terms")}</p>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-              {termList.map(({ term, desc }, i) => (
-                <div
-                  key={i}
-                  style={{
-                    backgroundColor: "var(--color-surface-2)",
-                    borderRadius: "10px",
-                    border: "1px solid var(--color-border)",
-                    padding: "0.65rem 0.85rem",
-                  }}
-                >
-                  <p style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--color-text)", margin: "0 0 0.15rem" }}>
-                    {term}
-                  </p>
-                  <p style={{ fontSize: "0.75rem", color: "var(--color-text-muted)", margin: 0, lineHeight: 1.5 }}>
-                    {desc}
-                  </p>
-                </div>
+          <Section title={t("help.decisionTitle")}>
+            <NumberedList items={list("help.decisionSteps")} />
+          </Section>
+
+          <Section title={t("help.verdictTitle")}>
+            <CardList items={cards("help.verdictList")} />
+          </Section>
+
+          <Section title={t("help.vvmTitle")}>
+            <CardList items={cards("help.vvmList")} />
+            <p style={noteStyle}>{t("help.vvmNote")}</p>
+          </Section>
+
+          <Section title={t("help.shakeTitle")}>
+            <NumberedList items={list("help.shakeSteps")} />
+          </Section>
+
+          <Section title={t("help.intervalTitle")}>
+            <p style={paragraphStyle}>{t("help.intervalDesc")}</p>
+            <ul style={{ margin: "0.5rem 0 0", paddingLeft: "1.1rem", display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+              {list("help.intervalExamples").map((ex, i) => (
+                <li key={i} style={{ fontSize: "0.78rem", color: "var(--color-text-muted)", lineHeight: 1.5 }}>
+                  {ex}
+                </li>
               ))}
-            </div>
-          </section>
+            </ul>
+          </Section>
 
-          {/* Custom vaccine guidance */}
-          <section>
-            <p style={sectionTitleStyle}>{t("help.customTitle")}</p>
-            <p style={{ fontSize: "0.8rem", color: "var(--color-text)", margin: 0, lineHeight: 1.55 }}>
-              {t("help.customDesc")}
-            </p>
-          </section>
+          <Section title={t("help.estimateTitle")}>
+            <p style={paragraphStyle}>{t("help.estimateDesc")}</p>
+          </Section>
 
-          {/* Data & privacy */}
-          <section>
-            <p style={sectionTitleStyle}>{t("help.dataTitle")}</p>
-            <p style={{ fontSize: "0.8rem", color: "var(--color-text)", margin: 0, lineHeight: 1.55 }}>
-              {t("help.dataDesc")}
-            </p>
-          </section>
+          <Section title={t("help.terms")}>
+            <CardList items={cards("help.termList")} />
+          </Section>
 
-          {/* References */}
-          <section>
-            <p style={sectionTitleStyle}>{t("help.references")}</p>
+          <Section title={t("help.customTitle")}>
+            <p style={paragraphStyle}>{t("help.customDesc")}</p>
+          </Section>
+
+          <Section title={t("help.shareTitle")}>
+            <p style={paragraphStyle}>{t("help.shareDesc")}</p>
+          </Section>
+
+          <Section title={t("help.dataTitle")}>
+            <p style={paragraphStyle}>{t("help.dataDesc")}</p>
+          </Section>
+
+          <Section title={t("help.references")}>
             <ul style={{ margin: 0, paddingLeft: "1.1rem", display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-              {referenceList.map((ref, i) => (
+              {list("help.referenceList").map((ref, i) => (
                 <li key={i} style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", lineHeight: 1.5 }}>
                   {ref}
                 </li>
               ))}
             </ul>
-          </section>
+          </Section>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

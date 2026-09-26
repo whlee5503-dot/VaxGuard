@@ -153,51 +153,113 @@
   "help": {
     "modalTitle": "Jinsi VaxGuard Inavyofanya Kazi",
     "btnLabel": "Msaada",
-    "flow": "Mtiririko wa Programu",
+    "flow": "Jinsi ya kutumia",
     "flowSteps": [
-      "Chagua chanjo kutoka kwa mipangilio ya awali ya WHO EPI, au weka vigezo maalum vya Arrhenius (Ea, k_ref, joto la kumbukumbu).",
-      "Weka kila muda wa mfiduo wa joto — joto (°C) na muda (masaa).",
-      "Angalia matokeo: Joto la Wastani la Kinetiki (MKT) lililokokotolewa, uwezo uliobaki, na kiwango cha hatari sawa na VVM.",
-      "Kagua tathmini za awali katika Historia — zinahifadhiwa kwenye kifaa hiki pekee."
+      "Chagua chanjo. Tumia chanjo za EPI za WHO zilizowekwa tayari; weka vigezo maalum tu kama vinatoka kwenye chanzo cha kuaminika.",
+      "Soma VVM kwenye chupa na uchague hatua yake.",
+      "Ingiza kila mfiduo wa joto kama kipindi (joto na muda). Kama chanjo inayoathiriwa na kuganda ilikuwa kwenye 0 °C au chini, fanya kipimo cha kutikisa na uchague matokeo.",
+      "Soma uamuzi, sababu zake na hatua inayopendekezwa. Hifadhi au shiriki matokeo kwa ajili ya ripoti yako."
     ],
-    "safetyTitle": "Lebo halisi ya VVM daima ina kipaumbele",
-    "safetyDesc": "Matokeo ya VaxGuard ni makadirio yaliyokokotolewa kwa madhumuni ya mipango na mafunzo. Ikiwa chupa ina lebo halisi ya VVM (Vaccine Vial Monitor), usomaji wake halisi daima unashinda hesabu ya programu hii. Ikiwa hazifanani, VaxGuard itaonyesha onyo la kutofautiana — fuata VVM halisi katika hali hiyo.",
-    "terms": "Maneno Muhimu",
-    "termList": [
+    "safetyTitle": "Hesabu haiamui uamuzi",
+    "safetyDesc": "Uamuzi unatokana tu na unachokagua kwenye chupa: VVM na, baada ya kuganda, kipimo cha kutikisa. MKT na makadirio ya nguvu ni thamani za marejeo kwa ajili ya ripoti. Ukiwa na shaka, usitumie chanjo na umuulize msimamizi wako.",
+    "decisionTitle": "Jinsi uamuzi unavyofanywa",
+    "decisionSteps": [
+      "VVM hatua ya 3 au 4 → Tupa, bila kujali hesabu inaonyesha nini.",
+      "Chanjo inayoathiriwa na kuganda (❄️🚫) ilikuwa kwenye 0 °C au chini → kipimo cha kutikisa kinahitajika. Kimeshindwa → Tupa. Hakijafanywa → Subiri.",
+      "VVM haijakaguliwa → Subiri. Soma VVM kwanza; kama chupa haina VVM, muulize msimamizi wako.",
+      "Hakuna kati ya hayo → Inatumika."
+    ],
+    "verdictTitle": "Nini cha kufanya kwa kila uamuzi",
+    "verdictList": [
       {
-        "term": "MKT (Joto la Wastani la Kinetiki)",
-        "desc": "Joto moja la kudumu linalowakilisha mfululizo wa mifiduo ya joto tofauti, kulingana na WHO TRS 961 Kiambatisho 9."
+        "term": "✅ Inatumika",
+        "desc": "Toa kwa kufuata utaratibu wa kawaida. Kama VVM iko hatua ya 2, tumia chupa hiyo kwanza."
       },
       {
-        "term": "VVM (Vaccine Vial Monitor)",
-        "desc": "Lebo inayotambua joto iliyowekwa kwenye chupa ya chanjo. Hatua ya 1 = inatumika, hadi Hatua ya 4 = itupwe."
+        "term": "⏸️ Subiri — usitumie bado",
+        "desc": "Hifadhi chupa kwenye mnyororo baridi kwa joto linalopendekezwa, iwekee alama \"Usitumie\", kamilisha ukaguzi uliobaki (kusoma VVM au kipimo cha kutikisa), kisha tathmini tena."
       },
       {
-        "term": "Ea (Nishati ya Uamilisho)",
-        "desc": "Jinsi kasi ya uharibifu wa chanjo inavyoathiriwa na joto (kJ/mol), inayotumika katika mlingano wa Arrhenius."
-      },
-      {
-        "term": "k_ref",
-        "desc": "Kiwango cha kasi ya uharibifu kwenye joto maalum la kumbukumbu."
-      },
-      {
-        "term": "Chanjo ya EPI",
-        "desc": "Chanjo iliyojumuishwa katika Mpango Mpana wa Chanjo wa WHO."
-      },
-      {
-        "term": "Alama ❄️🚫",
-        "desc": "Inaonyeshwa kwenye chanjo ambazo hazipaswi kugandishwa kamwe."
+        "term": "🚫 Tupa",
+        "desc": "Usitumie chupa. Rekodi utupaji na uripoti kwa msimamizi wako."
       }
     ],
-    "customTitle": "Kutumia Vigezo Maalum vya Chanjo",
-    "customDesc": "Weka thamani za Ea, k_ref, na joto la kumbukumbu kutoka chanzo cha kuaminika pekee — karatasi ya data ya mtengenezaji au nyaraka za WHO. Usikisie thamani hizi — thamani isiyo sahihi inaweza kutoa matokeo yenye kupotosha.",
-    "dataTitle": "Data na Faragha",
-    "dataDesc": "Historia ya tathmini inahifadhiwa tu kwenye hifadhi ya ndani ya kivinjari cha kifaa hiki. Hakuna kinachotumwa kwa seva.",
+    "vvmTitle": "Kusoma VVM",
+    "vvmList": [
+      {
+        "term": "Hatua ya 1",
+        "desc": "Mraba wa ndani ni mwepesi kuliko duara. Inatumika."
+      },
+      {
+        "term": "Hatua ya 2",
+        "desc": "Mraba umekuwa mweusi zaidi lakini bado ni mwepesi kuliko duara. Inatumika; tumia chupa hizi kabla ya za hatua ya 1."
+      },
+      {
+        "term": "Hatua ya 3",
+        "desc": "Mraba una rangi sawa na duara. Kiwango cha kutupa: usitumie."
+      },
+      {
+        "term": "Hatua ya 4",
+        "desc": "Mraba ni mweusi kuliko duara. Usitumie."
+      }
+    ],
+    "vvmNote": "VVM inaonyesha tu joto lililokusanyika. Haionyeshi uharibifu wa kuganda wala tarehe ya kuisha muda, hivyo vikague kando.",
+    "shakeTitle": "Jinsi ya kufanya kipimo cha kutikisa",
+    "shakeSteps": [
+      "Andaa chupa ya kulinganisha: chukua chupa ya chanjo ile ile, mtengenezaji yule yule na kundi (batch) lile lile. Igandishe hadi ndani iwe ngumu kabisa, kisha iache iyeyuke.",
+      "Shika chupa ya kulinganisha na chupa inayoshukiwa pamoja, uzitikise kwa nguvu kwa sekunde 10–15 hivi.",
+      "Weka chupa zote mbili kando kwa kando mahali tambarare na uziangalie.",
+      "Kama chupa inayoshukiwa inatuama polepole kuliko ya kulinganisha, imefaulu. Kama inatuama kwa kasi ile ile au haraka zaidi, imeshindwa: itupe.",
+      "Pima chupa moja kutoka kila kundi lililoathiriwa. Kama chupa inayoshukiwa bado imeganda, usiitumie."
+    ],
+    "intervalTitle": "Kuingiza vipindi vya joto",
+    "intervalDesc": "Ingiza kila kipindi chenye joto tofauti kama kipindi kimoja (hadi 10). Ongeza muda wa kurudi kwenye hifadhi ya kawaida kama unataka rekodi kamili.",
+    "intervalExamples": [
+      "Gari kuharibika: 37 °C kwa saa 6",
+      "Umeme kukatika: 25 °C kwa saa 12",
+      "Jokofu baridi kupita kiasi: −2 °C kwa saa 3"
+    ],
+    "estimateTitle": "Maana ya MKT na makadirio ya nguvu",
+    "estimateDesc": "MKT (joto la wastani la kikinetiki) huunganisha joto kadhaa kuwa joto moja linalolingana, likipa uzito zaidi vipindi vya joto kali. Makadirio ya nguvu hutumia modeli ya Arrhenius kwenye MKT. Vigezo vya modeli kwa kila chanjo bado havijathibitishwa, hivyo thamani hizi ni kwa ajili ya ripoti na majadiliano na msimamizi wako, si kuamua kama chanjo itumike.",
+    "terms": "Maneno muhimu",
+    "termList": [
+      {
+        "term": "MKT (joto la wastani la kikinetiki)",
+        "desc": "Joto moja lisilobadilika linalolingana na mfululizo wa joto linalobadilika, likipa uzito vipindi vya joto kali (WHO TRS 961, Kiambatisho 9)."
+      },
+      {
+        "term": "VVM (kifuatiliaji cha chupa ya chanjo)",
+        "desc": "Lebo inayohisi joto kwenye chupa, inayobadilika rangi kadiri joto linavyokusanyika."
+      },
+      {
+        "term": "Kipimo cha kutikisa",
+        "desc": "Ulinganisho na chupa iliyogandishwa kwa makusudi, unaoonyesha kama chanjo imeharibiwa na kuganda."
+      },
+      {
+        "term": "❄️🚫 Inaathiriwa na kuganda",
+        "desc": "Chanjo zinazoharibika zikiganda, kama DTP na homa ya ini B. Hazipaswi kugandishwa kamwe."
+      },
+      {
+        "term": "EPI",
+        "desc": "Mpango Panuzi wa Chanjo wa WHO."
+      },
+      {
+        "term": "Ea na k_ref",
+        "desc": "Vigezo vya modeli: jinsi kasi ya uharibifu inavyotegemea joto (nishati ya uamilisho) na kasi ya uharibifu kwenye joto la marejeo."
+      }
+    ],
+    "customTitle": "Vigezo maalum vya chanjo",
+    "customDesc": "Weka Ea, k_ref na joto la marejeo kutoka chanzo cha kuaminika tu, kama karatasi ya data ya mtengenezaji au nyaraka za WHO. Vigezo maalum huathiri makadirio ya marejeo tu, si uamuzi.",
+    "shareTitle": "Kuhifadhi na kushiriki",
+    "shareDesc": "\"Hifadhi\" inaweka matokeo kwenye kifaa hiki. \"Shiriki\" inafungua menyu ya kushiriki ya kifaa (WhatsApp, barua pepe, ujumbe); kama haipatikani, muhtasari unanakiliwa ili uweze kuubandika. Maandishi yanayoshirikiwa yanaonyesha uamuzi, sababu zake na hatua inayopendekezwa.",
+    "dataTitle": "Data na faragha",
+    "dataDesc": "Historia ya tathmini huhifadhiwa kwenye kivinjari cha kifaa hiki pekee. Hakuna kinachotumwa kwenye seva.",
     "references": "Marejeo",
     "referenceList": [
-      "WHO Technical Report Series No. 961, Kiambatisho 9 (2011)",
-      "Mwongozo wa ICH Q1E — Tathmini ya Data ya Uthabiti",
-      "CDC Pink Book — Uhifadhi na Ushughulikiaji wa Chanjo"
+      "WHO. Temperature sensitivity of vaccines. WHO/IVB/06.10 (2006)",
+      "WHO Technical Report Series No. 961, Annex 9 (2011)",
+      "ICH Q1E Guideline — Evaluation of Stability Data",
+      "CDC Pink Book — Vaccine Storage & Handling"
     ]
   }
 }

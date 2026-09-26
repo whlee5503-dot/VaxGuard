@@ -151,53 +151,115 @@
     "loadHistory": "Échec du chargement de l'historique."
   },
   "help": {
-    "modalTitle": "Comment fonctionne VaxGuard",
+    "modalTitle": "Fonctionnement de VaxGuard",
     "btnLabel": "Aide",
-    "flow": "Déroulement de l'application",
+    "flow": "Mode d'emploi",
     "flowSteps": [
-      "Sélectionnez un vaccin parmi les préréglages PEV de l'OMS, ou saisissez des paramètres d'Arrhenius personnalisés (Ea, k_ref, température de référence).",
-      "Saisissez chaque intervalle d'exposition à la température — température (°C) et durée (heures).",
-      "Consultez le résultat : température cinétique moyenne (MKT) calculée, puissance résiduelle et niveau de risque équivalent au VVM.",
-      "Consultez les évaluations précédentes dans l'historique — stocké uniquement sur cet appareil."
+      "Choisissez le vaccin. Utilisez un préréglage PEV de l'OMS ; ne saisissez des paramètres personnalisés que s'ils proviennent d'une source fiable.",
+      "Lisez la VVM du flacon et sélectionnez son stade.",
+      "Saisissez chaque exposition à une température comme un intervalle (température et durée). Si un vaccin sensible à la congélation a été à 0 °C ou moins, faites un test d'agitation et sélectionnez le résultat.",
+      "Lisez la décision, ses motifs et l'action recommandée. Enregistrez ou partagez le résultat pour votre rapport."
     ],
-    "safetyTitle": "L'étiquette VVM physique est toujours prioritaire",
-    "safetyDesc": "Le résultat de VaxGuard est une estimation calculée à des fins de planification et de formation. Si le flacon porte une étiquette VVM (Vaccine Vial Monitor) physique, sa lecture réelle prévaut toujours sur le calcul de cette application. En cas de divergence, VaxGuard affiche un avertissement — suivez alors le VVM physique.",
+    "safetyTitle": "Le calcul ne décide jamais",
+    "safetyDesc": "La décision repose uniquement sur ce que vous vérifiez sur le flacon : la VVM et, après une congélation, le test d'agitation. La TCM et l'estimation d'activité sont des valeurs de référence pour le rapport. En cas de doute, n'utilisez pas le vaccin et consultez votre superviseur.",
+    "decisionTitle": "Comment la décision est prise",
+    "decisionSteps": [
+      "VVM au stade 3 ou 4 → À jeter, quel que soit le calcul.",
+      "Vaccin sensible à la congélation (❄️🚫) exposé à 0 °C ou moins → test d'agitation requis. Échoué → À jeter. Non fait → En attente.",
+      "VVM non vérifiée → En attente. Lisez d'abord la VVM ; si le flacon n'en a pas, consultez votre superviseur.",
+      "Aucun des cas ci-dessus → Utilisable."
+    ],
+    "verdictTitle": "Que faire selon la décision",
+    "verdictList": [
+      {
+        "term": "✅ Utilisable",
+        "desc": "Administrer selon le protocole standard. Si une VVM est au stade 2, utilisez ce flacon en premier."
+      },
+      {
+        "term": "⏸️ En attente — ne pas utiliser",
+        "desc": "Conservez le flacon dans la chaîne du froid à sa température recommandée, marquez-le « Ne pas utiliser », effectuez la vérification manquante (lecture de la VVM ou test d'agitation), puis refaites l'évaluation."
+      },
+      {
+        "term": "🚫 À jeter",
+        "desc": "N'utilisez pas le flacon. Consignez l'élimination et signalez-la à votre superviseur."
+      }
+    ],
+    "vvmTitle": "Lire la VVM",
+    "vvmList": [
+      {
+        "term": "Stade 1",
+        "desc": "Carré intérieur plus clair que le cercle. Utilisable."
+      },
+      {
+        "term": "Stade 2",
+        "desc": "Carré plus foncé, mais encore plus clair que le cercle. Utilisable ; à utiliser avant les flacons au stade 1."
+      },
+      {
+        "term": "Stade 3",
+        "desc": "Carré de la même couleur que le cercle. Point de rejet : ne pas utiliser."
+      },
+      {
+        "term": "Stade 4",
+        "desc": "Carré plus foncé que le cercle. Ne pas utiliser."
+      }
+    ],
+    "vvmNote": "La VVM n'indique que l'exposition cumulée à la chaleur. Elle ne montre ni les dommages dus à la congélation ni la date de péremption : vérifiez-les séparément.",
+    "shakeTitle": "Faire un test d'agitation",
+    "shakeSteps": [
+      "Préparez un témoin : prenez un flacon du même vaccin, du même fabricant et du même lot. Congelez-le jusqu'à ce que le contenu soit entièrement solide, puis laissez-le décongeler.",
+      "Tenez le témoin et le flacon suspect ensemble et agitez-les vigoureusement pendant environ 10 à 15 secondes.",
+      "Posez les deux flacons côte à côte sur une surface plane et observez-les.",
+      "Si le flacon suspect sédimente plus lentement que le témoin, le test est réussi. S'il sédimente à la même vitesse ou plus vite, le test est échoué : jetez-le.",
+      "Testez un flacon de chaque lot exposé. Si le flacon suspect est encore congelé, ne l'utilisez pas."
+    ],
+    "intervalTitle": "Saisir les intervalles de température",
+    "intervalDesc": "Saisissez chaque période à une température différente comme un intervalle (10 au maximum). Ajoutez le temps de retour au stockage normal si vous voulez un relevé complet.",
+    "intervalExamples": [
+      "Panne de véhicule : 37 °C pendant 6 heures",
+      "Coupure de courant : 25 °C pendant 12 heures",
+      "Réfrigérateur trop froid : −2 °C pendant 3 heures"
+    ],
+    "estimateTitle": "Signification de la TCM et de l'estimation d'activité",
+    "estimateDesc": "La TCM (température cinétique moyenne) combine plusieurs températures en une seule température équivalente, en donnant plus de poids aux périodes chaudes. L'estimation d'activité applique un modèle d'Arrhenius à la TCM. Les paramètres du modèle pour chaque vaccin ne sont pas encore validés : ces deux valeurs servent au rapport et à la discussion avec votre superviseur, pas à décider de l'utilisation du vaccin.",
     "terms": "Termes clés",
     "termList": [
       {
-        "term": "MKT (Température cinétique moyenne)",
-        "desc": "Une température constante équivalente unique représentant une série d'expositions à des températures variables, selon l'OMS TRS 961 Annexe 9."
+        "term": "TCM (température cinétique moyenne)",
+        "desc": "Une température constante équivalente à une série de températures variables, pondérée vers les périodes chaudes (OMS, TRS 961, annexe 9)."
       },
       {
-        "term": "VVM (Vaccine Vial Monitor)",
-        "desc": "Une étiquette thermosensible sur le flacon de vaccin. Stade 1 = utilisable, jusqu'au Stade 4 = à jeter."
+        "term": "VVM (pastille de contrôle du vaccin)",
+        "desc": "Étiquette thermosensible sur le flacon, qui change de couleur avec l'exposition cumulée à la chaleur."
       },
       {
-        "term": "Ea (Énergie d'activation)",
-        "desc": "Sensibilité de la vitesse de dégradation du vaccin à la température (kJ/mol), utilisée dans l'équation d'Arrhenius."
+        "term": "Test d'agitation",
+        "desc": "Comparaison avec un flacon témoin congelé volontairement, qui montre si un vaccin adsorbé a été endommagé par la congélation."
       },
       {
-        "term": "k_ref",
-        "desc": "La constante de vitesse de dégradation à une température de référence définie."
+        "term": "❄️🚫 Sensible à la congélation",
+        "desc": "Vaccins endommagés par la congélation, comme le DTC et l'hépatite B. Ils ne doivent jamais être congelés."
       },
       {
-        "term": "Vaccin PEV",
-        "desc": "Un vaccin inclus dans le Programme élargi de vaccination de l'OMS."
+        "term": "PEV",
+        "desc": "Programme élargi de vaccination de l'OMS."
       },
       {
-        "term": "Badge ❄️🚫",
-        "desc": "Affiché sur les vaccins qui ne doivent jamais être congelés."
+        "term": "Ea et k_ref",
+        "desc": "Paramètres du modèle : dépendance de la vitesse de dégradation à la température (énergie d'activation) et vitesse de dégradation à une température de référence."
       }
     ],
-    "customTitle": "Utilisation de paramètres de vaccin personnalisés",
-    "customDesc": "Ne saisissez les valeurs Ea, k_ref et température de référence qu'à partir d'une source fiable — la fiche technique du fabricant ou la documentation de l'OMS. Ne devinez pas ces valeurs ; une valeur incorrecte peut produire un résultat trompeur.",
+    "customTitle": "Paramètres de vaccin personnalisés",
+    "customDesc": "Ne saisissez Ea, k_ref et la température de référence qu'à partir d'une source fiable, comme la fiche du fabricant ou les documents de l'OMS. Les paramètres personnalisés n'influencent que l'estimation de référence, pas la décision.",
+    "shareTitle": "Enregistrer et partager",
+    "shareDesc": "« Enregistrer » conserve le résultat sur cet appareil. « Partager » ouvre le menu de partage de l'appareil (WhatsApp, e-mail, messages) ; s'il n'est pas disponible, le résumé est copié pour que vous puissiez le coller. Le texte partagé indique la décision, ses motifs et l'action recommandée.",
     "dataTitle": "Données et confidentialité",
-    "dataDesc": "L'historique des évaluations est stocké uniquement dans le stockage local du navigateur sur cet appareil. Rien n'est envoyé à un serveur.",
+    "dataDesc": "L'historique des évaluations est stocké uniquement dans le navigateur de cet appareil. Rien n'est envoyé à un serveur.",
     "references": "Références",
     "referenceList": [
-      "OMS, Série de rapports techniques n° 961, Annexe 9 (2011)",
-      "Ligne directrice ICH Q1E — Évaluation des données de stabilité",
-      "CDC Pink Book — Stockage et manipulation des vaccins"
+      "WHO. Temperature sensitivity of vaccines. WHO/IVB/06.10 (2006)",
+      "WHO Technical Report Series No. 961, Annex 9 (2011)",
+      "ICH Q1E Guideline — Evaluation of Stability Data",
+      "CDC Pink Book — Vaccine Storage & Handling"
     ]
   }
 }

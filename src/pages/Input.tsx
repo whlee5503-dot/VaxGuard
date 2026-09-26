@@ -317,6 +317,8 @@ export default function Input() {
     ? vaccine.name
     : t(`vaccine.${vaccine.id}`);
   const freezeSensitive = !vaccine.storage.freezeAllowed;
+  const vvmHelp = t("help.vvmList", { returnObjects: true }) as { term: string; desc: string }[];
+  const intervalExamples = t("help.intervalExamples", { returnObjects: true }) as string[];
   const showShakeTest =
     freezeSensitive &&
     intervals.some(
@@ -860,90 +862,33 @@ export default function Input() {
 
       {/* ── VVM Help Modal ── */}
       {showVvmHelp && (
-        <HelpModal title="What is VVM?" onClose={() => setShowVvmHelp(false)}>
-          <p
-            style={{
-              fontSize: "0.82rem",
-              color: "var(--color-text-muted)",
-              lineHeight: 1.6,
-              marginBottom: "12px",
-            }}
-          >
-            VVM (Vaccine Vial Monitor) is a heat-sensitive sticker on the
-            vaccine vial cap.
-          </p>
+        <HelpModal title={t("help.vvmTitle")} onClose={() => setShowVvmHelp(false)}>
           <div style={{ display: "flex", flexDirection: "column", gap: "8px", fontSize: "0.8rem", lineHeight: 1.5 }}>
-            <p style={{ color: "#16a34a" }}>
-              ■ Stage 1 — Inner square LIGHTER than outer circle → Safe to use
-            </p>
-            <p style={{ color: "#d97706" }}>
-              ■ Stage 2 — Inner square darker but still lighter than circle → Usable, use first
-            </p>
-            <p style={{ color: "#ea580c" }}>
-              ■ Stage 3 — Inner square SAME color as outer circle → Do NOT use
-            </p>
-            <p style={{ color: "#dc2626" }}>
-              ■ Stage 4 — Inner square DARKER than outer circle → Discard immediately
-            </p>
+            {vvmHelp.map((item, i) => (
+              <p key={i} style={{ color: VVM_COLORS[(i + 1) as VVMStage].text, margin: 0 }}>
+                ■ <strong>{item.term}</strong> — {item.desc}
+              </p>
+            ))}
           </div>
-          <p
-            style={{
-              fontSize: "0.78rem",
-              color: "var(--color-text-muted)",
-              marginTop: "12px",
-              lineHeight: 1.5,
-            }}
-          >
-            Select the stage that matches what you see on the vial.
+          <p style={{ fontSize: "0.78rem", color: "var(--color-text-muted)", marginTop: "12px", lineHeight: 1.5 }}>
+            {t("help.vvmNote")}
           </p>
         </HelpModal>
       )}
 
       {/* ── Interval Help Modal ── */}
       {showIntervalHelp && (
-        <HelpModal
-          title="What is a Temperature Interval?"
-          onClose={() => setShowIntervalHelp(false)}
-        >
-          <p
-            style={{
-              fontSize: "0.82rem",
-              color: "var(--color-text-muted)",
-              lineHeight: 1.6,
-              marginBottom: "10px",
-            }}
-          >
-            Enter each separate cold chain break as one interval.
-          </p>
-          <p
-            style={{
-              fontSize: "0.78rem",
-              fontWeight: 600,
-              color: "var(--color-text)",
-              marginBottom: "6px",
-            }}
-          >
-            Example — Vaccine exposed to heat during transport:
+        <HelpModal title={t("help.intervalTitle")} onClose={() => setShowIntervalHelp(false)}>
+          <p style={{ fontSize: "0.82rem", color: "var(--color-text-muted)", lineHeight: 1.6, marginBottom: "10px" }}>
+            {t("help.intervalDesc")}
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: "4px", fontSize: "0.78rem", color: "var(--color-text-muted)", lineHeight: 1.5 }}>
-            <p>· Interval 1: Vehicle breakdown → 37°C for 6 hours</p>
-            <p>· Interval 2: Power outage → 25°C for 12 hours</p>
-            <p>· Interval 3: Normal storage → 8°C for 48 hours</p>
+            {intervalExamples.map((ex, i) => (
+              <p key={i} style={{ margin: 0 }}>· {ex}</p>
+            ))}
           </div>
-          <p
-            style={{
-              fontSize: "0.78rem",
-              color: "var(--color-text-muted)",
-              marginTop: "10px",
-              lineHeight: 1.5,
-            }}
-          >
-            Add as many intervals as needed (max 10). The calculator uses WHO
-            MKT formula to combine all intervals.
-          </p>
         </HelpModal>
       )}
-
     </div>
   );
 }
