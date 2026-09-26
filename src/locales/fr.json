@@ -263,5 +263,20 @@
       "ICH Q1E Guideline — Evaluation of Stability Data",
       "CDC Pink Book — Vaccine Storage & Handling"
     ]
+  },
+  "vaccineInfo": {
+    "vvm": {
+      "product-specific": "VVM selon produit",
+      "unknown": "VVM inconnue"
+    },
+    "higherRequired": "Dépôts de niveau supérieur : {{min}} à {{max}} °C (obligatoire)",
+    "higherOptional": "Dépôts de niveau supérieur : {{min}} à {{max}} °C (facultatif)",
+    "openVial": {
+      "28d_conditional": "Flacon ouvert : jusqu'à 28 jours si les conditions de la politique OMS sur les flacons multidoses sont remplies",
+      "6h_or_session_end": "Flacon ouvert (reconstitué) : jeter après 6 heures ou à la fin de la séance, selon ce qui arrive en premier",
+      "single_dose": "Unidose : utiliser immédiatement après ouverture",
+      "unknown": "Flacon ouvert : suivre la notice du produit"
+    },
+    "diluent": "Le diluant ne doit jamais être congelé."
   }
 }

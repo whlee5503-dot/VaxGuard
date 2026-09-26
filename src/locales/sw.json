@@ -263,5 +263,20 @@
       "ICH Q1E Guideline — Evaluation of Stability Data",
       "CDC Pink Book — Vaccine Storage & Handling"
     ]
+  },
+  "vaccineInfo": {
+    "vvm": {
+      "product-specific": "VVM kwa bidhaa",
+      "unknown": "VVM haijulikani"
+    },
+    "higherRequired": "Maghala ya ngazi za juu: {{min}} hadi {{max}} °C (lazima)",
+    "higherOptional": "Maghala ya ngazi za juu: {{min}} hadi {{max}} °C (hiari)",
+    "openVial": {
+      "28d_conditional": "Chupa iliyofunguliwa: hadi siku 28 kama masharti ya sera ya WHO ya chupa za dozi nyingi yametimizwa",
+      "6h_or_session_end": "Chupa iliyofunguliwa (iliyochanganywa): itupe baada ya saa 6 au mwisho wa kikao, kinachotangulia",
+      "single_dose": "Dozi moja: tumia mara baada ya kufungua",
+      "unknown": "Chupa iliyofunguliwa: fuata maelezo ya bidhaa"
+    },
+    "diluent": "Kiyeyusho kisigandishwe kamwe."
   }
 }

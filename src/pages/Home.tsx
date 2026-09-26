@@ -120,7 +120,7 @@ function VaccineCard({ vaccine, selected, onSelect }: VaccineCardProps) {
           border: "1px solid color-mix(in srgb, var(--color-primary) 30%, transparent)",
         }}
       >
-        {vaccine.vvmType}
+        {vaccine.vvmType.startsWith("VVM") ? vaccine.vvmType : t("vaccineInfo.vvm." + vaccine.vvmType)}
       </span>
     </button>
   );

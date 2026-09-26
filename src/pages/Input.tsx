@@ -544,7 +544,7 @@ export default function Input() {
                   "1px solid color-mix(in srgb, var(--color-primary) 30%, transparent)",
               }}
             >
-              {vaccine.vvmType}
+              {vaccine.vvmType.startsWith("VVM") ? vaccine.vvmType : t("vaccineInfo.vvm." + vaccine.vvmType)}
             </span>
           </div>
           <p style={{ fontSize: "0.75rem", color: "var(--color-text-muted)" }}>
@@ -552,6 +552,36 @@ export default function Input() {
             {" · "}
             {vaccine.storage.minC}°C ~ {vaccine.storage.maxC}°C
           </p>
+          <div
+            style={{
+              marginTop: "6px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "2px",
+              fontSize: "0.72rem",
+              color: "var(--color-text-muted)",
+              lineHeight: 1.45,
+            }}
+          >
+            {vaccine.storage.higherLevelFreezer && (
+              <span>
+                🏬{" "}
+                {t(
+                  vaccine.storage.higherLevelFreezer.required
+                    ? "vaccineInfo.higherRequired"
+                    : "vaccineInfo.higherOptional",
+                  {
+                    min: vaccine.storage.higherLevelFreezer.minC,
+                    max: vaccine.storage.higherLevelFreezer.maxC,
+                  }
+                )}
+              </span>
+            )}
+            <span>🧪 {t("vaccineInfo.openVial." + (vaccine.openVialRule ?? "unknown"))}</span>
+            {vaccine.storage.diluentNeverFreeze && (
+              <span style={{ color: "var(--color-warning)" }}>❄️ {t("vaccineInfo.diluent")}</span>
+            )}
+          </div>
         </div>
 
         {/* Freeze-sensitive warning */}
