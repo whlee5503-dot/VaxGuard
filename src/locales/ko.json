@@ -92,7 +92,10 @@
     "estimateNote": "참고용입니다. 검증되지 않은 모델 파라미터에 기반하며, 백신 사용 여부를 결정하지 않습니다.",
     "vvmUsable": "사용 가능",
     "vvmDiscard": "폐기",
-    "saved": "저장됨!"
+    "saved": "저장됨!",
+    "share": "공유",
+    "copied": "복사됨",
+    "copyFailed": "복사 실패"
   },
   "history": {
     "title": "평가 기록",

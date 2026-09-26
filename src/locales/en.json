@@ -92,7 +92,10 @@
     "estimateNote": "Reference only. Based on unverified model parameters; it does not decide whether the vaccine can be used.",
     "vvmUsable": "Usable",
     "vvmDiscard": "Discard",
-    "saved": "Saved!"
+    "saved": "Saved!",
+    "share": "Share",
+    "copied": "Copied!",
+    "copyFailed": "Copy failed"
   },
   "history": {
     "title": "Assessment History",

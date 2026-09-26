@@ -92,7 +92,10 @@
     "estimateNote": "Kwa marejeo tu. Imetokana na vigezo vya modeli visivyothibitishwa; haiamui kama chanjo inaweza kutumika.",
     "vvmUsable": "Inatumika",
     "vvmDiscard": "Tupa",
-    "saved": "Imehifadhiwa!"
+    "saved": "Imehifadhiwa!",
+    "share": "Shiriki",
+    "copied": "Imenakiliwa",
+    "copyFailed": "Imeshindwa kunakili"
   },
   "history": {
     "title": "Historia ya Tathmini",

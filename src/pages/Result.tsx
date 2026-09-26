@@ -10,8 +10,9 @@ import {
   type FinalVerdict,
   type ShakeTestResult,
   type VerdictOutput,
+  LEGACY_VERDICT,
 } from "../lib/verdict";
-import { generateVaxGuardSummary, shareViaWhatsApp, shareViaEmail, exportResultToJSON } from "../utils/exportData";
+import { generateVaxGuardSummary, shareViaWhatsApp, shareSummary, exportResultToJSON } from "../utils/exportData";
 
 // ─── 상수 ────────────────────────────────────────
 
@@ -61,14 +62,6 @@ const VERDICT_STYLE: Record<
   },
 };
 
-/** Fallback for results saved before the WHO-aligned verdict existed. */
-const LEGACY_VERDICT: VerdictOutput = {
-  verdict: "HOLD",
-  reasons: ["vvm_not_checked"],
-  warnings: [],
-  freezeExposure: false,
-};
-
 /** The estimate is reference-only, so it never uses verdict colours. */
 function gaugeColor(potency: number): string {
   return potency >= 80 ? "var(--color-primary)" : "var(--color-warning)";
@@ -94,6 +87,7 @@ export default function Result() {
   const [result, setResult] = useState<StoredResult | null>(null);
   const [vaccineId, setVaccineId] = useState("");
   const [saved, setSaved] = useState(false);
+  const [shareStatus, setShareStatus] = useState<"" | "copied" | "failed">("");
 
   useEffect(() => {
     const raw = sessionStorage.getItem("vaxguard-result");
@@ -126,6 +120,28 @@ export default function Result() {
     setTimeout(() => setSaved(false), 2000);
   }
 
+  function getVaccineName(): string {
+    const customRaw = sessionStorage.getItem("vaxguard-customVaccine");
+    if (customRaw) {
+      try {
+        const custom = JSON.parse(customRaw) as { id?: string; name?: string };
+        if (custom.id === vaccineId && custom.name) return custom.name;
+      } catch { /* ignore */ }
+    }
+    return t("vaccine." + vaccineId, { defaultValue: vaccineId || "Unknown" });
+  }
+
+  async function handleShare() {
+    if (!result) return;
+    const name = getVaccineName();
+    const text = generateVaxGuardSummary(result, name, t);
+    const outcome = await shareSummary("VaxGuard", text);
+    if (outcome === "copied" || outcome === "failed") {
+      setShareStatus(outcome);
+      setTimeout(() => setShareStatus(""), 2500);
+    }
+  }
+
   function handleNewAssessment() {
     sessionStorage.removeItem("vaxguard-result");
     sessionStorage.removeItem("vaxguard-vaccineId");
@@ -135,7 +151,7 @@ export default function Result() {
 
   if (!result) return null;
 
-  const vaccineName = sessionStorage.getItem("vaxguard-vaccine-name") ?? "Unknown Vaccine";
+  const vaccineName = getVaccineName();
   const final = result.finalVerdict ?? LEGACY_VERDICT;
   const verdict = final.verdict;
   const vc = VERDICT_STYLE[verdict];
@@ -550,7 +566,7 @@ export default function Result() {
                 letterSpacing: "0.04em",
               }}
             >
-              {t("result.vvmCrossCheck")}
+              {t("input.vvmLabel")}
             </p>
             <div
               style={{
@@ -626,7 +642,7 @@ export default function Result() {
             type="button"
             onClick={() =>
               shareViaWhatsApp(
-                generateVaxGuardSummary(result, vaccineName, i18n.language as 'en' | 'ko' | 'fr' | 'sw')
+                generateVaxGuardSummary(result, vaccineName, t)
               )
             }
             style={{
@@ -645,12 +661,7 @@ export default function Result() {
           </button>
           <button
             type="button"
-            onClick={() =>
-              shareViaEmail(
-                "VaxGuard Assessment",
-                generateVaxGuardSummary(result, vaccineName, i18n.language as 'en' | 'ko' | 'fr' | 'sw')
-              )
-            }
+            onClick={handleShare}
             style={{
               flex: 1,
               padding: "10px 4px",
@@ -663,7 +674,7 @@ export default function Result() {
               color: "white",
             }}
           >
-            📧 Email
+            {shareStatus === "copied" ? "✅ " + t("result.copied") : shareStatus === "failed" ? "⚠️ " + t("result.copyFailed") : "📤 " + t("result.share")}
           </button>
           <button
             type="button"

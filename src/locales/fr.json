@@ -92,7 +92,10 @@
     "estimateNote": "À titre indicatif. Basée sur des paramètres de modèle non validés ; elle ne décide pas si le vaccin peut être utilisé.",
     "vvmUsable": "Utilisable",
     "vvmDiscard": "À jeter",
-    "saved": "Enregistré !"
+    "saved": "Enregistré !",
+    "share": "Partager",
+    "copied": "Copié !",
+    "copyFailed": "Échec de la copie"
   },
   "history": {
     "title": "Historique des évaluations",

@@ -4,7 +4,13 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "../contexts/ThemeContext";
 import HelpButton from "../components/HelpButton";
 import { SUPPORTED_LANGUAGES } from "../i18n";
-import { type VaxGuardResult, type VerdictLevel } from "../lib/arrhenius";
+import { type VaxGuardResult } from "../lib/arrhenius";
+import {
+  LEGACY_VERDICT,
+  type FinalVerdict,
+  type ShakeTestResult,
+  type VerdictOutput,
+} from "../lib/verdict";
 import { type VVMStage } from "../lib/vaccines";
 
 // ─── 상수 ────────────────────────────────────────
@@ -18,9 +24,9 @@ const LANG_SHORT: Record<string, string> = {
 
 const LANG_ORDER = ["en", "fr", "sw", "ko"] as const;
 
-const VERDICT_CLASS: Record<VerdictLevel, string> = {
+const VERDICT_CLASS: Record<FinalVerdict, string> = {
   USABLE: "verdict-usable",
-  CONDITIONAL: "verdict-conditional",
+  HOLD: "verdict-conditional",
   DISCARD: "verdict-discard",
 };
 
@@ -28,6 +34,8 @@ const VERDICT_CLASS: Record<VerdictLevel, string> = {
 
 interface HistoryRecord extends VaxGuardResult {
   vvmStage: VVMStage | null;
+  shakeTest?: ShakeTestResult;
+  finalVerdict?: VerdictOutput;
   vaccineId: string;
   savedAt: string;
 }
@@ -293,7 +301,7 @@ export default function History() {
               onClick={() => navigate("/")}
               style={{ marginTop: "8px", padding: "10px 24px", fontSize: "0.9rem" }}
             >
-              Start Assessment
+              {t("result.newAssessment")}
             </button>
           </div>
         ) : (
@@ -326,7 +334,7 @@ export default function History() {
 
             {/* ── 기록 카드 목록 ── */}
             {records.map((record, idx) => {
-              const verdict = record.potency.verdict;
+              const verdict = (record.finalVerdict ?? LEGACY_VERDICT).verdict;
               const vaccineLabel =
                 t(`vaccine.${record.vaccineId}`, {
                   defaultValue: record.vaccineId || "Unknown",
@@ -400,7 +408,7 @@ export default function History() {
                         borderRadius: "4px",
                       }}
                     >
-                      {verdict}
+                      {t("result.verdict." + verdict)}
                     </span>
                   </div>
 
@@ -420,7 +428,7 @@ export default function History() {
                       </strong>
                     </span>
                     <span>
-                      {t("result.remainingPotency")}:{" "}
+                      {t("result.estimateTitle")}:{" "}
                       <strong style={{ color: "var(--color-text)" }}>
                         {record.potency.remainingPotency.toFixed(1)}%
                       </strong>

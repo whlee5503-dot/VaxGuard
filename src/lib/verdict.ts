@@ -1,4 +1,4 @@
-﻿/**
+/**
  * verdict.ts — VaxGuard final verdict (WHO-aligned decision order)
  *
  * Decision order:
@@ -93,3 +93,11 @@ export function determineFinalVerdict(input: VerdictInput): VerdictOutput {
     freezeExposure,
   };
 }
+
+/** Fallback for results saved before the WHO-aligned verdict existed. */
+export const LEGACY_VERDICT: VerdictOutput = {
+  verdict: "HOLD",
+  reasons: ["vvm_not_checked"],
+  warnings: [],
+  freezeExposure: false,
+};
