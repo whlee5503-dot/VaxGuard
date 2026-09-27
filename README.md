@@ -6,7 +6,7 @@
 [![PWA Ready](https://img.shields.io/badge/PWA-Offline%20ready-purple?style=flat-square)](https://vaxguard.phtlab.org)
 [![Deployed](https://img.shields.io/badge/Deployed-Cloudflare%20Pages-orange?style=flat-square)](https://vaxguard.phtlab.org)
 [![Validated](https://img.shields.io/badge/Validated-WHO%20guidance-blue?style=flat-square)](VALIDATION.md)
-[![Tests](https://img.shields.io/badge/Tests-30%20passing-brightgreen?style=flat-square)](VALIDATION.md#automated-tests)
+[![Tests](https://img.shields.io/badge/Tests-32%20passing-brightgreen?style=flat-square)](VALIDATION.md#automated-tests)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20473758.svg)](https://doi.org/10.5281/zenodo.20473758)
 
 **DPG ID: [GID0093724](https://digitalpublicgoods.net/r/vaxguard)** · **[Open the app →](https://vaxguard.phtlab.org)** (also at [vaxguard.pages.dev](https://vaxguard.pages.dev))
@@ -31,7 +31,7 @@ VaxGuard helps community health workers (CHWs), clinic staff and field health wo
 
 ## How VaxGuard decides
 
-The verdict comes **only from what the health worker checks on the vial**: the vaccine vial monitor (VVM) and, after freezing, the shake test. The temperature calculation is a reference value for reporting and never decides the verdict.
+The verdict comes **only from what the health worker checks on the vial**: the vaccine vial monitor (VVM) and, after freezing, the shake test. Temperature calculations are reference values for reporting and never decide the verdict.
 
 | Order | Condition | Verdict |
 |---|---|---|
@@ -42,7 +42,7 @@ The verdict comes **only from what the health worker checks on the vial**: the v
 | 5 | VVM not checked | ⏸️ Hold |
 | 6 | None of the above | ✅ Usable |
 
-Warnings that do not change the verdict: VVM stage 2 ("use first") and a low potency estimate. Each result shows the reasons and the recommended action.
+Warnings that do not change the verdict: VVM stage 2 ("use first"). Each result shows the reasons and the recommended action.
 
 ---
 
@@ -51,10 +51,11 @@ Warnings that do not change the verdict: VVM stage 2 ("use first") and a low pot
 | Feature | Description |
 |---|---|
 | ✅ **WHO-aligned verdict** | Usable / Hold / Discard from VVM and shake test, with reasons and recommended action |
-| ❄️ **Freeze check** | Shake test prompt for aluminium-adsorbed vaccines exposed to 0 °C or below |
-| 💉 **5 WHO EPI presets** | BCG, OPV, DTP/Penta, Measles/MR/MMR, Hepatitis B, with storage, open-vial rule and diluent warnings |
-| 🧪 **Custom vaccines** | User parameters with explicit freezing behaviour; conservative defaults |
-| 🌡️ **MKT and potency estimate** | Mean kinetic temperature and an Arrhenius potency estimate, shown as reference values |
+| ❄️ **Freeze check** | Shake test prompt for aluminium-adsorbed vaccines exposed to 0 °C or below; Hold for other freeze-sensitive vaccines |
+| 💉 **12 WHO EPI presets** | BCG, OPV, DTP/Penta, Measles/MR/MMR, Hepatitis B, Td/TT, PCV, IPV, Rotavirus, Yellow fever, Meningococcal conjugate, Oral cholera |
+| 🧪 **Handling guidance** | Storage by level, open-vial rule (WHO multi-dose vial policy) and diluent warnings for each preset |
+| 🌡️ **MKT** | Mean kinetic temperature from the temperature history, for reporting |
+| 🔬 **Custom vaccines** | User parameters with explicit freezing behaviour; potency estimate from manufacturer stability data |
 | 📖 **Built-in guide** | Decision order, reading the VVM, shake test procedure, entering temperature intervals |
 | 📤 **Share and export** | Device share menu (WhatsApp, email, messages) with clipboard fallback; JSON export |
 | 🌍 **4 languages** | English, French, Swahili, Korean |
@@ -66,15 +67,18 @@ Warnings that do not change the verdict: VVM stage 2 ("use first") and a low pot
 
 VaxGuard's verdict logic and preset data were cross-checked against WHO guidance in September 2026. Every item, its source and its status are listed in **[VALIDATION.md](VALIDATION.md)**.
 
-Main corrections in version 1.1.0:
+**Version 1.2.0**
+- Seven presets added: Td/TT, PCV, IPV, Rotavirus, Yellow fever, Meningococcal conjugate (freeze-dried), Oral cholera. COVID-19 is not included because storage differs widely between products.
+- Unsourced Arrhenius parameters removed from all presets. The potency estimate is now shown only for custom vaccines with user-entered parameters.
 
+**Version 1.1.0**
 - **MKT formula**: fixed a sign error that under-estimated heat exposure (25/37/8 °C for 24 h each now gives 29.2 °C, confirmed independently).
 - **Verdict**: removed the potency-percentage thresholds (80% / 60%), which have no WHO basis. The verdict now follows the VVM and the shake test.
 - **Preset data**: open-vial rules follow the WHO multi-dose vial policy (2014); invented "CTC" exposure limits were removed; VVM types, storage and diluent handling follow WHO documents.
 - **Shake test scope**: offered only for aluminium-adsorbed vaccines, where it has been validated.
 - **Citations**: references that could not be verified were removed.
 
-`npm test` runs 30 automated tests covering the MKT formula, the decision order and the preset values.
+`npm test` runs 32 automated tests covering the MKT formula, the decision order and the preset values.
 
 ---
 
@@ -92,7 +96,7 @@ with ΔH = 83,000 J/mol and R = 8.314 J/(mol·K). MKT gives more weight to hot p
 
 ### Potency estimate
 
-A first-order Arrhenius model applied at the MKT. The per-vaccine parameters are **illustrative**: no WHO or peer-reviewed source was found for them, so the estimate is labelled as a reference value and never decides the verdict.
+A first-order Arrhenius model applied at the MKT. No WHO or peer-reviewed stability parameters were found for the preset vaccines, so the estimate is shown only for custom vaccines, using parameters the user enters from manufacturer data. It never decides the verdict.
 
 ---
 
