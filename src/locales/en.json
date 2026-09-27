@@ -236,7 +236,7 @@
       "Refrigerator too cold: −2 °C for 3 hours"
     ],
     "estimateTitle": "What the MKT and potency estimate mean",
-    "estimateDesc": "MKT (mean kinetic temperature) combines several temperatures into one equivalent temperature, giving more weight to hot periods. The potency estimate applies an Arrhenius model to the MKT. The model parameters for each vaccine are not yet validated, so both values are for reporting and for discussion with your supervisor, not for deciding whether to use the vaccine.",
+    "estimateDesc": "MKT (mean kinetic temperature) combines several temperatures into one equivalent temperature, giving more weight to hot periods. It is useful for reporting. The potency estimate is shown only for custom vaccines, using the stability parameters you enter from manufacturer data. No WHO or peer-reviewed parameters are available for the preset vaccines, so no estimate is shown for them. Neither value decides the verdict.",
     "terms": "Key Terms",
     "termList": [
       {

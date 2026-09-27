@@ -236,7 +236,7 @@
       "Réfrigérateur trop froid : −2 °C pendant 3 heures"
     ],
     "estimateTitle": "Signification de la TCM et de l'estimation d'activité",
-    "estimateDesc": "La TCM (température cinétique moyenne) combine plusieurs températures en une seule température équivalente, en donnant plus de poids aux périodes chaudes. L'estimation d'activité applique un modèle d'Arrhenius à la TCM. Les paramètres du modèle pour chaque vaccin ne sont pas encore validés : ces deux valeurs servent au rapport et à la discussion avec votre superviseur, pas à décider de l'utilisation du vaccin.",
+    "estimateDesc": "La TCM (température cinétique moyenne) combine plusieurs températures en une seule température équivalente, en donnant plus de poids aux périodes chaudes. Elle est utile pour le rapport. L'estimation d'activité n'est affichée que pour les vaccins personnalisés, à partir des paramètres de stabilité que vous saisissez depuis les données du fabricant. Aucun paramètre issu de l'OMS ou de la littérature n'existe pour les vaccins prédéfinis ; aucune estimation n'est donc affichée pour eux. Aucune de ces valeurs ne détermine la décision.",
     "terms": "Termes clés",
     "termList": [
       {
