@@ -118,7 +118,8 @@
     "stage2": "Stage 2 — Usable, use first",
     "stage3": "Stage 3 — Do not use",
     "stage4": "Stage 4 — Discard",
-    "unknown": "Not checked"
+    "unknown": "Not checked",
+    "stageShort": "Stage {{n}}"
   },
   "vaccine": {
     "bcg": "BCG (Tuberculosis)",

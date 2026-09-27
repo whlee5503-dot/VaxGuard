@@ -118,7 +118,8 @@
     "stage2": "Hatua ya 2 — Inatumika, tumia kwanza",
     "stage3": "Hatua 3 — Usitumie",
     "stage4": "Hatua 4 — Tupa",
-    "unknown": "Haijachunguzwa"
+    "unknown": "Haijachunguzwa",
+    "stageShort": "Hatua {{n}}"
   },
   "vaccine": {
     "bcg": "BCG (Kifua Kikuu)",

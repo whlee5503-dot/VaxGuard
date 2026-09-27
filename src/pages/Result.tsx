@@ -601,7 +601,7 @@ export default function Result() {
                     }`,
                 }}
               >
-                Stage {vvmStage}
+                {t("vvm.stageShort", { n: vvmStage })}
               </span>
               <span style={{ fontSize: "0.82rem", color: "var(--color-text-muted)" }}>
                 {VVM_STAGES[vvmStage!].usable ? t("result.vvmUsable") : t("result.vvmDiscard")}

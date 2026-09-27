@@ -354,6 +354,9 @@ export default function Home() {
 
   function handleSelect(id: string) {
     setSelectedId((prev) => (prev === id ? null : id));
+    requestAnimationFrame(() =>
+      document.getElementById("calculate-btn")?.scrollIntoView({ behavior: "smooth", block: "nearest" })
+    );
   }
 
   function handleCustomConfirm(vaccine: VaccineProfile) {
@@ -593,10 +596,12 @@ export default function Home() {
         <button
           type="button"
           className="vg-btn-primary"
+          id="calculate-btn"
           onClick={handleCalculate}
           style={{
             width: "100%",
             marginTop: "16px",
+            scrollMarginBottom: "96px",
             padding: "14px",
             fontSize: "1rem",
             fontWeight: 700,

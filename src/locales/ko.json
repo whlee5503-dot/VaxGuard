@@ -118,7 +118,8 @@
     "stage2": "2단계 — 사용 가능, 먼저 사용",
     "stage3": "3단계 — 사용 불가",
     "stage4": "4단계 — 즉시 폐기",
-    "unknown": "확인 안 함"
+    "unknown": "확인 안 함",
+    "stageShort": "{{n}}단계"
   },
   "vaccine": {
     "bcg": "BCG (결핵)",

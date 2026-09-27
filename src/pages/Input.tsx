@@ -668,7 +668,7 @@ export default function Input() {
                     textAlign: "center",
                   }}
                 >
-                  Stage {stage}
+                  {t("vvm.stageShort", { n: stage })}
                 </button>
               );
             })}
@@ -804,7 +804,7 @@ export default function Input() {
                     onChange={e =>
                       updateInterval(iv.id, "durationHours", e.target.value)
                     }
-                    placeholder="e.g. 6"
+                    placeholder="6"
                     min={0.01}
                     step={0.5}
                     style={fieldStyle(!!iv.errors.duration)}
