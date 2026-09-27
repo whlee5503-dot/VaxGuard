@@ -10,8 +10,8 @@ authors:
 repository-code: "https://github.com/whlee5503-dot/VaxGuard"
 url: "https://vaxguard.pages.dev"
 license: MIT
-version: 1.1.0
-date-released: "2026-09-26"
+version: 1.2.0
+date-released: "2026-09-27"
 keywords:
   - vaccine cold chain
   - immunization
