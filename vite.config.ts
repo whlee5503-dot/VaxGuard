@@ -13,7 +13,7 @@ export default defineConfig({
       devOptions: { enabled: false },
       manifest: false,
       workbox: {
-        globPatterns: ['**/*.{html,js,css,png,svg,ico,woff2}'],
+        globPatterns: ['**/*.{html,js,css,png,svg,ico,woff2,json}'],
         cleanupOutdatedCaches: true,
         navigateFallback: '/index.html',
         navigateFallbackDenylist: [/^\/api\//],
