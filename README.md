@@ -1,6 +1,6 @@
 # 🛡️ VaxGuard
 
-**Vaccine cold chain decision support for community health workers, aligned with WHO guidance**
+**PHT Lab's vaccine cold chain decision support for community health workers, aligned with WHO guidance**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](https://github.com/whlee5503-dot/VaxGuard/blob/main/LICENSE)
 [![PWA Ready](https://img.shields.io/badge/PWA-Offline%20ready-purple?style=flat-square)](https://vaxguard.phtlab.org)
