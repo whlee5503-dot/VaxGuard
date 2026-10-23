@@ -47,7 +47,9 @@
     "shakeTestPrompt": "Un intervalle à 0 °C ou moins a été saisi pour un vaccin sensible à la congélation. Faites un test d'agitation.",
     "freezeWarning": "Vaccin sensible à la congélation. NE PAS congeler.",
     "vvmDiscardNote": "La VVM indique le rejet.",
-    "shakeNotValidPrompt": "Un intervalle à 0 °C ou moins a été saisi. Le test d'agitation n'est pas valable pour ce vaccin : la décision sera « En attente »."
+    "shakeNotValidPrompt": "Un intervalle à 0 °C ou moins a été saisi. Le test d'agitation n'est pas valable pour ce vaccin : la décision sera « En attente ».",
+    "frozenSolidLabel": "Le flacon est congelé solide, ou son contenu ne forme pas un liquide homogène après une agitation vigoureuse",
+    "frozenSolidHint": "Si cette case est cochée, le verdict est À éliminer. Ne faites pas de test d'agitation."
   },
   "result": {
     "title": "Résultat d'évaluation",
@@ -79,7 +81,8 @@
       "shake_test_failed": "Le test d'agitation montre que le vaccin a été endommagé par la congélation.",
       "shake_test_required": "Ce vaccin sensible à la congélation a été exposé à 0 °C ou moins. Faites un test d'agitation avant utilisation.",
       "vvm_not_checked": "La VVM n'a pas été vérifiée. Lisez la VVM du flacon avant utilisation ; si le flacon n'a pas de VVM, contactez votre superviseur.",
-      "freeze_untestable": "Ce vaccin sensible à la congélation a été exposé à 0 °C ou moins, et le test d'agitation ne peut pas être utilisé pour lui. Consultez la notice du produit et votre superviseur avant utilisation."
+      "freeze_untestable": "Ce vaccin sensible à la congélation a été exposé à 0 °C ou moins, et le test d'agitation ne peut pas être utilisé pour lui. Consultez la notice du produit et votre superviseur avant utilisation.",
+      "frozen_solid": "Le flacon est congelé solide, ou son contenu ne forme pas un liquide homogène après une agitation vigoureuse. Ne faites pas de test d'agitation : jetez le flacon."
     },
     "warnings": {
       "vvm_use_first": "VVM au stade 2 : utilisez ce flacon avant les flacons au stade 1.",
@@ -181,7 +184,8 @@
     "decisionTitle": "Comment la décision est prise",
     "decisionSteps": [
       "VVM au stade 3 ou 4 → À jeter, quel que soit le calcul.",
-      "Vaccin sensible à la congélation (❄️🚫) exposé à 0 °C ou moins : s'il est adsorbé sur aluminium, test d'agitation requis (Échoué → À jeter, Non fait → En attente) ; sinon → En attente.",
+      "Flacon d'un vaccin sensible à la congélation congelé solide, ou dont le contenu ne forme pas un liquide homogène après une agitation vigoureuse → À jeter. Ne faites pas de test d'agitation.",
+      "Vaccin sensible à la congélation (❄️🚫) exposé à 0 °C ou moins : si le test d'agitation est validé pour lui (vaccins contenant le DTC, hépatite B, Td/TT), test d'agitation requis (Échoué → À jeter, Non fait → En attente) ; sinon → En attente.",
       "VVM non vérifiée → En attente. Lisez d'abord la VVM ; si le flacon n'en a pas, consultez votre superviseur.",
       "Aucun des cas ci-dessus → Utilisable."
     ],
@@ -222,11 +226,11 @@
     "vvmNote": "La VVM n'indique que l'exposition cumulée à la chaleur. Elle ne montre ni les dommages dus à la congélation ni la date de péremption : vérifiez-les séparément. L'OMS décrit le changement de couleur comme continu ; les quatre stades sont une convention de terrain courante.",
     "shakeTitle": "Faire un test d'agitation",
     "shakeSteps": [
-      "Préparez un témoin : prenez un flacon du même vaccin, du même fabricant et du même lot. Congelez-le jusqu'à ce que le contenu soit entièrement solide (au moins 10 heures à −10 °C ou moins), puis laissez-le décongeler.",
+      "Préparez un témoin : prenez un flacon du même vaccin, du même fabricant et du même lot. Marquez-le « CONGELÉ », congelez-le jusqu'à ce que le contenu soit entièrement solide (par exemple pendant une nuit), puis laissez-le décongeler. Ne le chauffez pas.",
       "Tenez le témoin et le flacon suspect ensemble et agitez-les vigoureusement pendant environ 10 à 15 secondes.",
-      "Posez les deux flacons côte à côte sur une surface plane et comparez-les pendant 30 minutes au maximum.",
+      "Posez les deux flacons côte à côte sur une surface plane, bien éclairée, et observez leur sédimentation jusqu'à la fin du test.",
       "Si le flacon suspect sédimente plus lentement que le témoin, le test est réussi. S'il sédimente à la même vitesse ou plus vite, le test est échoué : jetez-le.",
-      "Testez un flacon de chaque lot exposé. Si le flacon suspect est encore congelé, ne l'utilisez pas."
+      "Testez un flacon de chaque lot exposé. Si le flacon suspect est congelé solide, ou si son contenu ne forme pas un liquide homogène après une agitation vigoureuse, ne faites pas le test : jetez-le."
     ],
     "intervalTitle": "Saisir les intervalles de température",
     "intervalDesc": "Saisissez chaque période à une température différente comme un intervalle (10 au maximum). Ajoutez le temps de retour au stockage normal si vous voulez un relevé complet.",
@@ -279,7 +283,7 @@
       "Kartoglu Ü, et al. Validation of the shake test for detecting freeze damage to adsorbed vaccines. Bull World Health Organ 2010;88:624–631",
       "USP General Chapter ⟨1079⟩ — Mean kinetic temperature (Haynes JD. J Pharm Sci 1971;60:927–929)"
     ],
-    "shakeNote": "Le test d'agitation n'est validé que pour les vaccins adsorbés sur aluminium (vaccins contenant le DTC, hépatite B, Td/TT, PCV, etc.). Il n'est pas valable pour le VPI ni pour le vaccin anticholérique oral ; pour ceux-ci, VaxGuard donne « En attente » après une exposition au gel."
+    "shakeNote": "Le test d'agitation n'a été validé que pour les vaccins adsorbés sur aluminium contre la diphtérie, le tétanos, la coqueluche, l'hépatite B et Haemophilus influenzae type b, seuls ou combinés (vaccins contenant le DTC, hépatite B et Td/TT). Il n'a pas été validé pour le PCV, le VPI ni le vaccin anticholérique oral ; pour ceux-ci, VaxGuard donne « En attente » après une exposition au gel."
   },
   "vaccineInfo": {
     "vvm": {

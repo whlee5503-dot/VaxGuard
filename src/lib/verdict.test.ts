@@ -119,3 +119,48 @@ describe("determineFinalVerdict", () => {
     expect(r.warnings).toContain("heat_estimate_low");
   });
 });
+
+describe("frozen solid vial", () => {
+  it("discards a freeze-sensitive vial found frozen solid, with no temperature record", () => {
+    const r = determineFinalVerdict({ ...base, frozenSolid: true });
+    expect(r.verdict).toBe("DISCARD");
+    expect(r.reasons).toContain("frozen_solid");
+    expect(r.freezeExposure).toBe(true);
+  });
+
+  it("discards even when a shake test was recorded as passed", () => {
+    const r = determineFinalVerdict({
+      ...base,
+      intervals: frozen,
+      shakeTest: "passed",
+      frozenSolid: true,
+    });
+    expect(r.verdict).toBe("DISCARD");
+    expect(r.reasons).toContain("frozen_solid");
+  });
+
+  it("discards a non-adsorbed freeze-sensitive vaccine found frozen solid", () => {
+    const r = determineFinalVerdict({
+      ...base,
+      shakeTestValid: false,
+      frozenSolid: true,
+    });
+    expect(r.verdict).toBe("DISCARD");
+  });
+
+  it("ignores frozenSolid for a vaccine that tolerates freezing", () => {
+    const r = determineFinalVerdict({
+      ...base,
+      freezeSensitive: false,
+      frozenSolid: true,
+    });
+    expect(r.verdict).toBe("USABLE");
+    expect(r.reasons).toEqual([]);
+  });
+
+  it("does not change the verdict when frozenSolid is false or missing", () => {
+    expect(determineFinalVerdict({ ...base, frozenSolid: false })).toEqual(
+      determineFinalVerdict(base)
+    );
+  });
+});

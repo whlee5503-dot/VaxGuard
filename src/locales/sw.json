@@ -47,7 +47,9 @@
     "shakeTestPrompt": "Kipindi cha 0 °C au chini kimeingizwa kwa chanjo inayoathiriwa na kuganda. Fanya kipimo cha kutikisa.",
     "freezeWarning": "Chanjo inayoathiriwa na kuganda. USIGANDISHE.",
     "vvmDiscardNote": "VVM inaonyesha chanjo itupwe.",
-    "shakeNotValidPrompt": "Kipindi cha 0 °C au chini kimeingizwa. Kipimo cha kutikisa si halali kwa chanjo hii, hivyo uamuzi utakuwa Subiri."
+    "shakeNotValidPrompt": "Kipindi cha 0 °C au chini kimeingizwa. Kipimo cha kutikisa si halali kwa chanjo hii, hivyo uamuzi utakuwa Subiri.",
+    "frozenSolidLabel": "Chupa imeganda kabisa, au yaliyomo hayachanganyiki sawasawa baada ya kutikisa kwa nguvu",
+    "frozenSolidHint": "Ukichagua hili, uamuzi ni Tupa. Usifanye kipimo cha kutikisa."
   },
   "result": {
     "title": "Matokeo ya Tathmini",
@@ -79,7 +81,8 @@
       "shake_test_failed": "Kipimo cha kutikisa kinaonyesha chanjo iliharibiwa na kuganda.",
       "shake_test_required": "Chanjo hii inayoathiriwa na kuganda ilikuwa kwenye 0 °C au chini. Fanya kipimo cha kutikisa kabla ya kutumia.",
       "vvm_not_checked": "VVM haijakaguliwa. Soma VVM kwenye chupa kabla ya kutumia; kama chupa haina VVM, wasiliana na msimamizi wako.",
-      "freeze_untestable": "Chanjo hii inayoathiriwa na kuganda ilikuwa kwenye 0 °C au chini, na kipimo cha kutikisa hakiwezi kutumika kwayo. Angalia maelezo ya bidhaa na umuulize msimamizi wako kabla ya kutumia."
+      "freeze_untestable": "Chanjo hii inayoathiriwa na kuganda ilikuwa kwenye 0 °C au chini, na kipimo cha kutikisa hakiwezi kutumika kwayo. Angalia maelezo ya bidhaa na umuulize msimamizi wako kabla ya kutumia.",
+      "frozen_solid": "Chupa imeganda kabisa, au yaliyomo hayachanganyiki sawasawa baada ya kutikisa kwa nguvu. Usifanye kipimo cha kutikisa: tupa chupa."
     },
     "warnings": {
       "vvm_use_first": "VVM hatua ya 2: tumia chupa hii kabla ya chupa za hatua ya 1.",
@@ -181,7 +184,8 @@
     "decisionTitle": "Jinsi uamuzi unavyofanywa",
     "decisionSteps": [
       "VVM hatua ya 3 au 4 → Tupa, bila kujali hesabu inaonyesha nini.",
-      "Chanjo inayoathiriwa na kuganda (❄️🚫) ilikuwa kwenye 0 °C au chini: kama imefyonzwa kwenye alumini, kipimo cha kutikisa kinahitajika (Kimeshindwa → Tupa, Hakijafanywa → Subiri); vinginevyo → Subiri.",
+      "Chupa ya chanjo inayoathiriwa na kuganda imeganda kabisa, au yaliyomo hayachanganyiki sawasawa baada ya kutikisa kwa nguvu → Tupa. Usifanye kipimo cha kutikisa.",
+      "Chanjo inayoathiriwa na kuganda (❄️🚫) ilikuwa kwenye 0 °C au chini: kama kipimo cha kutikisa kimethibitishwa kwa chanjo hiyo (kama zenye DTP, homa ya ini B, Td/TT), kipimo cha kutikisa kinahitajika (Kimeshindwa → Tupa, Hakijafanywa → Subiri); vinginevyo → Subiri.",
       "VVM haijakaguliwa → Subiri. Soma VVM kwanza; kama chupa haina VVM, muulize msimamizi wako.",
       "Hakuna kati ya hayo → Inatumika."
     ],
@@ -222,11 +226,11 @@
     "vvmNote": "VVM inaonyesha tu joto lililokusanyika. Haionyeshi uharibifu wa kuganda wala tarehe ya kuisha muda, hivyo vikague kando. WHO inaeleza mabadiliko ya rangi kuwa endelevu; hatua nne ni utaratibu wa kawaida wa uwandani.",
     "shakeTitle": "Jinsi ya kufanya kipimo cha kutikisa",
     "shakeSteps": [
-      "Andaa chupa ya kulinganisha: chukua chupa ya chanjo ile ile, mtengenezaji yule yule na kundi (batch) lile lile. Igandishe hadi ndani iwe ngumu kabisa (angalau saa 10 kwenye −10 °C au chini zaidi), kisha iache iyeyuke.",
+      "Andaa chupa ya kulinganisha: chukua chupa ya chanjo ile ile, mtengenezaji yule yule na kundi (batch) lile lile. Iandike «IMEGANDISHWA», igandishe hadi ndani iwe ngumu kabisa (kwa mfano usiku mzima), kisha iache iyeyuke. Usiipashe joto.",
       "Shika chupa ya kulinganisha na chupa inayoshukiwa pamoja, uzitikise kwa nguvu kwa sekunde 10–15 hivi.",
-      "Weka chupa zote mbili kando kwa kando mahali tambarare na uzilinganishe kwa hadi dakika 30.",
+      "Weka chupa zote mbili kando kwa kando mahali tambarare penye mwanga wa kutosha na uziangalie zinavyotuama hadi kipimo kiishe.",
       "Kama chupa inayoshukiwa inatuama polepole kuliko ya kulinganisha, imefaulu. Kama inatuama kwa kasi ile ile au haraka zaidi, imeshindwa: itupe.",
-      "Pima chupa moja kutoka kila kundi lililoathiriwa. Kama chupa inayoshukiwa bado imeganda, usiitumie."
+      "Pima chupa moja kutoka kila kundi lililoathiriwa. Kama chupa inayoshukiwa imeganda kabisa, au yaliyomo hayachanganyiki sawasawa baada ya kutikisa kwa nguvu, usifanye kipimo: itupe."
     ],
     "intervalTitle": "Kuingiza vipindi vya joto",
     "intervalDesc": "Ingiza kila kipindi chenye joto tofauti kama kipindi kimoja (hadi 10). Ongeza muda wa kurudi kwenye hifadhi ya kawaida kama unataka rekodi kamili.",
@@ -279,7 +283,7 @@
       "Kartoglu Ü, et al. Validation of the shake test for detecting freeze damage to adsorbed vaccines. Bull World Health Organ 2010;88:624–631",
       "USP General Chapter ⟨1079⟩ — Mean kinetic temperature (Haynes JD. J Pharm Sci 1971;60:927–929)"
     ],
-    "shakeNote": "Kipimo cha kutikisa kimethibitishwa tu kwa chanjo zilizofyonzwa kwenye alumini (kama zenye DTP, homa ya ini B, Td/TT na PCV). Si halali kwa IPV wala chanjo ya kipindupindu ya kumeza; kwa hizo, VaxGuard inatoa Subiri baada ya mfiduo wa kuganda."
+    "shakeNote": "Kipimo cha kutikisa kimethibitishwa tu kwa chanjo zilizofyonzwa kwenye alumini dhidi ya dondakoo (diphtheria), pepopunda, kifaduro, homa ya ini B na Haemophilus influenzae aina b, peke yake au kwa mchanganyiko (kama zenye DTP, homa ya ini B na Td/TT). Hakijathibitishwa kwa PCV, IPV wala chanjo ya kipindupindu ya kumeza; kwa hizo, VaxGuard inatoa Subiri baada ya mfiduo wa kuganda."
   },
   "vaccineInfo": {
     "vvm": {

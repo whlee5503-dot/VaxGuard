@@ -316,6 +316,7 @@ export default function Input() {
         shakeTestValid: vaccine.shakeTestValid ?? false,
         intervals: ivs,
         shakeTest,
+        frozenSolid,
         estimatedPotencyPct: result.potency.remainingPotency,
       });
       sessionStorage.setItem(
@@ -329,7 +330,7 @@ export default function Input() {
       );
     }
   }
-
+  const [frozenSolid, setFrozenSolid] = useState(false);
   if (!vaccine) return null;
 
   const vaccineName = vaccine.isCustom
@@ -654,9 +655,8 @@ export default function Input() {
                   style={{
                     padding: "7px 4px",
                     borderRadius: "6px",
-                    border: `${selected ? "2px" : "1px"} solid ${
-                      selected ? colors.border : "var(--color-border)"
-                    }`,
+                    border: `${selected ? "2px" : "1px"} solid ${selected ? colors.border : "var(--color-border)"
+                      }`,
                     background: selected
                       ? colors.bg
                       : "var(--color-surface-2)",
@@ -913,6 +913,44 @@ export default function Input() {
               })}
             </div>
           </div>
+        )}
+
+        {/* Frozen solid / will not mix: discard without a shake test */}
+        {!vaccine.storage.freezeAllowed && (
+          <label
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+              gap: "10px",
+              padding: "12px",
+              marginBottom: "16px",
+              borderRadius: "8px",
+              border: frozenSolid
+                ? "2px solid var(--color-danger)"
+                : "1px solid var(--color-border)",
+              background: "var(--color-surface-2)",
+              cursor: "pointer",
+            }}
+          >
+            <input
+              type="checkbox"
+              checked={frozenSolid}
+              onChange={(e) => setFrozenSolid(e.target.checked)}
+              style={{
+                marginTop: "3px",
+                width: "18px",
+                height: "18px",
+                flexShrink: 0,
+              }}
+            />
+            <span style={{ fontSize: "0.8rem", lineHeight: 1.5 }}>
+              <strong>🚫 {t("input.frozenSolidLabel")}</strong>
+              <br />
+              <span style={{ color: "var(--color-text-muted)" }}>
+                {t("input.frozenSolidHint")}
+              </span>
+            </span>
+          </label>
         )}
 
         {/* Calculation error */}

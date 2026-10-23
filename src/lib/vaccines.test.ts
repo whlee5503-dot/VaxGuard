@@ -41,15 +41,17 @@ describe("vaccine presets match WHO guidance", () => {
     }
   });
 
-  it("marks only aluminium-adsorbed vaccines as valid for the shake test", () => {
-    const adsorbed = ["dtp", "hep_b", "td_tt", "pcv"];
+  it("marks only vaccines covered by the shake test validation as valid", () => {
+    // Kartoglu 2010 (Bull WHO 88:624-631) covered DTP-, HepB-, Hib- and Td/TT-type
+    // vaccines. PCV was not studied, so it is treated as untestable.
+    const validated = ["dtp", "hep_b", "td_tt"];
     for (const v of EPI_VACCINES) {
-      expect(v.shakeTestValid, v.id).toBe(adsorbed.includes(v.id));
+      expect(v.shakeTestValid, v.id).toBe(validated.includes(v.id));
     }
   });
 
-  it("treats non-adsorbed freeze-sensitive vaccines as untestable", () => {
-    for (const id of ["ipv", "ocv", "rota"]) {
+  it("treats freeze-sensitive vaccines without a validated shake test as untestable", () => {
+    for (const id of ["ipv", "ocv", "rota", "pcv"]) {
       expect(VACCINE_MAP[id].storage.freezeAllowed, id).toBe(false);
       expect(VACCINE_MAP[id].shakeTestValid, id).toBe(false);
     }

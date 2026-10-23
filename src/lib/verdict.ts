@@ -3,13 +3,16 @@
  *
  * Decision order:
  *   1. VVM at or beyond discard point (stage 3-4)            -> DISCARD
- *   2. Freeze-sensitive vaccine exposed to <= 0 °C
+ *   2. Freeze-sensitive vaccine found frozen solid, or contents will not
+ *      mix into an even liquid after vigorous shaking        -> DISCARD
+ *      (WHO/IVB/06.10 section 3: no shake test, discard immediately)
+ *   3. Freeze-sensitive vaccine exposed to <= 0 °C
  *        shake test valid for this vaccine:
  *          failed                                            -> DISCARD
  *          not done                                          -> HOLD
  *        shake test not valid (non-adsorbed vaccine)         -> HOLD
- *   3. VVM not checked                                       -> HOLD
- *   4. Otherwise                                             -> USABLE
+ *   4. VVM not checked                                       -> HOLD
+ *   5. Otherwise                                             -> USABLE
  *
  * The shake test is validated only for aluminium-adsorbed vaccines
  * (Kartoglu et al., Bull WHO 2010;88:624-631). The Arrhenius potency
@@ -30,6 +33,7 @@ export type FinalVerdict = "USABLE" | "HOLD" | "DISCARD";
 
 export type VerdictReason =
   | "vvm_discard"
+  | "frozen_solid"
   | "shake_test_failed"
   | "shake_test_required"
   | "freeze_untestable"
@@ -42,6 +46,11 @@ export interface VerdictInput {
   freezeSensitive: boolean;
   /** Shake test is valid for this vaccine (aluminium-adsorbed) */
   shakeTestValid: boolean;
+  /**
+ * The vial was found frozen solid, or its contents will not mix into an even
+ * liquid after vigorous shaking. Optional so older callers keep working.
+ */
+  frozenSolid?: boolean;
   intervals: TemperatureInterval[];
   shakeTest: ShakeTestResult;
   /** Remaining / initial potency x 100 (Arrhenius estimate) */
@@ -64,12 +73,16 @@ export function hasFreezeExposure(intervals: TemperatureInterval[]): boolean {
 export function determineFinalVerdict(input: VerdictInput): VerdictOutput {
   const reasons: VerdictReason[] = [];
   const warnings: VerdictWarning[] = [];
+  const frozenSolid = input.freezeSensitive && input.frozenSolid === true;
   const freezeExposure =
-    input.freezeSensitive && hasFreezeExposure(input.intervals);
+    input.freezeSensitive && (frozenSolid || hasFreezeExposure(input.intervals));
 
   // Discard rules
   if (input.vvmStage !== null && !VVM_STAGES[input.vvmStage].usable) {
     reasons.push("vvm_discard");
+  }
+  if (frozenSolid) {
+    reasons.push("frozen_solid");
   }
   if (freezeExposure && input.shakeTestValid && input.shakeTest === "failed") {
     reasons.push("shake_test_failed");

@@ -101,7 +101,7 @@ export interface VaccineProfile {
   storage: StorageCondition;
   vvmType: VVMType;
   openVialRule: OpenVialRule;
-  /** Shake test is validated only for aluminium-adsorbed vaccines */
+  /** Shake test is validated only for adsorbed DTP-, HepB-, Hib- and Td/TT-type vaccines (Kartoglu 2010) */
   shakeTestValid: boolean;
   notes: string;
   isCustom: boolean;
@@ -247,8 +247,8 @@ const PCV: VaccineProfile = {
   storage: FREEZE_SENSITIVE("Damaged by freezing (aluminium adjuvant). Never freeze."),
   vvmType: "product-specific",
   openVialRule: "product_specific", // 4-dose with preservative: 28 days; unpreserved: end of session
-  shakeTestValid: true,
-  notes: "Aluminium-adsorbed. 4-dose vials with preservative: up to 28 days if MDVP conditions are met.",
+  shakeTestValid: false, // PCV was not among the vaccines in Kartoglu 2010 (Bull WHO 88:624-631)
+  notes: "Aluminium-adsorbed, but the shake test has not been validated for PCV. 4-dose vials with preservative: up to 28 days if MDVP conditions are met.",
   isCustom: false,
 };
 

@@ -2,8 +2,8 @@
 
 This document records how VaxGuard's verdict logic and vaccine data were checked against WHO guidance.
 
-- **Validation date:** 2026-09-27
-- **App version:** 1.2.0
+- **Validation date:** 2026-09-27 (shake-test scope and frozen-vial rule re-checked 2026-10-23)
+- **App version:** 1.2.1
 - **Scope:** verdict logic, MKT calculation, and 12 presets (BCG, OPV, DTP, Measles/MR/MMR, Hepatitis B, Td/TT, PCV, IPV, Rotavirus, Yellow fever, Meningococcal conjugate, Oral cholera)
 
 > **Disclaimer.** VaxGuard is a decision-support tool for cold chain excursions, not a substitute for national guidelines, the product insert, or a supervisor's decision. When in doubt, do not use the vaccine.
@@ -22,6 +22,7 @@ This document records how VaxGuard's verdict logic and vaccine data were checked
 |---|---|---|
 | 1.1.0 | 2026-09-26 | MKT sign fix; WHO-aligned verdict (VVM and shake test); 5 presets corrected against WHO |
 | 1.2.0 | 2026-09-27 | 7 presets added; unsourced Arrhenius parameters removed from all presets; potency estimate shown for custom vaccines only |
+| 1.2.1 | 2026-10-23 | Frozen-solid vial rule (Discard without a shake test); shake test no longer offered for PCV; help text follows WHO wording; 37 tests |
 
 ## Summary of corrections
 
@@ -39,6 +40,10 @@ This document records how VaxGuard's verdict logic and vaccine data were checked
 | Measles storage | −25 to −15 °C | 2–8 °C; freezer optional at higher levels | WHO/IVB/06.10; WHO/IVB/15.04 §2.2 |
 | Diluent | Not flagged | Freeze-dried vaccines: diluent must never be frozen | WHO/IVB/15.04 §2.1.5 |
 | Shake-test scope | Any freeze-sensitive vaccine | Aluminium-adsorbed vaccines only; others Hold | Kartoglu et al. 2010 |
+| Shake-test scope (1.2.1) | PCV treated as validated | Only vaccines covered by the validation study (DTP-, hepatitis B- and Td/TT-type); PCV Hold | Kartoglu et al. 2010 (PCV not studied) |
+| Frozen vial (1.2.1) | No way to record a vial found frozen solid; without a shake test the verdict was Hold | Discard without a shake test | WHO/IVB/06.10 §3 |
+| Shake-test scope (1.2.1) | PCV treated as validated | Only vaccines covered by the validation study (DTP-, hepatitis B- and Td/TT-type); PCV Hold | Kartoglu et al. 2010 (PCV not studied) |
+| Frozen vial (1.2.1) | No way to record a vial found frozen solid; without a shake test the verdict was Hold | Discard without a shake test | WHO/IVB/06.10 §3 |
 | Arrhenius parameters | Per-preset Ea and half-life values | Removed from all presets; potency estimate only for custom vaccines with user-entered parameters | No WHO or peer-reviewed source found |
 | Citations | Tano 2007 (Vaccine 25:7017), Lyons 2017 (Vaccine 35:2823), "Kumru 2014, Biologics 8:239" | Removed. The first two do not exist at those pages; Kumru is Biologicals 42:237–259 and does not supply the app's values | Crossref, PubMed checks |
 
@@ -49,15 +54,18 @@ Implemented in `src/lib/verdict.ts`, tested in `src/lib/verdict.test.ts`.
 | Order | Condition | Verdict | Basis | Status |
 |---|---|---|---|---|
 | 1 | VVM at stage 3 (square matches circle) or stage 4 | Discard | WHO/PQS/E006/IN05.4 §3, §4.2.1: end point and beyond, do not use | ✅ |
-| 2 | Freeze-sensitive, exposed to 0 °C or below, aluminium-adsorbed, shake test failed | Discard | Kartoglu et al. 2010 | ✅ |
-| 3 | As above, shake test not done | Hold | Conservative | ✅ |
-| 4 | Freeze-sensitive, exposed to 0 °C or below, not adsorbed | Hold | Shake test not validated (WHO/IVB/15.04 §2.1.4) | ✅ |
-| 5 | VVM not checked | Hold | Conservative | ✅ |
-| 6 | Otherwise | Usable | — | ✅ |
+| 2 | Freeze-sensitive vaccine found frozen solid, or contents will not mix into an even liquid after vigorous shaking | Discard (no shake test) | WHO/IVB/06.10 §3 (p. 8): do not do the shake test, discard immediately | ✅ |
+| 3 | Freeze-sensitive, exposed to 0 °C or below, shake test validated for the vaccine (DTP-, hepatitis B- and Td/TT-type), shake test failed | Discard | Kartoglu et al. 2010; WHO Immunization in practice 2015, Module 2 §7.3 | ✅ |
+| 4 | As above, shake test not done | Hold | Conservative | ✅ |
+| 5 | Freeze-sensitive, exposed to 0 °C or below, shake test not validated for the vaccine (for example PCV, IPV, oral cholera) | Hold | Kartoglu et al. 2010 scope; WHO/IVB/15.04 §2.1.4 | ✅ |
+| 6 | VVM not checked | Hold | Conservative | ✅ |
+| 7 | Otherwise | Usable | — | ✅ |
 
 Warnings (never change the verdict): VVM stage 2 "use first" (WHO/PQS/E006/IN05.4 §1); potency estimate below 80% (custom vaccines only).
 
 **Freeze trigger.** 0 °C or below. WHO advises never exposing freeze-sensitive vaccines to zero or subzero temperatures. The PQS freeze-indicator trigger (−0.5 °C ± 0.5 °C for 60 min, WHO/PQS/E06/IN03.1) is less conservative. ✅
+
+**Frozen-solid trigger (1.2.1).** A freeze-sensitive vial found frozen solid, or whose contents will not mix into an even liquid after vigorous shaking, is discarded without a shake test (WHO/IVB/06.10 §3). The app asks for this as a separate check, because a temperature record cannot show it. Exposure to a subzero temperature does not always freeze a vial (Kartoglu et al. 2010: vials held at −2 °C for 24 h stayed liquid), which is why exposure alone leads to a shake test or Hold, not to Discard. ✅
 
 **VVM stages.** Stages 1–4 are a common field convention. WHO describes the colour change as continuous. The app maps stages 1–2 to usable (2 = use first) and 3–4 to discard. ✅
 
@@ -148,7 +156,7 @@ Implemented in `src/lib/vaccines.ts`, tested in `src/lib/vaccines.test.ts`. Pres
 | Item | App value | WHO reference | Status |
 |---|---|---|---|
 | Storage | 2–8 °C; never freeze | WHO/IVB/15.04 §2.2 | ✅ |
-| Freezing | Damaged (aluminium adjuvant); shake test valid | WHO/IVB/15.04 Table 2 | ✅ |
+| Freezing | Damaged (aluminium adjuvant). Shake test not validated for PCV → Hold after freeze exposure | WHO/IVB/15.04 Table 2; WHO/IVB/06.10 §8.3 (aluminium adjuvant, protect from freezing); Kartoglu et al. 2010 (PCV not among the vaccines studied) | ⚠️ Conservative |
 | VVM | Product-specific | WHO PQ | ✅ (product ⏳) |
 | Open vial | Product-specific: 4-dose vials with 2-phenoxyethanol up to 28 days if MDVP conditions met; unpreserved presentations end of session | Gavi PCV 4-dose FAQ; WHO/IVB/14.07 | ⏳ per product |
 | CTC | Not approved | WHO CTC table | ✅ |
@@ -168,7 +176,7 @@ Implemented in `src/lib/vaccines.ts`, tested in `src/lib/vaccines.test.ts`. Pres
 | Item | App value | WHO reference | Status |
 |---|---|---|---|
 | Storage | 2–8 °C | WHO/IVB/15.04 §2.2 | ✅ |
-| Freezing | Treated as freeze-sensitive without a valid shake test → Hold after freeze exposure; follow the product insert | WHO/IVB/15.04 Table 2 lists rotavirus as not damaged; WHO/PATH training slides (2014) say to follow the product insert for liquid rotavirus | ⚠️ Conservative |
+| Freezing | Treated as freeze-sensitive without a valid shake test → Hold after freeze exposure; follow the product insert. A vial found frozen solid is discarded (frozen-vial rule) | WHO/IVB/15.04 Table 2 lists rotavirus as not damaged; WHO Immunization in practice 2015, Module 2 (Fig. 2.4) lists rotavirus (liquid and freeze-dried) as freeze-sensitive; WHO/PATH training slides (2014) say to follow the product insert for liquid rotavirus | ⚠️ Conservative |
 | VVM | Product-specific | WHO PQ | ✅ (product ⏳) |
 | Open vial | Product-specific | WHO PQ | ⏳ per product |
 | CTC | Not approved | WHO CTC table | ✅ |
@@ -187,7 +195,7 @@ Implemented in `src/lib/vaccines.ts`, tested in `src/lib/vaccines.test.ts`. Pres
 
 | Item | App value | WHO reference | Status |
 |---|---|---|---|
-| Scope | Freeze-dried conjugates such as MenAfriVac and MenFive. Liquid MenC products are not covered | WHO/IVB/15.04 Table 2 | ✅ |
+| Scope | Freeze-dried conjugates such as MenAfriVac and MenFive. Liquid MenC products are not covered | WHO/IVB/15.04 Table 2 | ✅ (MenFive presentation ⏳) |
 | Storage | 2–8 °C | WHO/IVB/15.04 §2.2 | ✅ |
 | Freezing | Lyophilized vaccine not damaged; diluent must never be frozen | WHO/IVB/15.04 Table 2 | ✅ |
 | VVM | Product-specific | WHO PQ | ✅ (product ⏳) |
@@ -216,25 +224,28 @@ Defaults are conservative: VVM unknown, open-vial rule unknown, freezing not all
 
 | Item | App text | Source | Status |
 |---|---|---|---|
-| Control vial | Same vaccine, manufacturer and batch; frozen solid (at least 10 h at −10 °C or colder), then thawed | WHO-derived training; WHO/IVB/06.10 Annex 1 | ⏳ (Annex 1 not opened) |
-| Shaking | Together, vigorously, about 10–15 s | Same | ⏳ |
-| Observation | Side by side, up to 30 min | Same | ⏳ |
-| Pass/fail | Slower sedimentation than control = pass; same or faster = fail | Kartoglu et al. 2010 | ✅ |
-| Scope | Aluminium-adsorbed vaccines only | Kartoglu et al. 2010 (100% sensitivity and specificity in 475 vials of 8 adsorbed types) | ✅ |
+| Control vial | Same vaccine, manufacturer and batch; marked FROZEN; frozen until completely solid (for example overnight), then thawed without heating | WHO Immunization in practice 2015, Module 2 §7.1, §7.3 (steps 1–4); WHO/IVB/06.10 §5.2 | ✅ |
+| Shaking | Control and suspect vial held together, shaken vigorously for about 10–15 s | Module 2 §7.3 (steps 6–7) | ✅ |
+| Observation | Side by side on a flat surface in good light, watched until the test is finished (no time limit) | Module 2 §7.3 (step 8); Kartoglu et al. 2010 (decision times from 44 s to 20 min; observe until confident) | ✅ |
+| Pass/fail | Slower sedimentation than control = pass; same or faster = fail | Module 2 §7.3 (steps 9–10); Kartoglu et al. 2010 | ✅ |
+| Not tested | Vial frozen solid, or contents will not mix after vigorous shaking: no test, discard | WHO/IVB/06.10 §3 | ✅ |
+| Scope | Vaccines covered by the validation study: DTP-, hepatitis B- and Td/TT-type (the study also covered Hib). Not validated for PCV, IPV, oral cholera → Hold | Kartoglu et al. 2010 (100% sensitivity and specificity in 475 vials of 8 adsorbed types) | ✅ |
+| Removed figures | "At least 10 h at −10 °C or colder" and "up to 30 min" were removed from the help text. Neither appears in Module 2 §7 or WHO/IVB/06.10 §5.2 | WHO/IVB/06.10 Annex 1 (pp. 59–62) not opened | ⏳ |
 
 ## Known limitations
 
 1. **Product-level data.** VVM type, open-vial eligibility and CTC status vary by product. The app shows these as "product-specific" guidance; they never decide the verdict.
 2. **No potency estimate for presets.** A future option is to derive Ea from the WHO VVM reaction-rate table, but a reference rate constant would still be needed.
-3. **Pending items (⏳)** should be checked against the primary PDFs (WHO/IVB/14.07 page numbers, WHO/IVB/06.10 Annex 1) and WHO PQ product pages.
+3. **Pending items (⏳)** should be checked against the primary PDFs (WHO/IVB/14.07 page numbers; WHO/IVB/06.10 Annex 1, pp. 59–62, for any time and temperature figures for the control vial) and WHO PQ product pages.
 4. **History records** saved before 1.1.0 used the incorrect MKT formula; they are flagged in the History screen and shown as Hold.
+5. **Copies used in 1.2.1.** The October 2026 checks of WHO/IVB/06.10 (§3, §5.2, §8.3) and *Immunization in practice* 2015, Module 2 (§7) were made on third-party copies of the WHO documents. Page and section numbers should be confirmed against WHO's own PDFs.
 
 ## Automated tests
 
-`npm test` runs 32 tests:
+`npm test` runs 37 tests:
 
 - `arrhenius.test.ts` (6): MKT formula and potency model
-- `verdict.test.ts` (15): decision order, freeze exposure, shake-test scope, warnings
+- `verdict.test.ts` (20): decision order, freeze exposure, frozen-solid vial, shake-test scope, warnings
 - `vaccines.test.ts` (11): preset values in this document
 
 ## Sources
@@ -251,3 +262,4 @@ Defaults are conservative: VVM unknown, open-vial rule unknown, freezing not all
 10. Kartoglu Ü, Özgüler NK, Wolfson LJ, Kurzątkowski W. Validation of the shake test for detecting freeze damage to adsorbed vaccines. *Bull World Health Organ* 2010;88:624–631.
 11. USP General Chapter ⟨1079⟩; Haynes JD. Worldwide virtual temperatures for product stability testing. *J Pharm Sci* 1971;60:927–929.
 12. Kumru OS, et al. Vaccine instability in the cold chain: mechanisms, analysis and formulation strategies. *Biologicals* 2014;42(5):237–259.
+13. WHO. *Immunization in practice: a practical guide for health staff*, 2015 update. Module 2: The vaccine cold chain (§3.1 VVM, §5.1 multi-dose vial policy summary, §7 shake test).

@@ -52,7 +52,11 @@ export function generateVaxGuardSummary(
   for (const w of final.warnings) lines.push(`- ${t('result.warnings.' + w)}`);
 
   lines.push(`${t('input.vvmLabel')}: ${vvm}`);
-  if (final.freezeExposure && result.shakeTest) {
+  if (
+    final.freezeExposure &&
+    result.shakeTest &&
+    !final.reasons.includes('frozen_solid')
+  ) {
     lines.push(
       `${t('input.shakeTest')}: ${t('input.shakeOptions.' + SHAKE_KEY[result.shakeTest])}`
     );

@@ -6,7 +6,7 @@
 [![PWA Ready](https://img.shields.io/badge/PWA-Offline%20ready-purple?style=flat-square)](https://vaxguard.phtlab.org)
 [![Deployed](https://img.shields.io/badge/Deployed-Cloudflare%20Pages-orange?style=flat-square)](https://vaxguard.phtlab.org)
 [![Validated](https://img.shields.io/badge/Validated-WHO%20guidance-blue?style=flat-square)](VALIDATION.md)
-[![Tests](https://img.shields.io/badge/Tests-32%20passing-brightgreen?style=flat-square)](VALIDATION.md#automated-tests)
+[![Tests](https://img.shields.io/badge/Tests-37%20passing-brightgreen?style=flat-square)](VALIDATION.md#automated-tests)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20473758.svg)](https://doi.org/10.5281/zenodo.20473758)
 
 **DPG ID: [GID0093724](https://digitalpublicgoods.net/r/vaxguard)** · **[Open the app →](https://vaxguard.phtlab.org)** (also at [vaxguard.pages.dev](https://vaxguard.pages.dev))
@@ -31,16 +31,17 @@ VaxGuard helps community health workers (CHWs), clinic staff and field health wo
 
 ## How VaxGuard decides
 
-The verdict comes **only from what the health worker checks on the vial**: the vaccine vial monitor (VVM) and, after freezing, the shake test. Temperature calculations are reference values for reporting and never decide the verdict.
+The verdict comes **only from what the health worker checks on the vial**: the vaccine vial monitor (VVM), whether the vial is frozen solid, and, after freezing, the shake test. Temperature calculations are reference values for reporting and never decide the verdict.
 
 | Order | Condition | Verdict |
 |---|---|---|
 | 1 | VVM at stage 3 or 4 (discard point reached) | 🚫 Discard |
-| 2 | Freeze-sensitive vaccine exposed to 0 °C or below, aluminium-adsorbed, shake test **failed** | 🚫 Discard |
-| 3 | As above, shake test **not done** | ⏸️ Hold |
-| 4 | Freeze-sensitive vaccine exposed to 0 °C or below, not adsorbed (shake test not valid) | ⏸️ Hold |
-| 5 | VVM not checked | ⏸️ Hold |
-| 6 | None of the above | ✅ Usable |
+| 2 | Freeze-sensitive vaccine found frozen solid, or contents will not mix into an even liquid after vigorous shaking (no shake test) | 🚫 Discard |
+| 3 | Freeze-sensitive vaccine exposed to 0 °C or below, shake test validated for it (DTP-, hepatitis B- and Td/TT-type vaccines), shake test **failed** | 🚫 Discard |
+| 4 | As above, shake test **not done** | ⏸️ Hold |
+| 5 | Freeze-sensitive vaccine exposed to 0 °C or below, shake test not validated for it (for example PCV, IPV, oral cholera) | ⏸️ Hold |
+| 6 | VVM not checked | ⏸️ Hold |
+| 7 | None of the above | ✅ Usable |
 
 Warnings that do not change the verdict: VVM stage 2 ("use first"). Each result shows the reasons and the recommended action.
 
@@ -51,7 +52,7 @@ Warnings that do not change the verdict: VVM stage 2 ("use first"). Each result 
 | Feature | Description |
 |---|---|
 | ✅ **WHO-aligned verdict** | Usable / Hold / Discard from VVM and shake test, with reasons and recommended action |
-| ❄️ **Freeze check** | Shake test prompt for aluminium-adsorbed vaccines exposed to 0 °C or below; Hold for other freeze-sensitive vaccines |
+| ❄️ **Freeze check** | Discard for a vial found frozen solid; shake test prompt where it is validated (DTP-, hepatitis B- and Td/TT-type vaccines) after exposure to 0 °C or below; Hold for other freeze-sensitive vaccines |
 | 💉 **12 WHO EPI presets** | BCG, OPV, DTP/Penta, Measles/MR/MMR, Hepatitis B, Td/TT, PCV, IPV, Rotavirus, Yellow fever, Meningococcal conjugate, Oral cholera |
 | 🧪 **Handling guidance** | Storage by level, open-vial rule (WHO multi-dose vial policy) and diluent warnings for each preset |
 | 🌡️ **MKT** | Mean kinetic temperature from the temperature history, for reporting |
@@ -65,7 +66,13 @@ Warnings that do not change the verdict: VVM stage 2 ("use first"). Each result 
 
 ## Validation
 
-VaxGuard's verdict logic and preset data were cross-checked against WHO guidance in September 2026. Every item, its source and its status are listed in **[VALIDATION.md](VALIDATION.md)**.
+VaxGuard's verdict logic and preset data were cross-checked against WHO guidance in September 2026 and re-checked in October 2026 (version 1.2.1). Every item, its source and its status are listed in **[VALIDATION.md](VALIDATION.md)**.
+
+**Version 1.2.1**
+- **Frozen vials**: a freeze-sensitive vial found frozen solid, or whose contents will not mix into an even liquid after vigorous shaking, now gives Discard without a shake test (WHO/IVB/06.10, section 3).
+- **PCV**: the shake test is no longer offered for PCV, because PCV was not among the vaccines in the validation study (Kartoglu 2010). Freeze exposure now gives Hold.
+- **Shake test text**: the in-app procedure follows the WHO wording (freeze the control until completely solid, thaw without heating, observe until the test is finished). Time and temperature limits that could not be confirmed were removed.
+- 37 automated tests.
 
 **Version 1.2.0**
 - Seven presets added: Td/TT, PCV, IPV, Rotavirus, Yellow fever, Meningococcal conjugate (freeze-dried), Oral cholera. COVID-19 is not included because storage differs widely between products.
@@ -78,7 +85,7 @@ VaxGuard's verdict logic and preset data were cross-checked against WHO guidance
 - **Shake test scope**: offered only for aluminium-adsorbed vaccines, where it has been validated.
 - **Citations**: references that could not be verified were removed.
 
-`npm test` runs 32 automated tests covering the MKT formula, the decision order and the preset values.
+`npm test` runs 37 automated tests covering the MKT formula, the decision order and the preset values.
 
 ---
 
@@ -154,6 +161,7 @@ See [CITATION.cff](CITATION.cff), or cite the Zenodo record: [doi.org/10.5281/ze
 4. WHO. *PQS performance specification: Vaccine vial monitor.* WHO/PQS/E006/IN05.4. 2020.
 5. Kartoglu Ü, et al. Validation of the shake test for detecting freeze damage to adsorbed vaccines. *Bull World Health Organ* 2010;88:624–631.
 6. USP General Chapter ⟨1079⟩; Haynes JD. *J Pharm Sci* 1971;60:927–929.
+7. WHO. *Immunization in practice: a practical guide for health staff*, 2015 update. Module 2: The vaccine cold chain.
 
 Full source list: [VALIDATION.md](VALIDATION.md#sources).
 
