@@ -343,6 +343,22 @@ export default function Result() {
           </div>
         </div>
 
+        {/* Decision-support disclaimer (same text as the home screen footer) */}
+        <p
+          style={{
+            fontSize: "0.78rem",
+            lineHeight: 1.5,
+            color: "var(--color-text-muted)",
+            margin: "0 0 12px",
+            padding: "10px 12px",
+            borderRadius: "8px",
+            background: "var(--color-surface-2)",
+            border: "1px solid var(--color-border)",
+          }}
+        >
+          {t("footer.disclaimer")}
+        </p>
+
         {/* Reasons and warnings */}
         {(final.reasons.length > 0 || final.warnings.length > 0) && (
           <div
@@ -480,77 +496,77 @@ export default function Result() {
 
         {/* 역가 카드 */}
         {result.estimateAvailable !== false ? (
-        <div
-          className="vg-surface"
-          style={{ padding: "16px", marginBottom: "12px" }}
-        >
-          <p
-            style={{
-              fontSize: "0.72rem",
-              fontWeight: 600,
-              color: "var(--color-text-muted)",
-              marginBottom: "10px",
-              textTransform: "uppercase",
-              letterSpacing: "0.04em",
-            }}
-          >
-            {t("result.estimateTitle")}
-          </p>
           <div
-            style={{
-              fontSize: "2rem",
-              fontWeight: 700,
-              color: gaugeColor(potency),
-              marginBottom: "10px",
-            }}
+            className="vg-surface"
+            style={{ padding: "16px", marginBottom: "12px" }}
           >
-            {result.potency.remainingPotency.toFixed(1)}%
-          </div>
-          {/* 게이지 바 */}
-          <div
-            style={{
-              height: "12px",
-              borderRadius: "6px",
-              background: "var(--color-surface-2)",
-              marginBottom: "10px",
-              overflow: "hidden",
-            }}
-          >
+            <p
+              style={{
+                fontSize: "0.72rem",
+                fontWeight: 600,
+                color: "var(--color-text-muted)",
+                marginBottom: "10px",
+                textTransform: "uppercase",
+                letterSpacing: "0.04em",
+              }}
+            >
+              {t("result.estimateTitle")}
+            </p>
             <div
               style={{
-                height: "100%",
-                width: `${gaugeWidth}%`,
-                borderRadius: "6px",
-                background: gaugeColor(potency),
-                transition: "width 0.5s ease",
+                fontSize: "2rem",
+                fontWeight: 700,
+                color: gaugeColor(potency),
+                marginBottom: "10px",
               }}
-            />
+            >
+              {result.potency.remainingPotency.toFixed(1)}%
+            </div>
+            {/* 게이지 바 */}
+            <div
+              style={{
+                height: "12px",
+                borderRadius: "6px",
+                background: "var(--color-surface-2)",
+                marginBottom: "10px",
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  height: "100%",
+                  width: `${gaugeWidth}%`,
+                  borderRadius: "6px",
+                  background: gaugeColor(potency),
+                  transition: "width 0.5s ease",
+                }}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                fontSize: "0.82rem",
+              }}
+            >
+              <span style={{ color: "var(--color-text-muted)" }}>
+                {t("result.potencyLoss")}
+              </span>
+              <span style={{ fontWeight: 600, color: "var(--color-danger)" }}>
+                -{result.potency.potencyLoss.toFixed(1)}%
+              </span>
+            </div>
+            <p
+              style={{
+                fontSize: "0.75rem",
+                color: "var(--color-text-muted)",
+                marginTop: "8px",
+                lineHeight: 1.5,
+              }}
+            >
+              {t("result.estimateNote")}
+            </p>
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              fontSize: "0.82rem",
-            }}
-          >
-            <span style={{ color: "var(--color-text-muted)" }}>
-              {t("result.potencyLoss")}
-            </span>
-            <span style={{ fontWeight: 600, color: "var(--color-danger)" }}>
-              -{result.potency.potencyLoss.toFixed(1)}%
-            </span>
-          </div>
-          <p
-            style={{
-              fontSize: "0.75rem",
-              color: "var(--color-text-muted)",
-              marginTop: "8px",
-              lineHeight: 1.5,
-            }}
-          >
-            {t("result.estimateNote")}
-          </p>
-        </div>
         ) : (
           <p className="vg-surface" style={{ padding: "12px 16px", marginBottom: "12px", fontSize: "0.78rem", color: "var(--color-text-muted)", lineHeight: 1.5 }}>
             {t("result.estimateUnavailable")}
@@ -596,8 +612,8 @@ export default function Result() {
                     ? "var(--color-usable)"
                     : "var(--color-discard)",
                   border: `1px solid ${VVM_STAGES[vvmStage!].usable
-                      ? "var(--color-usable)"
-                      : "var(--color-discard)"
+                    ? "var(--color-usable)"
+                    : "var(--color-discard)"
                     }`,
                 }}
               >

@@ -22,7 +22,7 @@ This document records how VaxGuard's verdict logic and vaccine data were checked
 |---|---|---|
 | 1.1.0 | 2026-09-26 | MKT sign fix; WHO-aligned verdict (VVM and shake test); 5 presets corrected against WHO |
 | 1.2.0 | 2026-09-27 | 7 presets added; unsourced Arrhenius parameters removed from all presets; potency estimate shown for custom vaccines only |
-| 1.2.1 | 2026-10-23 | Frozen-solid vial rule (Discard without a shake test); shake test no longer offered for PCV; help text follows WHO wording; 37 tests |
+| 1.2.1 | 2026-10-23 | Frozen-solid vial rule (Discard without a shake test); shake test no longer offered for PCV; help text follows WHO wording; disclaimer also on the result screen; 37 tests |
 
 ## Summary of corrections
 

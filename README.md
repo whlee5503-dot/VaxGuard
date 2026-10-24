@@ -72,6 +72,7 @@ VaxGuard's verdict logic and preset data were cross-checked against WHO guidance
 - **Frozen vials**: a freeze-sensitive vial found frozen solid, or whose contents will not mix into an even liquid after vigorous shaking, now gives Discard without a shake test (WHO/IVB/06.10, section 3).
 - **PCV**: the shake test is no longer offered for PCV, because PCV was not among the vaccines in the validation study (Kartoglu 2010). Freeze exposure now gives Hold.
 - **Shake test text**: the in-app procedure follows the WHO wording (freeze the control until completely solid, thaw without heating, observe until the test is finished). Time and temperature limits that could not be confirmed were removed.
+- **Disclaimer**: the decision-support disclaimer is now also shown on the result screen, not only on the home screen.
 - 37 automated tests.
 
 **Version 1.2.0**
