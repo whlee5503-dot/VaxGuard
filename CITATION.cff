@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use VaxGuard in your research or work, please cite it as below."
-title: "VaxGuard: Vaccine Cold Chain Monitor for Community Health Workers"
+title: "VaxGuard: Vaccine Cold Chain Decision Support for Community Health Workers"
 type: software
 authors:
   - family-names: "Lee"
@@ -8,27 +8,26 @@ authors:
     orcid: "https://orcid.org/0009-0005-1866-8257"
     affiliation: "PublicHealth Tech Lab"
 repository-code: "https://github.com/whlee5503-dot/VaxGuard"
-url: "https://vaxguard.pages.dev"
+url: "https://vaxguard.phtlab.org"
 license: MIT
 version: 1.2.1
 date-released: "2026-10-23"
 keywords:
   - vaccine cold chain
   - immunization
-  - mean kinetic temperature
+  - vaccine vial monitor
+  - shake test
   - public health
-  - offline-first
   - digital public good
   - open source
 abstract: >-
-  VaxGuard is Module 4 of the EpiCalc Suite: a vaccine cold chain
-  monitoring tool for Community Health Workers assessing vaccine potency
-  when cold chain integrity is uncertain. It implements the WHO/FDA
-  Arrhenius-based Mean Kinetic Temperature (MKT) formula (ICH Q1E
-  guideline) to compute residual potency and a three-tier use/
-  conditional/discard decision, with presets for five WHO EPI vaccines
-  (OPV, BCG, Measles, DTP/Penta, HepB) and Vaccine Vial Monitor (VVM)
-  cross-checking. The interface is fully localized in English, French,
-  Swahili, and Korean. The app runs entirely client-side as an
-  installable, offline-capable Progressive Web App, with no data
-  collection.
+  VaxGuard is a decision-support tool for community health workers who must
+  decide what to do with a vaccine after a cold chain break. It returns
+  Usable, Hold or Discard from the vaccine vial monitor (VVM), a vial found
+  frozen solid, and the WHO shake test, which is offered only for vaccine
+  types where it has been validated. Mean kinetic temperature is shown for
+  reporting and does not decide the verdict. It has 12 WHO EPI vaccine
+  presets with sourced storage and handling data, and the interface is
+  available in English, French, Swahili and Korean. The app runs entirely
+  client-side as an installable, offline-capable Progressive Web App, with
+  no login and no data collection by the app.
