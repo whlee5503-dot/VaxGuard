@@ -72,6 +72,26 @@ export default function Footer() {
         <span>© {year} Won Ho Lee · PHT Lab</span>
       </div>
 
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          gap: "8px",
+          fontSize: "0.8rem",
+          color: "var(--color-text-muted)",
+        }}
+      >
+        <span aria-hidden="true">♥</span>
+        <a href="https://github.com/sponsors/whlee5503-dot" target="_blank" rel="noopener noreferrer" style={mutedLink}>
+          GitHub Sponsors
+        </a>
+        <span aria-hidden="true">·</span>
+        <a href="https://ko-fi.com/phtlab" target="_blank" rel="noopener noreferrer" style={mutedLink}>
+          Ko-fi
+        </a>
+      </div>
+
       <p
         style={{
           fontSize: "0.7rem",
